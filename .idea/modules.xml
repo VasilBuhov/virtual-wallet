@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/virtual-wallet.iml" filepath="$PROJECT_DIR$/.idea/virtual-wallet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.company.web.forum.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.company.web.forum.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/forum.main.iml" filepath="$PROJECT_DIR$/.idea/modules/forum.main.iml" />
     </modules>
   </component>
 </project>

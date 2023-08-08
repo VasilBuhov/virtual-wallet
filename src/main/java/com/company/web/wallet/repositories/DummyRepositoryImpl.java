@@ -1,5 +1,7 @@
 package com.company.web.wallet.repositories;
 
+import org.springframework.stereotype.Repository;
+
 @Repository
-public class DuimmyRepositoryImpl implements DummyRepository {
+public class DummyRepositoryImpl implements DummyRepository {
 }
