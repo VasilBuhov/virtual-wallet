@@ -26,7 +26,7 @@ public class Transaction {
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id")
+    @JoinColumn(name = "recipient_id")
     private User recipient;
 
     @Column(name = "status", nullable = false)

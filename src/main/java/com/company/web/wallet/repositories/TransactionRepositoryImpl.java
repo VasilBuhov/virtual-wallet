@@ -6,6 +6,7 @@ import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,13 +29,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     @Override
     public List<Transaction> getAllTransactions() {
         try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Transaction> cq = cb.createQuery(Transaction.class);
-            Root<Transaction> root = cq.from(Transaction.class);
-            cq.select(root);
-            return session.createQuery(cq).list();
-        } catch (Exception e) {
-            return new ArrayList<>();
+            String hql = "FROM Transaction";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            return query.getResultList();
         }
     }
 
@@ -46,9 +43,10 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                 throw new EntityNotFoundException("Transaction", "id", String.valueOf(id));
             }
             return transaction;
-        } catch (Exception e) {
-            throw new EntityNotFoundException("Transaction", "id", String.valueOf(id));
         }
+//        catch (Exception e) {
+//            throw new EntityNotFoundException("Transaction", "id", String.valueOf(id));
+//        }
     }
 
     @Override
