@@ -21,14 +21,17 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Override
     public User getUserById(int id) {
         return userRepository.getUserById(id);
     }
 
+    @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
     }
 
+    @Override
     public void createUser(User user) {
 
         User existingUser = userRepository.getUserByEmail(user.getEmail());
@@ -50,11 +53,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void updateUser(User authenticatedUser,User user) throws EntityNotFoundException {
+    @Override
+    public void updateUser(User authenticatedUser, User user) throws EntityNotFoundException {
         checkModifyPermissionsForUpdating(authenticatedUser, user);
         userRepository.updateUser(user);
     }
 
+    @Override
     public void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException {
         User user = userRepository.getUserById(id);
         checkModifyPermissionsForDeleting(authenticatedUser, user);
@@ -62,26 +67,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void makeRegularUserAdmin(int id) {
-    }
-
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
 
-    private void checkModifyPermissionsForUpdating(User authenticatedUser, User user) {
+    @Override
+    public void checkModifyPermissionsForUpdating(User authenticatedUser, User user) {
         if (authenticatedUser.getId() == user.getId())
             throw new AuthorizationException(MODIFY_USER_ERROR_MESSAGE);
     }
 
 
 
-    private void checkModifyPermissionsForDeleting(User authenticatedUser, User user) {
+    @Override
+    public void checkModifyPermissionsForDeleting(User authenticatedUser, User user) {
         if (authenticatedUser.getId() == user.getId()) {
             throw new AuthorizationException(DELETE_USER_ERROR_MESSAGE);
         }
     }
-    private void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException {
+    @Override
+    public void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException {
             throw new AuthorizationException("Only admin or blocked user can modify a user.");
     }
 

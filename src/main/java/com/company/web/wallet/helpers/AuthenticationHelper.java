@@ -24,29 +24,29 @@ public class AuthenticationHelper {
     }
     //todo implement userService methods
     public User tryGetUser(HttpHeaders headers) {
-        throw new UnsupportedOperationException();
-//
-//
-//        if (!headers.containsKey(AUTHORIZATION_HEADER_NAME)) {
-//            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-//        }
-//
-//        try {
-//            String userInfo = headers.getFirst(AUTHORIZATION_HEADER_NAME);
-//            String username = getUsername(userInfo);
-//            String password = getPassword(userInfo);
-//
-//            User user = userService.getUserByUsername(username);
-//            if (!user.getPassword().equals(password)) {
-//                throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-//            }
-//
-//            return user;
-//
-//        }
-//         catch (EntityNotFoundException e) {
-//            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-//        }
+
+
+
+        if (!headers.containsKey(AUTHORIZATION_HEADER_NAME)) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
+
+        try {
+            String userInfo = headers.getFirst(AUTHORIZATION_HEADER_NAME);
+            String username = getUsername(userInfo);
+            String password = getPassword(userInfo);
+
+            User user = userService.getUserByUsername(username);
+            if (!user.getPassword().equals(password)) {
+                throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+            }
+
+            return user;
+
+        }
+         catch (EntityNotFoundException e) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
     }
 
     private String getUsername(String userInfo) {
