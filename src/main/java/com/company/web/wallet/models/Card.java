@@ -16,7 +16,7 @@ public class Card {
     @Column(name = "id")
     private int id;
     @Column(name = "card_number")
-    private double cardNumber;
+    private String cardNumber;
     @Column(name = "expiration_date")
     private LocalDate expirationDate;
     @JsonIgnore
@@ -34,7 +34,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(int id, double cardNumber, LocalDate expirationDate, User cardHolder, int checkNumber, int statusDeleted) {
+    public Card(int id, String cardNumber, LocalDate expirationDate, User cardHolder, int checkNumber, int statusDeleted) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
@@ -52,11 +52,11 @@ public class Card {
         this.id = id;
     }
 
-    public double getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(double cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 

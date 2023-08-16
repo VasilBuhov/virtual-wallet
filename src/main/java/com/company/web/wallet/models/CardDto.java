@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class CardDto {
     @Size(min = 16, max = 16, message = "Card number must be 16 digits.")
-    private double cardNumber;
+    private String cardNumber;
     @Size(min = 2, max = 30, message = "Name must be between 2 and 30 symbols long.")
     private String ownerName;
     @FutureDate(message = "Expiration date must be in the future")
@@ -19,11 +19,11 @@ public class CardDto {
     public CardDto() {
     }
 
-    public double getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(double cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
