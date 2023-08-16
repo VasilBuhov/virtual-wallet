@@ -1,9 +1,6 @@
 package com.company.web.wallet.controllers.RestController;
 
-import com.company.web.wallet.exceptions.AuthorizationException;
-import com.company.web.wallet.exceptions.BlockedUserException;
-import com.company.web.wallet.exceptions.EntityDeletedException;
-import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.exceptions.*;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.CardMapper;
 import com.company.web.wallet.models.Card;
@@ -70,7 +67,7 @@ public class CardRestController {
             return card;
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (BlockedUserException e) {
+        } catch (BlockedUserException | EntityDuplicateException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }

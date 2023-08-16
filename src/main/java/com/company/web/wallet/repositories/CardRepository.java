@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CardRepository {
     Card get(int id);
+    Card get(String cardNumber);
 
     List<Card> getAll();
 

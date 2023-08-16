@@ -10,6 +10,7 @@ import com.company.web.wallet.repositories.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,11 +48,14 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void create(Card card) {
-        Card existingCard = repository.get(card.getId());
-        if (existingCard != null) {
-            throw new EntityDuplicateException("Card", "card number", String.valueOf(existingCard.getCardNumber()));
+        try {
+            Card existingCard = repository.get(card.getCardNumber());
+            if (existingCard != null) {
+                throw new EntityDuplicateException("Card", "card number", String.valueOf(existingCard.getCardNumber()));
+            }
+        } catch (NoResultException e) {
+            repository.create(card);
         }
-        repository.create(card);
     }
 
     @Override
