@@ -29,8 +29,8 @@ public class CardMapper {
         return newCard;
     }
 
-    public Card updateCardDto(int id, CardDto cardDto) {
-        Card existingCard = service.get(id);
+    public Card updateCardDto(int id, CardDto cardDto, User user) {
+        Card existingCard = service.get(id, user);
         existingCard.setExpirationDate(cardDto.getExpirationDate());
         existingCard.setCardNumber(cardDto.getCardNumber());
         existingCard.setCheckNumber(cardDto.getCheckNumber());

@@ -1,5 +1,6 @@
 package com.company.web.wallet.repositories;
 
+import com.company.web.wallet.exceptions.EntityDeletedException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import org.hibernate.Session;
@@ -25,6 +26,9 @@ public class CardRepositoryImpl implements CardRepository {
             Card card = session.get(Card.class, id);
             if (card == null) {
                 throw new EntityNotFoundException("Card", id);
+            }
+            if (card.getStatusDeleted() == 1) {
+                throw new EntityDeletedException("Card", "ID", String.valueOf(id));
             }
             return card;
         }

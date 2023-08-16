@@ -3,6 +3,7 @@ package com.company.web.wallet.services;
 import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityDeletedException;
 import com.company.web.wallet.exceptions.EntityDuplicateException;
+import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.CardRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CardServiceImpl implements CardService {
@@ -22,7 +24,8 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Card get(int id) {
+    public Card get(int id, User user) {
+        checkModifyPermissions(id, user);
         Card card = repository.get(id);
         if (card.getStatusDeleted() == 1) {
             throw new EntityDeletedException("Card", "ID", String.valueOf(id));
@@ -31,8 +34,15 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> getAll() {
-        return repository.getAll();
+    public List<Card> getAll(User user) {
+        List<Card> result = repository.getAll();
+        List<Card> matchingCards = result.stream()
+                .filter(card -> card.getCardHolder().equals(user))
+                .collect(Collectors.toList());
+        if (matchingCards.isEmpty()) {
+            throw new EntityNotFoundException("Cards", "card holder", user.getUsername());
+        }
+        return matchingCards;
     }
 
     @Override

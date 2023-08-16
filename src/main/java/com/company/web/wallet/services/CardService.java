@@ -6,9 +6,9 @@ import com.company.web.wallet.models.User;
 import java.util.List;
 
 public interface CardService {
-    Card get(int id);
+    Card get(int id, User user);
 
-    List<Card> getAll();
+    List<Card> getAll(User user);
 
     void create(Card card);
 
