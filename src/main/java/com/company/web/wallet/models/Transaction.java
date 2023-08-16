@@ -1,5 +1,7 @@
 package com.company.web.wallet.models;
 
+import com.company.web.wallet.helpers.TransactionType;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -60,15 +62,7 @@ public class Transaction {
     }
 
 
-    // Constructor, getters, setters, and other methods
 
-    // Enum for transaction type (INCOMING or OUTGOING)
-    public enum TransactionType {
-        INCOMING,
-        OUTGOING
-    }
-
-    // Getters and setters for all attributes
 
     public Long getId() {
         return id;
