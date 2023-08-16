@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -33,8 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
             cq.select(root);
             return session.createQuery(cq).list();
         } catch (Exception e) {
-            // Handle exceptions  // I should think a bit more here
-            return new ArrayList<>();
+            throw new UnknownError("Something went wrong");
         }
     }
 
@@ -43,14 +41,13 @@ public class UserRepositoryImpl implements UserRepository {
         try (Session session = sessionFactory.openSession()) {
             User user = session.get(User.class, id);
             if (user == null) {
-                throw new EntityNotFoundException("User not found",id);
+                throw new EntityNotFoundException("User not found", id);
             }
             return user;
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (Exception e) {
-            // Handle exceptions
-            return null;
+            throw new UnknownError("Something went wrong");
         }
     }
 
@@ -67,8 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
             return user;
         } catch (Exception e) {
-            // Handle exceptions
-            return null;
+            throw new UnknownError("Something went wrong");
         }
     }
 
@@ -85,7 +81,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
             return user;
         } catch (Exception e) {
-            return null;
+            throw new UnknownError("Something went wrong");
         }
     }
 
@@ -96,6 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.save(user);
             session.getTransaction().commit();
         } catch (Exception e) {
+            throw new UnknownError("Something went wrong");
         }
     }
 
@@ -106,6 +103,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.update(user);
             session.getTransaction().commit();
         } catch (Exception e) {
+            throw new UnknownError("Something went wrong");
         }
     }
 
@@ -114,7 +112,7 @@ public class UserRepositoryImpl implements UserRepository {
         try (Session session = sessionFactory.openSession()) {
             User user = session.get(User.class, id);
             if (user == null) {
-                throw new EntityNotFoundException("User not found",id);
+                throw new EntityNotFoundException("User not found", id);
             }
             session.beginTransaction();
             session.delete(user);
@@ -122,6 +120,7 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (Exception e) {
+            throw new UnknownError("Something went wrong");
         }
     }
 }
