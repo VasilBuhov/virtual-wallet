@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 public class TransactionMapper {
 
     public Transaction fromDto(TransactionDto transactionDto) {
-        if (transactionDto == null) {
-            return null;
-        }
+
         Transaction transaction = new Transaction();
         transaction.setSender(transactionDto.getSender());
         transaction.setRecipient(transactionDto.getRecipient());
@@ -21,9 +19,7 @@ public class TransactionMapper {
         return transaction;
     }
     public TransactionDto toDto(Transaction transaction) {
-        if (transaction == null) {
-            return null;
-        }
+
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setSender(transaction.getSender());
         transactionDto.setRecipient(transaction.getRecipient());
