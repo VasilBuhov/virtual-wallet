@@ -8,12 +8,14 @@ import com.company.web.wallet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     private static final String DELETE_USER_ERROR_MESSAGE =
-            "Only admin and user who own profile can delete it .";
+            "Only admin and user who own profile can delete it";
     private static final String MODIFY_USER_ERROR_MESSAGE =
-            "Only admin  can modify a user.";
+            "Only admin  can modify a user";
     private final UserRepository userRepository;
 
     @Autowired
@@ -42,7 +44,8 @@ public class UserServiceImpl implements UserService {
         existingUser = userRepository.getUserByUsername(user.getUsername());
         if (existingUser != null) {
             throw new EntityDuplicateException("User", "username", user.getUsername());
-        } if (user.getUsername()== null){
+        }
+        if (user.getUsername() == null) {
             throw new NullPointerException();
         }
 
@@ -51,7 +54,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(user.getPassword());
         userRepository.createUser(user);
     }
-
 
     @Override
     public void updateUser(User authenticatedUser, User user) throws EntityNotFoundException {
@@ -77,17 +79,37 @@ public class UserServiceImpl implements UserService {
             throw new AuthorizationException(MODIFY_USER_ERROR_MESSAGE);
     }
 
-
-
     @Override
     public void checkModifyPermissionsForDeleting(User authenticatedUser, User user) {
         if (authenticatedUser.getId() == user.getId()) {
             throw new AuthorizationException(DELETE_USER_ERROR_MESSAGE);
         }
     }
+
     @Override
     public void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException {
-            throw new AuthorizationException("Only admin or blocked user can modify a user.");
+        throw new AuthorizationException("Only admin or blocked user can modify a user.");
+    }
+
+    @Override
+    public void blockOrUnblockUser(int userId, boolean block) throws EntityNotFoundException {
+        User user = userRepository.getUserById(userId);
+        if (user == null) {
+            throw new EntityNotFoundException("User not found", userId);
+        }
+
+        if (block) {
+            user.setUserLevel(-1); // Block the user
+        } else {
+            user.setUserLevel(0); // Unblock the user
+        }
+
+        userRepository.updateUser(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
     }
 
 }

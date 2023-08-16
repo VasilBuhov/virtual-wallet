@@ -4,6 +4,9 @@ import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.UserDto;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class UserMapper {
 
@@ -30,4 +33,21 @@ public class UserMapper {
         return user;
     }
 
+    public UserDto toDtoInfo(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+        userDto.setFirstName(user.getFirstName()); // Set the first name
+        userDto.setLastName(user.getLastName()); // Set the last name
+        return userDto;
+    }
+
+    public List<UserDto> toDtoList(List<User> users) {
+        List<UserDto> list = new ArrayList<>();
+        for (User user : users) {
+            UserDto userDto = toDtoInfo(user);
+            list.add(userDto);
+        }
+        return list;
+    }
 }

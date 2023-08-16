@@ -5,6 +5,8 @@ import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
 
+import java.util.List;
+
 public interface UserService {
     User getUserById(int id);
 
@@ -26,4 +28,8 @@ public interface UserService {
     void checkModifyPermissionsForDeleting(User authenticatedUser, User user);
 
     void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException;
+
+    void blockOrUnblockUser(int userId, boolean block) throws EntityNotFoundException;
+
+    List<User> getAllUsers();
 }

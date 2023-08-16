@@ -33,11 +33,13 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
+    @Column(name = "user_level")
+    private int userLevel;
 
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String username, String email, String password, int verified, String avatar) {
+    public User(int id, String firstName, String lastName, String username, String email, String password, int userLevel, int verified, String avatar) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,6 +48,11 @@ public class User {
         this.password = password;
         this.verified = verified;
         this.avatar = avatar;
+        setUserLevel(userLevel);
+    }
+
+    public int getUserLevel() {
+        return userLevel;
     }
 
     public int getId() {
@@ -94,6 +101,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
     }
 
     public int getVerified() {
