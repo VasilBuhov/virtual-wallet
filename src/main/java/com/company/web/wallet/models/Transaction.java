@@ -1,21 +1,46 @@
 package com.company.web.wallet.models;
 
-
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
+@Entity
+@Table(name = "transactions")
 public class Transaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private User sender;
-    private User recipient;
-    private BigDecimal amount;
+
+    @Column(name = "type")
     private TransactionType transactionType;
-    private LocalDateTime timestamp;
-    private String transactionDescription;
+
+    @Column(name = "amount")
+    private BigDecimal amount;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
+    private User sender;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver_id")
+    private User recipient;
+
+    @Column(name = "status", nullable = false)
     private String status;
+
+    @Column(name = "date", nullable = false)
+    private LocalDateTime timestamp;
+
+    @Column(name = "transaction_description", nullable = false)
+    private String transactionDescription;
+
+    @ManyToOne
+    @JoinColumn(name = "card_id", nullable = false)
+    private Card card;
+
     public Transaction() {
     }
+
     public Transaction(Long id,
                        User sender,
                        User recipient,
@@ -30,53 +55,90 @@ public class Transaction {
         this.amount = amount;
         this.transactionType = transactionType;
         this.timestamp = timestamp;
-        this.transactionDescription= transactionDescription;
-        this.status= status;
+        this.transactionDescription = transactionDescription;
+        this.status = status;
     }
+
+
+    // Constructor, getters, setters, and other methods
+
+    // Enum for transaction type (INCOMING or OUTGOING)
     public enum TransactionType {
         INCOMING,
         OUTGOING
     }
+
+    // Getters and setters for all attributes
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
-    public User getSender() {
-        return sender;
-    }
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-    public User getRecipient() {
-        return recipient;
-    }
-    public void setRecipient(User recipient) {
-        this.recipient = recipient;
-    }
-    public BigDecimal getAmount() {
-        return amount;
-    }
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+
     public TransactionType getTransactionType() {
         return transactionType;
     }
+
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(User recipient) {
+        this.recipient = recipient;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
+
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
     public String getTransactionDescription() {
         return transactionDescription;
     }
+
     public void setTransactionDescription(String transactionDescription) {
         this.transactionDescription = transactionDescription;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 }
