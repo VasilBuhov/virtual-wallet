@@ -1,29 +1,47 @@
 package com.company.web.wallet.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
+@Entity
+@Table(name = "cards")
 public class Card {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "card_number")
     private double cardNumber;
+    @Column(name = "expiration_date")
     private LocalDate expirationDate;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "card_holder")
     private User cardHolder;
+    @Column(name = "check_number")
     private int checkNumber;
+    @Column(name = "status_deleted")
+    private int statusDeleted;
+    @JsonIgnore
+    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
     private Set<Transaction> transactionsSet;
 
     public Card() {
     }
 
-    public Card(int id, double cardNumber, LocalDate expirationDate, User cardHolder, int checkNumber) {
+    public Card(int id, double cardNumber, LocalDate expirationDate, User cardHolder, int checkNumber, int statusDeleted) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.cardHolder = cardHolder;
         this.checkNumber = checkNumber;
         this.transactionsSet = new HashSet<>();
+        this.statusDeleted = statusDeleted;
     }
 
     public int getId() {
@@ -72,6 +90,14 @@ public class Card {
 
     public void setTransactionsSet(Set<Transaction> transactionsSet) {
         this.transactionsSet = transactionsSet;
+    }
+
+    public int getStatusDeleted() {
+        return statusDeleted;
+    }
+
+    public void setStatusDeleted(int statusDeleted) {
+        this.statusDeleted = statusDeleted;
     }
 
     @Override
