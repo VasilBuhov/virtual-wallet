@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.company.web.forum.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.company.web.forum.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/forum.main.iml" filepath="$PROJECT_DIR$/.idea/modules/forum.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wallet.main.iml" filepath="$PROJECT_DIR$/.idea/modules/wallet.main.iml" />
     </modules>
   </component>
 </project>
