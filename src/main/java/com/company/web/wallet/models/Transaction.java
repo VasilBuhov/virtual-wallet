@@ -14,7 +14,9 @@ public class Transaction {
     private Long id;
 
     @Column(name = "type")
+    @Enumerated(EnumType.ORDINAL)
     private TransactionType transactionType;
+
 
     @Column(name = "amount")
     private BigDecimal amount;
@@ -135,4 +137,6 @@ public class Transaction {
     public void setCard(Card card) {
         this.card = card;
     }
+
+
 }

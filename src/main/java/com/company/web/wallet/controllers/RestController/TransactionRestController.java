@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionRestController {
     private final TransactionService transactionService;
     private final AuthenticationHelper authenticationHelper;
-    @Autowired
-    public TransactionRestController(TransactionService transactionService,
-                                     AuthenticationHelper authenticationHelper) {
+
+    public TransactionRestController(TransactionService transactionService, AuthenticationHelper authenticationHelper) {
         this.transactionService = transactionService;
         this.authenticationHelper = authenticationHelper;
     }
