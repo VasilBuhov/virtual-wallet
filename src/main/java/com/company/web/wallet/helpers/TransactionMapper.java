@@ -4,6 +4,9 @@ import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.TransactionDto;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class TransactionMapper {
 
@@ -29,5 +32,14 @@ public class TransactionMapper {
         transactionDto.setTransactionDescription(transaction.getTransactionDescription());
         return transactionDto;
     }
+    public List<TransactionDto> toDtoList(List<Transaction> transactions) {
+        List<TransactionDto> transactionDtos = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+            TransactionDto transactionDto = toDto(transaction);
+            transactionDtos.add(transactionDto);
+        }
+        return transactionDtos;
+    }
 }
+
 
