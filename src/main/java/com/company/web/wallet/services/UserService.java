@@ -5,6 +5,8 @@ import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface UserService {
@@ -12,7 +14,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    void createUser(User user);
+    void createUser(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
 
     void updateUser(User authenticatedUser, User user) throws EntityNotFoundException;
 

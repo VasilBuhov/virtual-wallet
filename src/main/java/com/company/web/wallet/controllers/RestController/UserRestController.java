@@ -15,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -59,15 +62,28 @@ public class UserRestController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestHeader HttpHeaders headers, @Valid @RequestBody UserDto userDto) {
+    public UserDto createUser(@RequestHeader HttpHeaders headers, @Valid @RequestBody UserDto userDto, HttpServletRequest request) {
         try {
             authenticationHelper.tryGetUser(headers);
             User user = userMapper.fromDto(userDto);
-            userService.createUser(user);
+            userService.createUser(user, getSiteURL(request));
             return userMapper.toDto(user);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    @PostMapping("/process_register")
+    public String processRegister(User user, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        userService.createUser(user, getSiteURL(request));
+        return "register_success";
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
     }
 
     @PutMapping("/{id}")
