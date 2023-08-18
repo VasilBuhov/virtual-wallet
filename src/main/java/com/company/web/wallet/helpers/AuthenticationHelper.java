@@ -36,7 +36,7 @@ public class AuthenticationHelper {
             String username = getUsername(userInfo);
             String password = getPassword(userInfo);
 
-            User user = userService.getUserByUsername(username);
+            User user = userService.getByUsername(username);
             if (!user.getPassword().equals(password)) {
                 throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
             }

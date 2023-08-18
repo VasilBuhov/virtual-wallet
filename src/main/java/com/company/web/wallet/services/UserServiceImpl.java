@@ -34,23 +34,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(int id) {
-        return userRepository.getUserById(id);
+        return userRepository.getById(id);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.getUserByEmail(email);
+        return userRepository.getByEmail(email);
     }
 
     @Override
     public void createUser(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
 
-        User existingUser = userRepository.getUserByEmail(user.getEmail());
+        User existingUser = userRepository.getByEmail(user.getEmail());
         if (existingUser != null) {
             throw new EntityDuplicateException("User", "email", user.getEmail());
         }
 
-        existingUser = userRepository.getUserByUsername(user.getUsername());
+        existingUser = userRepository.getByUsername(user.getUsername());
         if (existingUser != null) {
             throw new EntityDuplicateException("User", "username", user.getUsername());
         }
@@ -64,26 +64,26 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(user.getFirstName());
         user.setLastName(user.getLastName());
         user.setPassword(user.getPassword());
-        userRepository.createUser(user);
+        userRepository.create(user);
         sendVerificationEmail(user, siteURL);
     }
 
     @Override
-    public void updateUser(User authenticatedUser, User user) throws EntityNotFoundException {
+    public void update(User authenticatedUser, User user) throws EntityNotFoundException {
         checkModifyPermissionsForUpdating(authenticatedUser, user);
-        userRepository.updateUser(user);
+        userRepository.update(user);
     }
 
     @Override
-    public void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException {
-        User user = userRepository.getUserById(id);
+    public void delete(User authenticatedUser, int id) throws EntityNotFoundException {
+        User user = userRepository.getById(id);
         checkModifyPermissionsForDeleting(authenticatedUser, user);
-        userRepository.deleteUser(id);
+        userRepository.delete(id);
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        return userRepository.getUserByUsername(username);
+    public User getByUsername(String username) {
+        return userRepository.getByUsername(username);
     }
 
     @Override
@@ -104,19 +104,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void blockOrUnblockUser(int userId, boolean block) throws EntityNotFoundException {
-        User user = userRepository.getUserById(userId);
-        if (user == null) {
-            throw new EntityNotFoundException("User not found", userId);
-        }
-
-        if (block) {
-            user.setUserLevel(-1); // Block the user
-        } else {
-            user.setUserLevel(0); // Unblock the user
-        }
-
-        userRepository.updateUser(user);
+    public void blockOrUnblock(int userId, boolean block) throws EntityNotFoundException {
+        User user = userRepository.getById(userId);
+        if (user == null) throw new EntityNotFoundException("User not found", userId);
+        if (block) user.setUserLevel(-1);
+        else user.setUserLevel(0);
+        userRepository.update(user);
     }
 
     @Override
@@ -142,6 +135,19 @@ public class UserServiceImpl implements UserService {
         content = content.replace("[[URL]]", verifyURL);
         helper.setText(content, true);
         mailSender.send(message);
+
+    }
+
+    public boolean verify(String verificationCode) {
+        User user = userRepository.getByVerificationCode(verificationCode);
+        if (user == null || user.isEnabled()) {
+            return false;
+        } else {
+            user.setVerificationCode(null);
+            user.setEnabled(true);
+            userRepository.create(user);
+            return true;
+        }
 
     }
 

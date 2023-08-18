@@ -4,6 +4,7 @@ import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.BlockedUserException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
+import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.UserDto;
@@ -66,7 +67,7 @@ public class UserRestController {
         try {
             authenticationHelper.tryGetUser(headers);
             User user = userMapper.fromDto(userDto);
-            userService.createUser(user, getSiteURL(request));
+            userService.createUser(user, GetSiteURLHelper.getSiteURL(request));
             return userMapper.toDto(user);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -75,16 +76,7 @@ public class UserRestController {
         }
     }
 
-    @PostMapping("/process_register")
-    public String processRegister(User user, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        userService.createUser(user, getSiteURL(request));
-        return "register_success";
-    }
 
-    private String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@RequestHeader HttpHeaders headers, @PathVariable int id,
@@ -93,7 +85,7 @@ public class UserRestController {
             User authenticatedUser = authenticationHelper.tryGetUser(headers);
             User user = userMapper.fromDto(userDto);
             user.setId(id);
-            userService.updateUser(authenticatedUser, user);
+            userService.update(authenticatedUser, user);
             return ResponseEntity.ok("User with ID " + id + " has been successfully updated.");
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -110,7 +102,7 @@ public class UserRestController {
                 throw new AuthorizationException("Only admin can block/unblock users.");
             }
 
-            userService.blockOrUnblockUser(id, true); // Block the user
+            userService.blockOrUnblock(id, true); // Block the user
 
             return ResponseEntity.ok("User with ID " + id + " has been blocked.");
         } catch (EntityNotFoundException e) {
@@ -144,7 +136,7 @@ public class UserRestController {
                 throw new AuthorizationException("Only admin can block/unblock users.");
             }
 
-            userService.blockOrUnblockUser(id, false); // Unblock the user
+            userService.blockOrUnblock(id, false); // Unblock the user
 
             return ResponseEntity.ok("User with ID " + id + " has been unblocked.");
         } catch (EntityNotFoundException e) {
@@ -158,7 +150,7 @@ public class UserRestController {
     public ResponseEntity<String> deleteUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User user = authenticationHelper.tryGetUser(headers);
-            userService.deleteUser(user, id);
+            userService.delete(user, id);
             return ResponseEntity.ok("User with ID " + id + " has been successfully deleted.");
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

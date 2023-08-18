@@ -8,15 +8,17 @@ import java.util.List;
 public interface UserRepository {
     List<User> getAllUsers();
 
-    User getUserById(int id) throws EntityNotFoundException;
+    User getById(int id) throws EntityNotFoundException;
 
-    User getUserByEmail(String email) throws EntityNotFoundException;
+    User getByEmail(String email) throws EntityNotFoundException;
 
-    User getUserByUsername(String username) throws EntityNotFoundException;
+    User getByUsername(String username) throws EntityNotFoundException;
 
-    void createUser(User user);
+    User getByVerificationCode(String username) throws EntityNotFoundException;
 
-    void updateUser(User user);
+    void create(User user);
 
-    void deleteUser(int id) throws EntityNotFoundException;
+    void update(User user);
+
+    void delete(int id) throws EntityNotFoundException;
 }

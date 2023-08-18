@@ -37,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserById(int id) throws EntityNotFoundException {
+    public User getById(int id) throws EntityNotFoundException {
         try (Session session = sessionFactory.openSession()) {
             User user = session.get(User.class, id);
             if (user == null) {
@@ -52,7 +52,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserByEmail(String email) throws EntityNotFoundException {
+    public User getByEmail(String email) throws EntityNotFoundException {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -69,7 +69,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserByUsername(String username) throws EntityNotFoundException {
+    public User getByUsername(String username) throws EntityNotFoundException {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -86,7 +86,24 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void createUser(User user) {
+    public User getByVerificationCode(String username) throws EntityNotFoundException {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<User> cq = cb.createQuery(User.class);
+            Root<User> root = cq.from(User.class);
+            cq.select(root).where(cb.equal(root.get("verification_code"), username));
+            User user = session.createQuery(cq).uniqueResultOptional().orElse(null);
+            if (user == null) {
+                throw new EntityNotFoundException("User", "verification code", username);
+            }
+            return user;
+        } catch (Exception e) {
+            throw new UnknownError("Something went wrong");
+        }
+    }
+
+    @Override
+    public void create(User user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(user);
@@ -97,7 +114,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.update(user);
@@ -108,7 +125,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void deleteUser(int id) throws EntityNotFoundException {
+    public void delete(int id) throws EntityNotFoundException {
         try (Session session = sessionFactory.openSession()) {
             User user = session.get(User.class, id);
             if (user == null) {

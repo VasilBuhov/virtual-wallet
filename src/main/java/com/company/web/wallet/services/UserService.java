@@ -16,14 +16,14 @@ public interface UserService {
 
     void createUser(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
 
-    void updateUser(User authenticatedUser, User user) throws EntityNotFoundException;
+    void update(User authenticatedUser, User user) throws EntityNotFoundException;
 
-    void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException;
+    void delete(User authenticatedUser, int id) throws EntityNotFoundException;
 
     default void makeRegularUserAdmin(int id) {
     }
 
-    User getUserByUsername(String username);
+    User getByUsername(String username);
 
     void checkModifyPermissionsForUpdating(User authenticatedUser, User user);
 
@@ -31,7 +31,7 @@ public interface UserService {
 
     void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException;
 
-    void blockOrUnblockUser(int userId, boolean block) throws EntityNotFoundException;
+    void blockOrUnblock(int userId, boolean block) throws EntityNotFoundException;
 
     List<User> getAllUsers();
 }
