@@ -30,6 +30,7 @@ public class CardServiceImpl implements CardService {
         Card card = repository.get(id);
         if (card.getStatusDeleted() == 1) {
             throw new EntityDeletedException("Card", "ID", String.valueOf(id));
+            //TODO log all exceptions everywhere
         }
         return card;
     }

@@ -23,7 +23,9 @@ public class Wallet {
     @JsonIgnore
     @OneToMany(mappedBy = "wallet", fetch = FetchType.EAGER)
     private Set<Transaction> transactions;
+    @Transient
     private boolean overdraftEnabled;
+    @Transient
     private Currency currency;
 
     public Wallet() {

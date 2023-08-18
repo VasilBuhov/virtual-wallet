@@ -7,8 +7,6 @@ import com.company.web.wallet.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-
 @Component
 public class CardMapper {
     private final CardService service;
@@ -25,7 +23,6 @@ public class CardMapper {
         newCard.setStatusDeleted(0);
         newCard.setCheckNumber(cardDto.getCheckNumber());
         newCard.setExpirationDate(cardDto.getExpirationDate());
-        newCard.setTransactionsSet(new HashSet<>());
         return newCard;
     }
 

@@ -34,7 +34,6 @@ public class HibConf {
         dataSource.setUsername(dbUsername);
         dataSource.setPassword(dbPassword);
         dataSource.setConnectionProperties(hibernateProperties());
-
         return dataSource;
     }
     @Bean

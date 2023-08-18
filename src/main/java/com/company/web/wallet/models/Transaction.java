@@ -1,6 +1,7 @@
 package com.company.web.wallet.models;
 
 import com.company.web.wallet.helpers.TransactionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -39,8 +40,8 @@ public class Transaction {
     private String transactionDescription;
 
     @ManyToOne
-    @JoinColumn(name = "card_id", nullable = false)
-    private Card card;
+    @JoinColumn(name = "wallet_id", nullable = false)
+    private Wallet wallet;
 
     public Transaction() {
     }
@@ -52,7 +53,8 @@ public class Transaction {
                        TransactionType transactionType,
                        LocalDateTime timestamp,
                        String transactionDescription,
-                       String status) {
+                       String status,
+    Wallet wallet) {
         this.id = id;
         this.sender = sender;
         this.recipient = recipient;
@@ -61,6 +63,7 @@ public class Transaction {
         this.timestamp = timestamp;
         this.transactionDescription = transactionDescription;
         this.status = status;
+        this.wallet = wallet;
     }
 
 
@@ -130,12 +133,12 @@ public class Transaction {
         this.transactionDescription = transactionDescription;
     }
 
-    public Card getCard() {
-        return card;
+    public Wallet getCard() {
+        return wallet;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
 

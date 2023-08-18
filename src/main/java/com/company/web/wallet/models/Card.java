@@ -3,11 +3,18 @@ package com.company.web.wallet.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
 @Entity
 @Table(name = "cards")
 public class Card {
@@ -15,6 +22,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+    //TODO must be unique in DB
     @Column(name = "card_number")
     private String cardNumber;
     @Column(name = "expiration_date")
@@ -27,9 +35,6 @@ public class Card {
     private int checkNumber;
     @Column(name = "status_deleted")
     private int statusDeleted;
-    @JsonIgnore
-    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
-    private Set<Transaction> transactionsSet;
 
     public Card() {
     }
@@ -40,7 +45,6 @@ public class Card {
         this.expirationDate = expirationDate;
         this.cardHolder = cardHolder;
         this.checkNumber = checkNumber;
-        this.transactionsSet = new HashSet<>();
         this.statusDeleted = statusDeleted;
     }
 
@@ -82,14 +86,6 @@ public class Card {
 
     public void setCheckNumber(int checkNumber) {
         this.checkNumber = checkNumber;
-    }
-
-    public Set<Transaction> getTransactionsSet() {
-        return transactionsSet;
-    }
-
-    public void setTransactionsSet(Set<Transaction> transactionsSet) {
-        this.transactionsSet = transactionsSet;
     }
 
     public int getStatusDeleted() {

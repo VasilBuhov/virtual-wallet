@@ -10,6 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "first_name")
@@ -17,7 +18,7 @@ public class User {
 
     @Column(name = "last_name")
     private String lastName;
-
+//TODO must be unique in DB
     @Column(name = "username")
     private String username;
 
