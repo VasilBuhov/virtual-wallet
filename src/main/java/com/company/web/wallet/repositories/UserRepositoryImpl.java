@@ -82,9 +82,9 @@ public class UserRepositoryImpl implements UserRepository {
             }
             return user;
         }
-//        catch (Exception e) {
-//            throw new UnknownError("Something went wrong");
-//        }
+        catch (Exception e) {
+            throw new UnknownError("Something went wrong");
+        }
     }
 
     @Override

@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
         mailSender.send(message);
 
     }
-
+    @Override
     public boolean verify(String verificationCode) {
         User user = userRepository.getByVerificationCode(verificationCode);
         if (user == null || user.isEnabled()) {

@@ -34,4 +34,6 @@ public interface UserService {
     void blockOrUnblock(int userId, boolean block) throws EntityNotFoundException;
 
     List<User> getAllUsers();
+
+    boolean verify(String verificationCode);
 }
