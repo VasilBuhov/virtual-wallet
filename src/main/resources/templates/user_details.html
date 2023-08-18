@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dummy page for development purposes</title>
+</head>
+<body>
+<h1>Dummy page for development purposes</h1>
+<!-- Display the avatar if available -->
+<div th:if="${avatarBase64 != null}">
+    <img th:src="@{'data:image/jpeg;base64,' + avatarBase64}" alt="Avatar">
+</div>
+<!--<property name="photo" column="PHOTO" type="binary" />-->
+<h1>Avatar Upload Test</h1>
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="avatarFile" accept="image/*">
+    <button type="submit">Upload Avatar</button>
+</form>
+
+</body>
+</html>

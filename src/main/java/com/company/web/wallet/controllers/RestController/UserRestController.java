@@ -13,13 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -29,6 +33,7 @@ public class UserRestController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final AuthenticationHelper authenticationHelper;
+    private byte[] avatarBytes;
 
     @Autowired
     public UserRestController(UserService userService, UserMapper userMapper,
@@ -76,8 +81,6 @@ public class UserRestController {
             throw new RuntimeException(e);
         }
     }
-
-
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@RequestHeader HttpHeaders headers, @PathVariable int id,
@@ -158,5 +161,24 @@ public class UserRestController {
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
+    }
+
+    @PostMapping("/upload/{id}")
+    public String uploadAvatar(@RequestHeader HttpHeaders headers, @RequestParam("avatarFile") MultipartFile file, @PathVariable int id,
+                               @Valid @RequestBody UserDto userDto) throws IOException {
+        byte[] avatarBytes = file.getBytes();
+        User authenticatedUser = authenticationHelper.tryGetUser(headers);
+        User user = userMapper.fromDto(userDto);
+        user.setId(id);
+        user.setAvatar(avatarBytes);
+        userService.update(authenticatedUser, user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/avatar/{id}")
+    public String showUploadForm(Model model, @PathVariable int id) {
+        String base64Avatar = Base64.getEncoder().encodeToString(userService.getUserById(id).getAvatar());
+        model.addAttribute("avatarBase64", base64Avatar);
+        return "user_details";
     }
 }
