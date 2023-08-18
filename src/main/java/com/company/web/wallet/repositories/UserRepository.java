@@ -21,4 +21,6 @@ public interface UserRepository {
     void update(User user);
 
     void delete(int id) throws EntityNotFoundException;
+
+    User findByEmailOrUsername(String emailOrUsername, String emailOrUsername1);
 }

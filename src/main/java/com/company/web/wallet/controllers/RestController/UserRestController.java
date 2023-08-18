@@ -41,8 +41,11 @@ public class UserRestController {
     @GetMapping
     public List<UserDto> getAllUsers(@RequestHeader HttpHeaders httpHeaders) throws BlockedUserException {
         try {
-            authenticationHelper.tryGetUser(httpHeaders);
+            System.out.println("stigam");
+//            authenticationHelper.tryGetUser(httpHeaders);
+
             List<User> users = userService.getAllUsers();
+            System.out.println(" ne stigam");
             return userMapper.toDtoList(users);
         } catch (BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());

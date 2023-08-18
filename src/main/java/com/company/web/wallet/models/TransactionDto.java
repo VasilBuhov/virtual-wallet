@@ -13,7 +13,7 @@ public class TransactionDto {
     private User sender;
 
     @NotNull(message = "Recipient is required")
-    private User recipient;
+    private UserRecipientDto recipient;
 
     @NotNull(message = "Amount is required")
     private BigDecimal amount;
@@ -27,6 +27,9 @@ public class TransactionDto {
     @NotEmpty(message = "Transaction description is required")
     private String transactionDescription;
 
+    @NotEmpty(message = "Transaction status is required")
+    private String status;
+
     public User getSender() {
         return sender;
     }
@@ -35,11 +38,20 @@ public class TransactionDto {
         this.sender = sender;
     }
 
-    public User getRecipient() {
+//    public User getRecipient() {
+//        return recipient;
+//    }
+//
+//    public void setRecipient(User recipient) {
+//        this.recipient = recipient;
+//    }
+
+
+    public UserRecipientDto getRecipient() {
         return recipient;
     }
 
-    public void setRecipient(User recipient) {
+    public void setRecipient(UserRecipientDto recipient) {
         this.recipient = recipient;
     }
 
@@ -75,5 +87,11 @@ public class TransactionDto {
         this.transactionDescription = transactionDescription;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

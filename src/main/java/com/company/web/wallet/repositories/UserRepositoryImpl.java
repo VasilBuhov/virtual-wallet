@@ -4,6 +4,7 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -80,9 +81,10 @@ public class UserRepositoryImpl implements UserRepository {
                 throw new EntityNotFoundException("User", "username", username);
             }
             return user;
-        } catch (Exception e) {
-            throw new UnknownError("Something went wrong");
         }
+//        catch (Exception e) {
+//            throw new UnknownError("Something went wrong");
+//        }
     }
 
     @Override
@@ -138,6 +140,17 @@ public class UserRepositoryImpl implements UserRepository {
             throw e;
         } catch (Exception e) {
             throw new UnknownError("Something went wrong");
+        }
+    }
+
+    @Override
+    public User findByEmailOrUsername(String emailOrUsername, String emailOrUsername1) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT u FROM User u WHERE u.email = :emailOrUsername OR u.username = :emailOrUsername1";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("emailOrUsername", emailOrUsername);
+            query.setParameter("emailOrUsername1", emailOrUsername1);
+            return query.uniqueResult();
         }
     }
 }

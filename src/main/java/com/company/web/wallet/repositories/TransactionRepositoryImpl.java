@@ -55,8 +55,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             session.beginTransaction();
             session.save(transaction);
             session.getTransaction().commit();
-        } catch (Exception e) {
-            // Handle exceptions
         }
     }
 
