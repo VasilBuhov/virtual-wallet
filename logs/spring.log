@@ -1,0 +1,1 @@
+2023-08-20 03:14:02.743  INFO 17500 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

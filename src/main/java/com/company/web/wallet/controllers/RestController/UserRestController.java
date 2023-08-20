@@ -9,6 +9,8 @@ import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.UserDto;
 import com.company.web.wallet.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,7 @@ public class UserRestController {
     private final UserMapper userMapper;
     private final AuthenticationHelper authenticationHelper;
     private byte[] avatarBytes;
+    private final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
     public UserRestController(UserService userService, UserMapper userMapper,
@@ -51,8 +54,10 @@ public class UserRestController {
             List<User> users = userService.getAllUsers();
             return userMapper.toDtoList(users);
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
@@ -64,6 +69,7 @@ public class UserRestController {
             User user = userService.getUserById(id);
             return userMapper.toDtoInfo(user);
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
@@ -76,8 +82,10 @@ public class UserRestController {
             userService.createUser(user, GetSiteURLHelper.getSiteURL(request));
             return userMapper.toDto(user);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (MessagingException | UnsupportedEncodingException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -92,8 +100,10 @@ public class UserRestController {
             userService.update(authenticatedUser, user);
             return ResponseEntity.ok("User with ID " + id + " has been successfully updated.");
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
@@ -110,8 +120,10 @@ public class UserRestController {
 
             return ResponseEntity.ok("User with ID " + id + " has been blocked.");
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
@@ -126,8 +138,10 @@ public class UserRestController {
             userService.makeRegularUserAdmin(id);
             return ResponseEntity.ok("User with ID " + id + " is now admin");
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
@@ -144,8 +158,10 @@ public class UserRestController {
 
             return ResponseEntity.ok("User with ID " + id + " has been unblocked.");
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
@@ -157,8 +173,10 @@ public class UserRestController {
             userService.delete(user, id);
             return ResponseEntity.ok("User with ID " + id + " has been successfully deleted.");
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }

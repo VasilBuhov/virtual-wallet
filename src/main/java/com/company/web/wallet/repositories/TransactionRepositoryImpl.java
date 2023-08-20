@@ -1,12 +1,15 @@
 package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +23,7 @@ import java.util.List;
 public class TransactionRepositoryImpl implements TransactionRepository {
 
     private final SessionFactory sessionFactory;
+    private final Logger logger = LoggerFactory.getLogger(TransactionRepositoryImpl.class);
 
     @Autowired
     public TransactionRepositoryImpl(SessionFactory sessionFactory) {
@@ -70,6 +74,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             ));
             return session.createQuery(cq).list();
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -83,6 +88,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             cq.select(root).where(cb.equal(root.get("transactionType"), type));
             return session.createQuery(cq).list();
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -98,8 +104,10 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             session.delete(transaction);
             session.getTransaction().commit();
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw e;
         } catch (Exception e) {
+            logger.error(e.getMessage());
             // Handle exceptions
         }
     }

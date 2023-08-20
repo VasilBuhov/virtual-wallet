@@ -32,7 +32,6 @@ public class WalletServiceImpl implements WalletService {
         Wallet wallet = walletRepository.get(id);
         if (wallet.getStatusDeleted() == 1) {
             throw new EntityDeletedException("Wallet", "ID", String.valueOf(id));
-            //TODO log all exceptions everywhere
         }
         return wallet;
     }

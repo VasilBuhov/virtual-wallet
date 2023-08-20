@@ -1,9 +1,12 @@
 package com.company.web.wallet.helpers;
 
+import com.company.web.wallet.controllers.RestController.TransactionRestController;
 import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +19,7 @@ public class AuthenticationHelper {
     public static final String AUTHENTIFICATION_FAILURE_MESSAGE = "Wrong username or password.";
 
     private final UserService userService;
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationHelper.class);
 
     @Autowired
     public AuthenticationHelper(UserService userService) {
@@ -45,6 +49,7 @@ public class AuthenticationHelper {
 
         }
          catch (EntityNotFoundException e) {
+             logger.error(e.getMessage());
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
     }

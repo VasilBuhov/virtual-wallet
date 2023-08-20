@@ -7,6 +7,9 @@ import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.CardDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.CardService;
+import com.company.web.wallet.services.CurrenciesServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
+
 //TODO Need to implement catching for Authorization exceptions after Nikolai fixes the Authentication helper.
 @RestController
 @RequestMapping("/api/cards")
@@ -23,6 +27,8 @@ public class CardRestController {
     private final CardService cardService;
     private final AuthenticationHelper authenticationHelper;
     private final CardMapper cardMapper;
+    private final Logger logger = LoggerFactory.getLogger(CardRestController.class);
+
 
     @Autowired
     public CardRestController(CardService cardService, AuthenticationHelper authenticationHelper, CardMapper cardMapper) {
@@ -37,10 +43,13 @@ public class CardRestController {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             return cardService.getAll(user);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
@@ -51,10 +60,13 @@ public class CardRestController {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             return cardService.get(id, user);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
@@ -67,8 +79,10 @@ public class CardRestController {
             cardService.create(card);
             return card;
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (BlockedUserException | EntityDuplicateException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
@@ -81,10 +95,13 @@ public class CardRestController {
             cardService.update(id, card, user);
             return card;
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
@@ -95,10 +112,13 @@ public class CardRestController {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             cardService.delete(id, user);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
