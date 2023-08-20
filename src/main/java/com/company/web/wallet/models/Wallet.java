@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 @Entity
@@ -23,21 +24,32 @@ public class Wallet {
     @JsonIgnore
     @OneToMany(mappedBy = "wallet", fetch = FetchType.EAGER)
     private Set<Transaction> transactions;
-    @Transient
-    private boolean overdraftEnabled;
+    @Column(name = "overdraft_enabled")
+    private int overdraftEnabled;
     @Transient
     private Currency currency;
+    @Column(name = "status_deleted")
+    private int statusDeleted;
 
     public Wallet() {
     }
 
-    public Wallet(int id, User owner, BigDecimal balance, boolean overdraftEnabled, Currency currency, Set<Transaction> transactions) {
+    public Wallet(int id, User owner, BigDecimal balance, Currency currency) {
         this.id = id;
         this.owner = owner;
         this.balance = balance;
-        this.overdraftEnabled = overdraftEnabled;
+        this.overdraftEnabled = 0;
         this.currency = currency;
-        this.transactions = transactions;
+        this.transactions = new HashSet<>();
+        this.statusDeleted = 0;
+    }
+
+    public int getStatusDeleted() {
+        return statusDeleted;
+    }
+
+    public void setStatusDeleted(int statusDeleted) {
+        this.statusDeleted = statusDeleted;
     }
 
     public int getId() {
@@ -72,12 +84,16 @@ public class Wallet {
         this.transactions = transactions;
     }
 
-    public boolean isOverdraftEnabled() {
+    public int isOverdraftEnabled() {
         return overdraftEnabled;
     }
 
-    public void setOverdraftEnabled(boolean overdraftEnabled) {
+    public void setOverdraftEnabled(int overdraftEnabled) {
         this.overdraftEnabled = overdraftEnabled;
+    }
+
+    public int getOverdraftEnabled() {
+        return overdraftEnabled;
     }
 
     public Currency getCurrency() {

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CardMapper {
-    private final CardService service;
+    private final CardService cardService;
 
     @Autowired
-    public CardMapper(CardService service) {
-        this.service = service;
+    public CardMapper(CardService cardService) {
+        this.cardService = cardService;
     }
 
     public Card createCardDto(CardDto cardDto, User user) {
@@ -27,7 +27,7 @@ public class CardMapper {
     }
 
     public Card updateCardDto(int id, CardDto cardDto, User user) {
-        Card existingCard = service.get(id, user);
+        Card existingCard = cardService.get(id, user);
         existingCard.setExpirationDate(cardDto.getExpirationDate());
         existingCard.setCardNumber(cardDto.getCardNumber());
         existingCard.setCheckNumber(cardDto.getCheckNumber());
