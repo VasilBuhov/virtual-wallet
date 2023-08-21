@@ -2,7 +2,7 @@ package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.services.CurrenciesServiceImpl;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

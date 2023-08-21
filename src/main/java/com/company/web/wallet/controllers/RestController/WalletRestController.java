@@ -10,7 +10,7 @@ import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.models.WalletDtoIn;
 import com.company.web.wallet.models.WalletDtoOut;
-import com.company.web.wallet.services.CurrenciesServiceImpl;
+
 import com.company.web.wallet.services.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

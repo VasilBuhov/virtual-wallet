@@ -1,7 +1,6 @@
 package com.company.web.wallet.models;
 
 import com.company.web.wallet.helpers.TransactionType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

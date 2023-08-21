@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class TransactionDto {
 
     @NotNull(message = "Sender is required")
-    private User sender;
+    private UserSenderDto sender;
 
     @NotNull(message = "Recipient is required")
     private UserRecipientDto recipient;
@@ -30,22 +30,13 @@ public class TransactionDto {
     @NotEmpty(message = "Transaction status is required")
     private String status;
 
-    public User getSender() {
+    public UserSenderDto getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(UserSenderDto sender) {
         this.sender = sender;
     }
-
-//    public User getRecipient() {
-//        return recipient;
-//    }
-//
-//    public void setRecipient(User recipient) {
-//        this.recipient = recipient;
-//    }
-
 
     public UserRecipientDto getRecipient() {
         return recipient;
