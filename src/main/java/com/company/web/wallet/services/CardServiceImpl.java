@@ -7,6 +7,9 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.CardRepository;
+import com.company.web.wallet.repositories.CardRepositoryImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class CardServiceImpl implements CardService {
     private static final String MODIFY_CARD_ERROR_MESSAGE = "Only the card owner can modify the card information.";
     private final CardRepository repository;
+    private final Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
     @Autowired
     public CardServiceImpl(CardRepository repository) {
@@ -55,6 +59,7 @@ public class CardServiceImpl implements CardService {
                 throw new EntityDuplicateException("Card", "card number", String.valueOf(existingCard.getCardNumber()));
             }
         } catch (NoResultException e) {
+            logger.error(e.getMessage());
             repository.create(card);
         }
     }

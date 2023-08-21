@@ -3,7 +3,9 @@ package com.company.web.wallet.controllers.MvcController;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.UserService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,5 +28,13 @@ public class UserMvcController {
         return "register_success";
     }
 
+    @GetMapping("/verify")
+    public String verifyUser(@Param("code") String code) {
+        if (userService.verify(code)) {
+            return "verify_success";
+        } else {
+            return "verify_fail";
+        }
+    }
 
 }

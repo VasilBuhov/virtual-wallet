@@ -2,9 +2,12 @@ package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
+import com.company.web.wallet.services.CurrenciesServiceImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +20,7 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     private final SessionFactory sessionFactory;
+    private final Logger logger = LoggerFactory.getLogger(UserRepositoryImpl.class);
 
     @Autowired
     public UserRepositoryImpl(SessionFactory sessionFactory) {
@@ -33,6 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
             cq.select(root);
             return session.createQuery(cq).list();
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new UnknownError("Something went wrong");
         }
     }
@@ -46,6 +51,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
             return user;
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw e;
         } catch (Exception e) {
             throw new UnknownError("Something went wrong");
@@ -65,6 +71,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
             return user;
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new UnknownError("Something went wrong");
         }
     }
@@ -82,9 +89,10 @@ public class UserRepositoryImpl implements UserRepository {
             }
             return user;
         }
-//        catch (Exception e) {
-//            throw new UnknownError("Something went wrong");
-//        }
+        catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong");
+        }
     }
 
     @Override
@@ -100,6 +108,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
             return user;
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new UnknownError("Something went wrong");
         }
     }
@@ -111,6 +120,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.save(user);
             session.getTransaction().commit();
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new UnknownError("Something went wrong");
         }
     }
@@ -122,6 +132,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.update(user);
             session.getTransaction().commit();
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new UnknownError("Something went wrong");
         }
     }
@@ -137,8 +148,10 @@ public class UserRepositoryImpl implements UserRepository {
             session.delete(user);
             session.getTransaction().commit();
         } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
             throw e;
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new UnknownError("Something went wrong");
         }
     }

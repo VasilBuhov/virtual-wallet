@@ -18,7 +18,6 @@ public class User {
 
     @Column(name = "last_name")
     private String lastName;
-//TODO must be unique in DB
     @Column(name = "username")
     private String username;
 
@@ -30,9 +29,9 @@ public class User {
 
     @Column(name = "verified")
     private int verified;
-
+    @Lob
     @Column(name = "avatar")
-    private String avatar;
+    private byte[] avatar;
 
     @Column(name = "user_level")
     private int userLevel;
@@ -44,7 +43,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String username, String email, String password, int userLevel, int verified, String avatar) {
+    public User(int id, String firstName, String lastName, String username, String email, String password, int userLevel, int verified, byte[] avatar) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -120,11 +119,11 @@ public class User {
         this.verified = verified;
     }
 
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 

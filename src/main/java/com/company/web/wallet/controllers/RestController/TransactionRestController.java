@@ -9,7 +9,10 @@ import com.company.web.wallet.helpers.TransactionMapper;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.TransactionDto;
 import com.company.web.wallet.models.User;
+import com.company.web.wallet.repositories.UserRepositoryImpl;
 import com.company.web.wallet.services.TransactionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,7 @@ public class TransactionRestController {
     private final TransactionService transactionService;
     private final TransactionMapper transactionMapper;
     private final AuthenticationHelper authenticationHelper;
+    private final Logger logger = LoggerFactory.getLogger(TransactionRestController.class);
 
     @Autowired
     public TransactionRestController(TransactionService transactionService,
@@ -43,10 +47,13 @@ public class TransactionRestController {
             List<Transaction> transactions = transactionService.getAllTransactions();
             return transactionMapper.toDtoList(transactions);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
@@ -58,10 +65,13 @@ public class TransactionRestController {
             Transaction transaction = transactionService.getTransactionById(id);
             return transactionMapper.toDto(transaction);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
@@ -73,10 +83,13 @@ public class TransactionRestController {
             transactionService.deleteTransaction(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
@@ -91,8 +104,10 @@ public class TransactionRestController {
             transactionService.createTransaction(transaction);
             return transactionMapper.toDto(transaction);
         } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
