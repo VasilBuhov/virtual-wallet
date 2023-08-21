@@ -1,6 +1,7 @@
 package com.company.web.wallet.models;
 
 import com.company.web.wallet.helpers.TransactionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -38,6 +39,7 @@ public class Transaction {
     @Column(name = "transaction_description", nullable = false)
     private String transactionDescription;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "wallet_id", nullable = false)
     private Wallet wallet;
@@ -132,7 +134,7 @@ public class Transaction {
         this.transactionDescription = transactionDescription;
     }
 
-    public Wallet getCard() {
+    public Wallet getWallet() {
         return wallet;
     }
 

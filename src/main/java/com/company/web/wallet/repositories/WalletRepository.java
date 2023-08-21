@@ -1,6 +1,7 @@
 package com.company.web.wallet.repositories;
 
 
+import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 
 import java.math.BigDecimal;
@@ -17,4 +18,6 @@ public interface WalletRepository {
     void update(Wallet wallet);
 
     void delete(int id);
+
+    Integer getWalletIdForUser(User user);
 }

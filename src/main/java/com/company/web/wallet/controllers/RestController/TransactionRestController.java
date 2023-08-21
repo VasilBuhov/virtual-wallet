@@ -94,7 +94,7 @@ public class TransactionRestController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public TransactionDto createTransaction(@RequestHeader HttpHeaders httpHeaders,
                                             @Valid @RequestBody TransactionDto transactionDto) {
         try {

@@ -1,9 +1,7 @@
 package com.company.web.wallet.helpers;
 
-import com.company.web.wallet.models.Transaction;
-import com.company.web.wallet.models.TransactionDto;
-import com.company.web.wallet.models.UserRecipientDto;
-import com.company.web.wallet.models.UserSenderDto;
+import com.company.web.wallet.models.*;
+import com.company.web.wallet.repositories.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +14,14 @@ public class TransactionMapper {
     private final UserMapper userMapper;
     private final UserRecipientMapper userRecipientMapper;
     private final UserSenderMapper userSenderMapper;
+    private final WalletRepository walletRepository;
 
     @Autowired
-    public TransactionMapper(UserMapper userMapper, UserRecipientMapper userRecipientMapper, UserSenderMapper userSenderMapper) {
+    public TransactionMapper(UserMapper userMapper, UserRecipientMapper userRecipientMapper, UserSenderMapper userSenderMapper, WalletRepository walletRepository) {
         this.userMapper = userMapper;
         this.userRecipientMapper = userRecipientMapper;
         this.userSenderMapper = userSenderMapper;
+        this.walletRepository = walletRepository;
     }
 
     public Transaction fromDto(TransactionDto transactionDto) {
@@ -33,7 +33,9 @@ public class TransactionMapper {
         transaction.setTimestamp(transactionDto.getTimestamp());
         transaction.setTransactionDescription(transactionDto.getTransactionDescription());
         transaction.setStatus(transactionDto.getStatus());
-        return transaction;
+
+        transaction.setWallet(transactionDto.getWallet());
+    return transaction;
     }
 
     public TransactionDto toDto(Transaction transaction) {
@@ -49,6 +51,7 @@ public class TransactionMapper {
         transactionDto.setTimestamp(transaction.getTimestamp());
         transactionDto.setTransactionDescription(transaction.getTransactionDescription());
         transactionDto.setStatus(transaction.getStatus());
+        transactionDto.getWallet();
         return transactionDto;
     }
 

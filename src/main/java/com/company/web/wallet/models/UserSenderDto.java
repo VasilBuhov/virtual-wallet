@@ -21,7 +21,7 @@ public class UserSenderDto {
     @NotEmpty(message = "Last name is required")
     private String lastName;
 
-    private byte[] avatar;
+//    private byte[] avatar;
 
     public String getUsername() {
         return username;
@@ -55,11 +55,5 @@ public class UserSenderDto {
         this.lastName = lastName;
     }
 
-    public byte[] getAvatar() {
-        return avatar;
-    }
 
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
-    }
 }

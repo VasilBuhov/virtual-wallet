@@ -2,10 +2,19 @@ package com.company.web.wallet.helpers;
 
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.UserSenderDto;
+import com.company.web.wallet.models.Wallet;
+import com.company.web.wallet.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserSenderMapper {
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserSenderMapper(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public UserSenderDto toDto(User user) {
         UserSenderDto userSenderDto = new UserSenderDto();
@@ -13,7 +22,7 @@ public class UserSenderMapper {
         userSenderDto.setEmail(user.getEmail());
         userSenderDto.setFirstName(user.getFirstName());
         userSenderDto.setLastName(user.getLastName());
-        userSenderDto.setAvatar(user.getAvatar());
+
         return userSenderDto;
     }
     public User toEntity(UserSenderDto userSenderDto) {
@@ -22,8 +31,12 @@ public class UserSenderMapper {
         user.setFirstName(userSenderDto.getFirstName());
         user.setLastName(userSenderDto.getLastName());
         user.setEmail(userSenderDto.getEmail());
-        user.setAvatar(userSenderDto.getAvatar());
+
+
         return user;
+    }
+    public User findUserByEmailOrUsername(String emailOrUsername) {
+        return userRepository.findByEmailOrUsername(emailOrUsername, emailOrUsername);
     }
 
 }

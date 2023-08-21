@@ -1,8 +1,10 @@
 package com.company.web.wallet.services;
 
+import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
+import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +15,13 @@ import java.util.List;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
-
+    private final WalletService walletService;
 
 
     @Autowired
-    public TransactionServiceImpl(TransactionRepository transactionRepository) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository, WalletService walletService) {
         this.transactionRepository = transactionRepository;
+        this.walletService = walletService;
     }
     @Override
     public List<Transaction> getAllTransactions() {
@@ -39,9 +42,23 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Override
     public void createTransaction(Transaction transaction) {
+        // Assuming the transaction has sender, recipient, amount, and other relevant fields
+        // Validate the sender, recipient, and other data as needed
+        System.out.println("tova e "+transaction.getSender().getUsername());
+        System.out.println("tova e "+transaction.getRecipient().getUsername());
+        // Add amount to recipient's wallet
+        walletService.addToBalance(walletService.getWalletIdForUser(transaction.getRecipient()),
+                transaction.getRecipient(), transaction.getAmount());
+        System.out.println("stiga li do tuk>? ");
 
+        // Remove amount from sender's wallet
+        walletService.removeFromBalance(walletService.getWalletIdForUser(transaction.getSender()), transaction.getSender(), transaction.getAmount());
+
+        // Save the transaction
         transactionRepository.createTransaction(transaction);
     }
+
+
     @Override
     public void deleteTransaction(Long id) {
         transactionRepository.deleteTransaction(id);

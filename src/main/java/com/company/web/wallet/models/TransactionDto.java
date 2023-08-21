@@ -1,6 +1,7 @@
 package com.company.web.wallet.models;
 
 import com.company.web.wallet.helpers.TransactionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,13 @@ public class TransactionDto {
 
     @NotEmpty(message = "Transaction status is required")
     private String status;
+//    @JsonIgnore
+    private Wallet wallet;
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+
 
     public UserSenderDto getSender() {
         return sender;
@@ -84,5 +92,9 @@ public class TransactionDto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 }

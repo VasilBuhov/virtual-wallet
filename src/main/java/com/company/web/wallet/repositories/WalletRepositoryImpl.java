@@ -3,9 +3,11 @@ package com.company.web.wallet.repositories;
 import com.company.web.wallet.exceptions.EntityDeletedException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
+import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +37,21 @@ public class WalletRepositoryImpl implements WalletRepository {
             return wallet;
         }
     }
+@Override
+    public Integer getWalletIdForUser(User user) {
+    try (Session session = sessionFactory.openSession()) {
+        String hql = "SELECT w.id FROM Wallet w WHERE w.owner = :user";
+        Query<Integer> query = session.createQuery(hql, Integer.class);
+        query.setParameter("user", user);
+
+        List<Integer> result = query.getResultList();
+        if (!result.isEmpty()) {
+            return result.get(0);
+        } else {
+            return null;
+        }
+    }
+}
 
     @Override
     public Wallet get(String owner) {

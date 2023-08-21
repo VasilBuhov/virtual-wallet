@@ -11,6 +11,8 @@ import java.util.List;
 public interface WalletService {
     Wallet get(int id, User user);
 
+    int getWalletIdForUser(User user);
+
     List<Wallet> getAll(User user);
 
     void create(Wallet wallet);
