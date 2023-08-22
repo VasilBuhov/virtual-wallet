@@ -22,7 +22,7 @@ public class Wallet {
     @Column(name = "balance")
     private BigDecimal balance;
     @JsonIgnore
-    @OneToMany(mappedBy = "wallet", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "wallet_id", fetch = FetchType.EAGER)
     private Set<Transaction> transactions;
     @Column(name = "overdraft_enabled")
     private int overdraftEnabled;
