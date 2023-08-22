@@ -31,9 +31,6 @@ public class WalletRepositoryImpl implements WalletRepository {
             if (wallet == null) {
                 throw new EntityNotFoundException("Wallet", id);
             }
-            if (wallet.getStatusDeleted() == 1) {
-                throw new EntityDeletedException("Wallet", "ID", String.valueOf(id));
-            }
             return wallet;
         }
     }

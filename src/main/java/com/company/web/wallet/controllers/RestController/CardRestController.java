@@ -38,7 +38,7 @@ public class CardRestController {
     }
 
     @GetMapping
-    public List<Card> get(@RequestHeader HttpHeaders httpHeaders) {
+    public List<Card> get(@RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             return cardService.getAll(user);
@@ -55,7 +55,7 @@ public class CardRestController {
     }
 
     @GetMapping("/{id}")
-    public Card get(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) {
+    public Card get(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             return cardService.get(id, user);
@@ -72,7 +72,7 @@ public class CardRestController {
     }
 
     @PostMapping
-    public Card create(@RequestHeader HttpHeaders httpHeaders, @Valid @RequestBody CardDto cardDto) {
+    public Card create(@RequestHeader HttpHeaders httpHeaders, @Valid @RequestBody CardDto cardDto) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             Card card = cardMapper.createCardDto(cardDto, user);
@@ -88,7 +88,7 @@ public class CardRestController {
     }
 
     @PutMapping("/{id}")
-    public Card update(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody CardDto cardDto) {
+    public Card update(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody CardDto cardDto) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
             Card card = cardMapper.updateCardDto(id, cardDto, user);
@@ -107,7 +107,7 @@ public class CardRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) {
+    public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             cardService.delete(id, user);

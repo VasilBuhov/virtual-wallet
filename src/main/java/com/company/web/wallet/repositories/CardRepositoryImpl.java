@@ -30,9 +30,6 @@ public class CardRepositoryImpl implements CardRepository {
             if (card == null) {
                 throw new EntityNotFoundException("Card", id);
             }
-            if (card.getStatusDeleted() == 1) {
-                throw new EntityDeletedException("Card", "ID", String.valueOf(id));
-            }
             return card;
         }
     }
