@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 @Entity
 @Table(name = "interest_rates")
@@ -17,16 +18,16 @@ public class InterestRate {
     private int id;
     @Column(name = "interest")
     private double interest;
-    @Column(name = "date_of_entry")
-    private LocalDate changedOnDate;
+    @Column(name = "timestamp")
+    private LocalDateTime timestamp;
 
     public InterestRate() {
     }
 
-    public InterestRate(int id, double interest, LocalDate changedOnDate) {
+    public InterestRate(int id, double interest, LocalDateTime timestamp) {
         this.id = id;
         this.interest = interest;
-        this.changedOnDate = changedOnDate;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -45,12 +46,12 @@ public class InterestRate {
         this.interest = interest;
     }
 
-    public LocalDate getChangedOnDate() {
-        return changedOnDate;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setChangedOnDate(LocalDate changedOnDate) {
-        this.changedOnDate = changedOnDate;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override

@@ -6,7 +6,7 @@ import com.company.web.wallet.services.InterestRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 public class InterestRateMapper {
@@ -20,7 +20,7 @@ public class InterestRateMapper {
     public InterestRate create(InterestRateDto interestRateDto) {
         InterestRate interestRate = new InterestRate();
         interestRate.setInterest(interestRateDto.getInterest());
-        interestRate.setChangedOnDate(LocalDate.now());
+        interestRate.setTimestamp(LocalDateTime.now());
         return interestRate;
     }
 }

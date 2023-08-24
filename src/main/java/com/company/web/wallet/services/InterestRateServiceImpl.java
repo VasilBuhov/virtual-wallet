@@ -10,11 +10,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class InterestRateServiceImpl implements InterestRateService {
     private final InterestRateRepository interestRateRepository;
-    public static final String AUTHORIZATION_ERROR= "Unauthorized access";
+    public static final String AUTHORIZATION_ERROR = "Unauthorized access";
 
     @Autowired
     public InterestRateServiceImpl(InterestRateRepository interestRateRepository) {
         this.interestRateRepository = interestRateRepository;
+    }
+
+    @Override
+    public Double getLatestInterestRate() {
+        return interestRateRepository.getLatestInterestRate();
     }
 
     @Override
