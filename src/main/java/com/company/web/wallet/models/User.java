@@ -42,7 +42,7 @@ public class User {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
     @JsonIgnore
-    @OneToMany(mappedBy = "card_holder", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cardHolder", fetch = FetchType.EAGER)
     private Set<Card> cards;
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)

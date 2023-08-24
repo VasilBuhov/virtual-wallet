@@ -1,6 +1,7 @@
 package com.company.web.wallet.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.util.Currency;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
 @Entity
 @Table(name = "wallets")
 public class Wallet {
@@ -22,7 +24,7 @@ public class Wallet {
     @Column(name = "balance")
     private BigDecimal balance;
     @JsonIgnore
-    @OneToMany(mappedBy = "wallet_id", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "wallet", fetch = FetchType.EAGER)
     private Set<Transaction> transactions;
     @Column(name = "overdraft_enabled")
     private int overdraftEnabled;
@@ -30,6 +32,7 @@ public class Wallet {
     private Currency currency;
     @Column(name = "status_deleted")
     private int statusDeleted;
+    private double interestRate;
 
     public Wallet() {
     }
@@ -102,6 +105,14 @@ public class Wallet {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
     }
 
     @Override
