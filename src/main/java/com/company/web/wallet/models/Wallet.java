@@ -32,6 +32,7 @@ public class Wallet {
     private Currency currency;
     @Column(name = "status_deleted")
     private int statusDeleted;
+    @Column(name = "interest_rate")
     private double interestRate;
 
     public Wallet() {

@@ -17,13 +17,11 @@ import java.util.stream.Collectors;
 @Component
 public class WalletMapper {
     private final WalletService walletService;
-    private final Environment environment;
 
 
     @Autowired
-    public WalletMapper(WalletService walletService, Environment environment) {
+    public WalletMapper(WalletService walletService) {
         this.walletService = walletService;
-        this.environment = environment;
     }
 
     public Wallet createWalletDto(User user) {
