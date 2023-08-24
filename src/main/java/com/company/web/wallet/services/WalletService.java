@@ -22,7 +22,6 @@ public interface WalletService {
     void create(Wallet wallet);
 
     void updateOverdraft(int id, User user, Wallet wallet) throws AuthorizationException;
-    void updateInterestRate(double newInterestRate, User user) throws AuthorizationException;
 
     void chargeInterestOnOverdraft();
 

@@ -158,23 +158,6 @@ public class WalletRestController {
         }
     }
 
-    @PutMapping("/interest")
-    public void updateInterestRate(@RequestBody Double newInterestRate, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
-        try {
-            User user = authenticationHelper.tryGetUser(httpHeaders);
-            walletService.updateInterestRate(newInterestRate, user);
-        } catch (AuthorizationException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (BlockedUserException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-    }
-
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {

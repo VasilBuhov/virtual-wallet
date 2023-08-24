@@ -19,13 +19,14 @@ import java.util.stream.Collectors;
 
 public class WalletServiceImpl implements WalletService {
     private static final String MODIFY_WALLET_ERROR_MESSAGE = "Only the wallet owner can modify the wallet information.";
-    public static final String AUTHORIZATION_ERROR= "Unauthorized access";
+    public static final String AUTHORIZATION_ERROR = "Unauthorized access";
     private final WalletRepository walletRepository;
-    private double interestRate = 0.02;
+    private final InterestRateService interestRateService;
 
     @Autowired
-    public WalletServiceImpl(WalletRepository walletRepository) {
+    public WalletServiceImpl(WalletRepository walletRepository, InterestRateService interestRateService) {
         this.walletRepository = walletRepository;
+        this.interestRateService = interestRateService;
     }
 
 
@@ -58,7 +59,8 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public void create(Wallet wallet) {
-        wallet.setInterestRate(interestRate);
+        double latestInterestRate = interestRateService.getLatestInterestRate();
+        wallet.setInterestRate(latestInterestRate);
         walletRepository.create(wallet);
     }
 
@@ -66,14 +68,6 @@ public class WalletServiceImpl implements WalletService {
     public void updateOverdraft(int id, User user, Wallet wallet) {
         checkModifyPermissions(id, user);
         walletRepository.update(wallet);
-    }
-
-    @Override
-    public void updateInterestRate(double newInterestRate, User user) {
-        if (user.getUserLevel() != 1) {
-            throw new AuthorizationException(AUTHORIZATION_ERROR);
-        }
-        interestRate = newInterestRate;
     }
 
     @Scheduled(cron = "0 0 0 1 * ?")
