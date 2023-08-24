@@ -3,7 +3,9 @@ package com.company.web.wallet.services;
 import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
+import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.repositories.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User authenticatedUser, User user) throws EntityNotFoundException {
         checkModifyPermissionsForUpdating(authenticatedUser, user);
+        userRepository.update(user);
+    }
+
+    @Override
+    public void addWallet(Wallet wallet, User user) {
+        user.getWallets().add(wallet);
+        userRepository.update(user);
+    }
+
+    @Override
+    public void addCard(Card card, User user) {
+        user.getCards().add(card);
         userRepository.update(user);
     }
 

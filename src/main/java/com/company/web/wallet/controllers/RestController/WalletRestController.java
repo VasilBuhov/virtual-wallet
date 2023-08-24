@@ -10,6 +10,7 @@ import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.models.WalletDtoOut;
 
+import com.company.web.wallet.services.UserService;
 import com.company.web.wallet.services.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,13 +39,15 @@ public class WalletRestController {
     private final WalletService walletService;
     private final AuthenticationHelper authenticationHelper;
     private final WalletMapper walletMapper;
+    private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(WalletRestController.class);
 
     @Autowired
-    public WalletRestController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper) {
+    public WalletRestController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper, UserService userService) {
         this.walletService = walletService;
         this.authenticationHelper = authenticationHelper;
         this.walletMapper = walletMapper;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -89,6 +92,7 @@ public class WalletRestController {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             Wallet wallet = walletMapper.createWalletDto(user);
             walletService.create(wallet);
+            userService.addWallet(wallet, user);
             return walletMapper.walletDtoOut(wallet);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
