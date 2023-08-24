@@ -70,7 +70,7 @@ public class WalletRepositoryImpl implements WalletRepository {
             return session.createQuery("from Wallet ", Wallet.class)
                     .list()
                     .stream()
-                    .filter(card -> card.getStatusDeleted() == 0)
+                    .filter(wallet -> wallet.getStatusDeleted() == 0)
                     .collect(Collectors.toList());
         }
     }

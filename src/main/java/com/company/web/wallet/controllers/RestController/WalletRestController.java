@@ -31,6 +31,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
+
 //TODO Need to implement catching for Authorization exceptions after Nikolai fixes the Authentication helper.
 @RestController
 @RequestMapping("/api/wallets")
@@ -100,10 +101,10 @@ public class WalletRestController {
     }
 
     @PutMapping("/{id}/overdraft")
-    public WalletDtoOut updateOverdraft(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody WalletDtoIn walletDtoIn) throws ResponseStatusException {
+    public WalletDtoOut updateOverdraft(@PathVariable int id, @RequestHeader HttpHeaders httpheaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
-            Wallet wallet = walletMapper.updateOverdraftDto(id, walletDtoIn, user);
+            Wallet wallet = walletMapper.updateOverdraftDto(id, user);
             walletService.updateOverdraft(id, user, wallet);
             return walletMapper.walletDtoOut(wallet);
         } catch (AuthorizationException e) {
@@ -135,6 +136,7 @@ public class WalletRestController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+
     @PutMapping("/{id}/withdraw")
     public WalletDtoOut updateWithdraw(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) throws ResponseStatusException {
         try {
@@ -152,6 +154,24 @@ public class WalletRestController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+
+    @PutMapping("/interest")
+    public void updateInterestRate(@RequestBody Double newInterestRate, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
+        try {
+            User user = authenticationHelper.tryGetUser(httpHeaders);
+            walletService.updateInterestRate(newInterestRate, user);
+        } catch (AuthorizationException e) {
+            logger.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (BlockedUserException e) {
+            logger.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {

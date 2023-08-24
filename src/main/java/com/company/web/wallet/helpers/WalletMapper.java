@@ -6,6 +6,7 @@ import com.company.web.wallet.models.WalletDtoIn;
 import com.company.web.wallet.models.WalletDtoOut;
 import com.company.web.wallet.services.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,10 +17,13 @@ import java.util.stream.Collectors;
 @Component
 public class WalletMapper {
     private final WalletService walletService;
+    private final Environment environment;
+
 
     @Autowired
-    public WalletMapper(WalletService walletService) {
+    public WalletMapper(WalletService walletService, Environment environment) {
         this.walletService = walletService;
+        this.environment = environment;
     }
 
     public Wallet createWalletDto(User user) {
@@ -31,9 +35,13 @@ public class WalletMapper {
         return wallet;
     }
 
-    public Wallet updateOverdraftDto(int id, WalletDtoIn walletDtoIn, User user) {
+    public Wallet updateOverdraftDto(int id, User user) {
         Wallet walletToBeUpdated = walletService.get(id, user);
-        walletToBeUpdated.setOverdraftEnabled(walletDtoIn.getOverdraftEnabled());
+        if (walletToBeUpdated.getOverdraftEnabled() == 0) {
+            walletToBeUpdated.setOverdraftEnabled(1);
+        } else {
+            walletToBeUpdated.setOverdraftEnabled(0);
+        }
         return walletToBeUpdated;
     }
 

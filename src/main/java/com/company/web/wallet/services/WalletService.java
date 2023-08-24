@@ -19,10 +19,15 @@ public interface WalletService {
 
     List<Wallet> getAll(User user) throws EntityNotFoundException;
 
-    void create(Wallet wallet) ;
+    void create(Wallet wallet);
 
-    void updateOverdraft(int id,User user, Wallet wallet) throws AuthorizationException;
+    void updateOverdraft(int id, User user, Wallet wallet) throws AuthorizationException;
+    void updateInterestRate(double newInterestRate, User user) throws AuthorizationException;
+
+    void chargeInterestOnOverdraft();
+
     void addToBalance(int id, User user, BigDecimal amount) throws AuthorizationException;
+
     void removeFromBalance(int id, User user, BigDecimal amount) throws AuthorizationException, OperationNotSupportedException;
 
     void delete(int id, User user) throws AuthorizationException;
