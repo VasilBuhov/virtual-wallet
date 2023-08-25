@@ -112,12 +112,9 @@ public class UserRestController {
     public ResponseEntity<String> blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) throws ResponseStatusException {
         try {
             User authenticatedUser = authenticationHelper.tryGetUser(headers);
-            if (authenticatedUser.getUserLevel() != 1) {
+            if (authenticatedUser.getUserLevel() != 1)
                 throw new AuthorizationException("Only admin can block/unblock users.");
-            }
-
             userService.blockOrUnblock(id, true); // Block the user
-
             return ResponseEntity.ok("User with ID " + id + " has been blocked.");
         } catch (EntityNotFoundException e) {
             logger.error(e.getMessage());

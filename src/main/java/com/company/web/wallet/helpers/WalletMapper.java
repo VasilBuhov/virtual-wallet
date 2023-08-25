@@ -29,7 +29,7 @@ public class WalletMapper {
         wallet.setOwner(user);
         wallet.setBalance(BigDecimal.ZERO);
         wallet.setOverdraftEnabled(0);
-        wallet.setTransactions(new HashSet<>());
+//        wallet.setTransactions(new HashSet<>());
         return wallet;
     }
 
@@ -47,7 +47,7 @@ public class WalletMapper {
         WalletDtoOut walletDtoOut = new WalletDtoOut();
         walletDtoOut.setBalance(wallet.getBalance());
         walletDtoOut.setOwner(wallet.getOwner().getUsername());
-        walletDtoOut.setTransactions(wallet.getTransactions());
+//        walletDtoOut.setTransactions(wallet.getTransactions());
         walletDtoOut.setOverdraftEnabled(wallet.getOverdraftEnabled());
         return walletDtoOut;
     }

@@ -45,9 +45,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getById(int id) throws EntityNotFoundException {
         try (Session session = sessionFactory.openSession()) {
-            User user = session.get(User.class, id);
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<User> cq = cb.createQuery(User.class);
+            Root<User> root = cq.from(User.class);
+            cq.select(root).where(cb.equal(root.get("id"), id));
+            User user = session.createQuery(cq).uniqueResultOptional().orElse(null);
             if (user == null) {
-                throw new EntityNotFoundException("User not found", id);
+                throw new EntityNotFoundException("User", "id", String.valueOf(id));
             }
             return user;
         } catch (EntityNotFoundException e) {
