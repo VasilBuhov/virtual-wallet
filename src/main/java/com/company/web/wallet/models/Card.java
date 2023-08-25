@@ -22,7 +22,6 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    //TODO must be unique in DB
     @Column(name = "card_number")
     private String cardNumber;
     @Column(name = "expiration_date")
