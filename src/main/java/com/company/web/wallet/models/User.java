@@ -41,13 +41,12 @@ public class User {
 
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "card_holder", fetch = FetchType.EAGER)
-//    private Set<Card> cards;
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
-//    private Set<Wallet> wallets;
+    @JsonIgnore
+    @OneToMany(mappedBy = "cardHolder", fetch = FetchType.EAGER)
+    private Set<Card> cards;
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Wallet> wallets;
 
     private boolean enabled;
     public User() {
@@ -151,6 +150,22 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+    public Set<Wallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(Set<Wallet> wallets) {
+        this.wallets = wallets;
     }
 
     public boolean equals(Object o) {

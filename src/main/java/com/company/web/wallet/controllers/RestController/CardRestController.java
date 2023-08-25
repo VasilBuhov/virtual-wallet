@@ -7,7 +7,7 @@ import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.CardDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.CardService;
-//import com.company.web.wallet.services.CurrenciesServiceImpl;
+import com.company.web.wallet.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.List;
 
 //TODO Need to implement catching for Authorization exceptions after Nikolai fixes the Authentication helper.
@@ -27,14 +26,16 @@ public class CardRestController {
     private final CardService cardService;
     private final AuthenticationHelper authenticationHelper;
     private final CardMapper cardMapper;
+    private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(CardRestController.class);
 
 
     @Autowired
-    public CardRestController(CardService cardService, AuthenticationHelper authenticationHelper, CardMapper cardMapper) {
+    public CardRestController(CardService cardService, AuthenticationHelper authenticationHelper, CardMapper cardMapper, UserService userService) {
         this.cardService = cardService;
         this.authenticationHelper = authenticationHelper;
         this.cardMapper = cardMapper;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -77,6 +78,7 @@ public class CardRestController {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             Card card = cardMapper.createCardDto(cardDto, user);
             cardService.create(card);
+            userService.addCard(card, user);
             return card;
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());

@@ -13,7 +13,7 @@
 </div>
 <!-- Display the avatar if available -->
 <div th:if="${user.getAvatar() != null}">
-    <img th:src="'data:image/jpeg;base64,' + ${user.getAvatar()}" alt="Avatar">
+    <img th:src="${user.getAvatar()}" alt="Avatar 11 1">
     <p th:text="${user.getAvatar()}"></p>
 </div>
 <!--<property name="photo" column="PHOTO" type="binary" />-->
