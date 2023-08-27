@@ -6,6 +6,7 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.exceptions.OperationNotSupportedException;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
+import com.company.web.wallet.repositories.UserRepository;
 import com.company.web.wallet.repositories.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,12 +22,14 @@ public class WalletServiceImpl implements WalletService {
     private static final String MODIFY_WALLET_ERROR_MESSAGE = "Only the wallet owner can modify the wallet information.";
     public static final String AUTHORIZATION_ERROR = "Unauthorized access";
     private final WalletRepository walletRepository;
+    private final UserRepository userRepository;
     private final InterestRateService interestRateService;
 
     @Autowired
-    public WalletServiceImpl(WalletRepository walletRepository, InterestRateService interestRateService) {
+    public WalletServiceImpl(WalletRepository walletRepository, InterestRateService interestRateService, UserRepository userRepository) {
         this.walletRepository = walletRepository;
         this.interestRateService = interestRateService;
+        this.userRepository = userRepository;
     }
 
 
@@ -38,6 +41,11 @@ public class WalletServiceImpl implements WalletService {
             throw new EntityDeletedException("Wallet", "ID", String.valueOf(id));
         }
         return wallet;
+    }
+
+    @Override
+    public Wallet getByNumber(int number, User user) {
+        return null;
     }
 
     @Override
@@ -106,6 +114,8 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public void delete(int id, User user) {
         checkModifyPermissions(id, user);
+        user.getWallets().remove(walletRepository.get(id));
+        userRepository.update(user);
         walletRepository.delete(id);
     }
 

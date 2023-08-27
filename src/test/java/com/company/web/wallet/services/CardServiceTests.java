@@ -5,6 +5,7 @@ import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.CardRepository;
+import com.company.web.wallet.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,11 +22,12 @@ public class CardServiceTests {
 
     private CardRepository cardRepositoryMock;
     private CardServiceImpl cardService;
+    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
         cardRepositoryMock = Mockito.mock(CardRepository.class);
-        cardService = new CardServiceImpl(cardRepositoryMock);
+        cardService = new CardServiceImpl(cardRepositoryMock, userRepository);
     }
 
     @Test

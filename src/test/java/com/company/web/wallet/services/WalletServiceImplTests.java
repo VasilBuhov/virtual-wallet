@@ -7,6 +7,7 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.exceptions.OperationNotSupportedException;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
+import com.company.web.wallet.repositories.UserRepository;
 import com.company.web.wallet.repositories.WalletRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,8 @@ public class WalletServiceImplTests {
 
     @Mock
     private InterestRateService interestRateService;
+    @Mock
+    private UserRepository userRepository;
 
     @BeforeEach
     public void setup() {
@@ -91,7 +94,7 @@ public class WalletServiceImplTests {
         user.setId(1);
         user.setUsername("TestUser");
 
-        WalletService walletService = new WalletServiceImpl(walletRepository, null);
+        WalletService walletService = new WalletServiceImpl(walletRepository, null, null);
         assertThrows(EntityDeletedException.class, () -> {
             walletService.get(1, user);
         });
