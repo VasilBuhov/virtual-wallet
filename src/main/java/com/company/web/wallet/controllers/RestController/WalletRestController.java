@@ -123,7 +123,7 @@ public class WalletRestController {
     }
 
     @PutMapping("/{id}/deposit")
-    public WalletDtoOut updateDeposit(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) throws ResponseStatusException {
+    public WalletDtoOut deposit(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
             walletService.addToBalance(id, user, amount);
@@ -141,7 +141,7 @@ public class WalletRestController {
     }
 
     @PutMapping("/{id}/withdraw")
-    public WalletDtoOut updateWithdraw(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) throws ResponseStatusException {
+    public WalletDtoOut withdraw(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
             walletService.removeFromBalance(id, user, amount);

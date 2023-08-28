@@ -34,21 +34,22 @@ public class WalletRepositoryImpl implements WalletRepository {
             return wallet;
         }
     }
-@Override
-    public Integer getWalletIdForUser(User user) {
-    try (Session session = sessionFactory.openSession()) {
-        String hql = "SELECT w.id FROM Wallet w WHERE w.owner = :user";
-        Query<Integer> query = session.createQuery(hql, Integer.class);
-        query.setParameter("user", user);
 
-        List<Integer> result = query.getResultList();
-        if (!result.isEmpty()) {
-            return result.get(0);
-        } else {
-            return null;
+    @Override
+    public Integer getWalletIdForUser(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT w.id FROM Wallet w WHERE w.owner = :user";
+            Query<Integer> query = session.createQuery(hql, Integer.class);
+            query.setParameter("user", user);
+
+            List<Integer> result = query.getResultList();
+            if (!result.isEmpty()) {
+                return result.get(0);
+            } else {
+                return null;
+            }
         }
     }
-}
 
     @Override
     public Wallet get(String owner) {

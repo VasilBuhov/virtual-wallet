@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-
 public class WalletServiceImpl implements WalletService {
     private static final String MODIFY_WALLET_ERROR_MESSAGE = "Only the wallet owner can modify the wallet information.";
     public static final String AUTHORIZATION_ERROR = "Unauthorized access";
@@ -41,11 +40,6 @@ public class WalletServiceImpl implements WalletService {
             throw new EntityDeletedException("Wallet", "ID", String.valueOf(id));
         }
         return wallet;
-    }
-
-    @Override
-    public Wallet getByNumber(int number, User user) {
-        return null;
     }
 
     @Override
