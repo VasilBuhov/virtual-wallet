@@ -59,6 +59,8 @@ public class CardServiceImpl implements CardService {
             Card existingCard = repository.get(card.getCardNumber());
             if (existingCard != null) {
                 throw new EntityDuplicateException("Card", "card number", String.valueOf(existingCard.getCardNumber()));
+            } else {
+                repository.create(card);
             }
         } catch (NoResultException e) {
             logger.error(e.getMessage());

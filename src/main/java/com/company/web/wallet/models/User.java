@@ -47,6 +47,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Wallet> wallets;
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<SavingsWallet> savingsWallets;
 
     private boolean enabled;
     public User() {
@@ -166,6 +169,14 @@ public class User {
 
     public void setWallets(Set<Wallet> wallets) {
         this.wallets = wallets;
+    }
+
+    public Set<SavingsWallet> getSavingsWallets() {
+        return savingsWallets;
+    }
+
+    public void setSavingsWallets(Set<SavingsWallet> savingsWallets) {
+        this.savingsWallets = savingsWallets;
     }
 
     public boolean equals(Object o) {
