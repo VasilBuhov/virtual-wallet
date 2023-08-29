@@ -13,9 +13,12 @@
 </div>
 <!-- Display the avatar if available -->
 <div th:if="${user.getAvatar() != null}">
-    <img th:src="${user.getAvatar()}" alt="Avatar 11 1">
-    <p th:text="${user.getAvatar()}"></p>
+    <p>Avatar Data:</p>
+    <img th:src="|data:image/png;base64,${base64avatar}|"
+         alt="Avatar 22 1">
 </div>
+
+
 <!--<property name="photo" column="PHOTO" type="binary" />-->
 <h1>Avatar Upload Test</h1>
 <form th:action="@{/upload}" method="post" enctype="multipart/form-data">

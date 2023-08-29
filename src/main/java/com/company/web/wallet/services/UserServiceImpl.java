@@ -23,11 +23,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final String DELETE_USER_ERROR_MESSAGE = "Only admin and user who own profile can delete it";
     private static final String MODIFY_USER_ERROR_MESSAGE = "Only admin  can modify a user";
+    public static final String PERMISSION_DENIED = "Unauthorized action for the current user.";
     private final UserRepository userRepository;
 
     private JavaMailSender mailSender;
-
-//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -78,13 +77,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addWallet(Wallet wallet, User user) {
-        user.getWallets().add(wallet);
+//        user.getWallets().add(wallet);
         userRepository.update(user);
     }
 
     @Override
     public void addCard(Card card, User user) {
-        user.getCards().add(card);
+//        user.getCards().add(card);
         userRepository.update(user);
     }
 
@@ -127,11 +126,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
-    }
-    public User findUserByEmailOrUsername(String emailOrUsername) {
-        return userRepository.findByEmailOrUsername(emailOrUsername, emailOrUsername);
+    public List<User> getAll(User user) {
+        if (user.getUserLevel() != 1 )
+            throw new AuthorizationException(PERMISSION_DENIED);
+        return userRepository.getAll();
     }
 
     private void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {

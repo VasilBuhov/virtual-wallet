@@ -15,6 +15,8 @@ import java.util.List;
 public interface WalletService {
     Wallet get(int id, User user) throws EntityDeletedException, EntityNotFoundException, AuthorizationException;
 
+    Wallet getByNumber(int number, User user);
+
     int getWalletIdForUser(User user);
 
     List<Wallet> getAll(User user) throws EntityNotFoundException;

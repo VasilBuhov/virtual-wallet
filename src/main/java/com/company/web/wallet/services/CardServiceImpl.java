@@ -7,7 +7,6 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.CardRepository;
-import com.company.web.wallet.repositories.CardRepositoryImpl;
 import com.company.web.wallet.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +76,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public void delete(int id, User user) {
         checkModifyPermissions(id, user);
-        user.getCards().remove(repository.get(id));
+//        user.getCards().remove(repository.get(id));
         userRepository.update(user);
         repository.delete(id);
     }

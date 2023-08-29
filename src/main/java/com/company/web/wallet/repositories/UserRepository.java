@@ -6,7 +6,8 @@ import com.company.web.wallet.models.User;
 import java.util.List;
 
 public interface UserRepository {
-    List<User> getAllUsers();
+
+    List<User> getAll();
 
     User getById(int id) throws EntityNotFoundException;
 

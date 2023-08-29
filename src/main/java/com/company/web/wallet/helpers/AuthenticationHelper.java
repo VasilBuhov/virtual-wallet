@@ -8,8 +8,10 @@ import com.company.web.wallet.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @Component
@@ -26,6 +28,19 @@ public class AuthenticationHelper {
 
         this.userService = userService;
     }
+
+    public User checkForRegisteredUser(HttpHeaders headers) {
+        if (!headers.containsKey(AUTHORIZATION_HEADER_NAME)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "This operation requires Authentication.");
+        }
+        try {
+            return userService.getByUsername(headers.getFirst(AUTHORIZATION_HEADER_NAME));
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    "User is not registered in the system.");
+        }
+    }
+
     //todo implement userService methods
     public User tryGetUser(HttpHeaders headers) {
 
