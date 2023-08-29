@@ -16,7 +16,7 @@ public class Transaction {
 
     @Column(name = "type")
     @Enumerated(EnumType.ORDINAL)
-    private TransactionType transactionType;
+    private TransactionType transactionType = TransactionType.OUTGOING;
 
 
     @Column(name = "amount")
@@ -34,7 +34,7 @@ public class Transaction {
     private String status;
 
     @Column(name = "date", nullable = false)
-    private LocalDateTime timestamp;
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     @Column(name = "transaction_description", nullable = false)
     private String transactionDescription;

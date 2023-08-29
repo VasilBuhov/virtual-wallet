@@ -29,8 +29,8 @@ public class TransactionMapper {
         transaction.setSender(userSenderMapper.toEntity(transactionDto.getSender()));
         transaction.setRecipient(userRecipientMapper.findUserByEmailOrUsername(transactionDto.getRecipient().getRecipientIdentifier()));
         transaction.setAmount(transactionDto.getAmount());
-        transaction.setTransactionType(transactionDto.getTransactionType());
-        transaction.setTimestamp(transactionDto.getTimestamp());
+//        transaction.setTransactionType(transactionDto.getTransactionType());
+//        transaction.setTimestamp(transactionDto.getTimestamp());
         transaction.setTransactionDescription(transactionDto.getTransactionDescription());
         transaction.setStatus(transactionDto.getStatus());
 
