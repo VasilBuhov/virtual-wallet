@@ -47,7 +47,7 @@ public class UserRestController {
     }
 
     @GetMapping
-    public List<UserDto> getAllUsers(@RequestHeader HttpHeaders httpHeaders) throws BlockedUserException {
+    public List<UserDto> getAllUsers(@RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
 
             authenticationHelper.tryGetUser(httpHeaders);
@@ -64,7 +64,7 @@ public class UserRestController {
 
 
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable int id) {
+    public UserDto getUserById(@PathVariable int id) throws ResponseStatusException {
         try {
             User user = userService.getUserById(id);
             return userMapper.toDtoInfo(user);
@@ -75,7 +75,7 @@ public class UserRestController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestHeader HttpHeaders headers, @Valid @RequestBody UserDto userDto, HttpServletRequest request) {
+    public UserDto createUser(@RequestHeader HttpHeaders headers, @Valid @RequestBody UserDto userDto, HttpServletRequest request) throws ResponseStatusException {
         try {
             authenticationHelper.tryGetUser(headers);
             User user = userMapper.fromDto(userDto);
@@ -92,7 +92,7 @@ public class UserRestController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@RequestHeader HttpHeaders headers, @PathVariable int id,
-                                             @Valid @RequestBody UserDto userDto) {
+                                             @Valid @RequestBody UserDto userDto) throws ResponseStatusException {
         try {
             User authenticatedUser = authenticationHelper.tryGetUser(headers);
             User user = userMapper.fromDto(userDto);
@@ -109,15 +109,12 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}/block")
-    public ResponseEntity<String> blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public ResponseEntity<String> blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) throws ResponseStatusException {
         try {
             User authenticatedUser = authenticationHelper.tryGetUser(headers);
-            if (authenticatedUser.getUserLevel() != 1) {
+            if (authenticatedUser.getUserLevel() != 1)
                 throw new AuthorizationException("Only admin can block/unblock users.");
-            }
-
             userService.blockOrUnblock(id, true); // Block the user
-
             return ResponseEntity.ok("User with ID " + id + " has been blocked.");
         } catch (EntityNotFoundException e) {
             logger.error(e.getMessage());
@@ -129,7 +126,7 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}/createAdmin")
-    public ResponseEntity<String> makeRegularUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public ResponseEntity<String> makeRegularUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) throws ResponseStatusException {
         try {
             User authenticatedUser = authenticationHelper.tryGetUser(headers);
             if (authenticatedUser.getId() != 4) {
@@ -147,7 +144,7 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}/unblock")
-    public ResponseEntity<String> unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public ResponseEntity<String> unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) throws ResponseStatusException {
         try {
             User authenticatedUser = authenticationHelper.tryGetUser(headers);
             if (authenticatedUser.getUserLevel() != 1) {
@@ -167,7 +164,7 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public ResponseEntity<String> deleteUser(@RequestHeader HttpHeaders headers, @PathVariable int id) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(headers);
             userService.delete(user, id);

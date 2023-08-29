@@ -6,9 +6,15 @@
 </head>
 <body>
 <h1>Dummy page for development purposes</h1>
+<!--Data test part-->
+
+<div th:if="${user.getUsername() != null}">
+    <p th:text="${user.getUsername()}"></p>
+</div>
 <!-- Display the avatar if available -->
-<div th:if="${avatarBase64 != null}">
-    <img th:src="@{'data:image/jpeg;base64,' + avatarBase64}" alt="Avatar">
+<div th:if="${user.getAvatar() != null}">
+    <img th:src="${user.getAvatar()}" alt="Avatar 11 1">
+    <p th:text="${user.getAvatar()}"></p>
 </div>
 <!--<property name="photo" column="PHOTO" type="binary" />-->
 <h1>Avatar Upload Test</h1>

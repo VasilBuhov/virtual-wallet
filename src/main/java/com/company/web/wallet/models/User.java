@@ -1,8 +1,11 @@
 package com.company.web.wallet.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -38,6 +41,15 @@ public class User {
 
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
+    @JsonIgnore
+    @OneToMany(mappedBy = "cardHolder", fetch = FetchType.EAGER)
+    private Set<Card> cards;
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Wallet> wallets;
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<SavingsWallet> savingsWallets;
 
     private boolean enabled;
     public User() {
@@ -141,6 +153,30 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+    public Set<Wallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(Set<Wallet> wallets) {
+        this.wallets = wallets;
+    }
+
+    public Set<SavingsWallet> getSavingsWallets() {
+        return savingsWallets;
+    }
+
+    public void setSavingsWallets(Set<SavingsWallet> savingsWallets) {
+        this.savingsWallets = savingsWallets;
     }
 
     public boolean equals(Object o) {

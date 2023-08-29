@@ -1,6 +1,7 @@
 package com.company.web.wallet.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.util.Currency;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
 @Entity
 @Table(name = "wallets")
 public class Wallet {
@@ -30,11 +32,15 @@ public class Wallet {
     private Currency currency;
     @Column(name = "status_deleted")
     private int statusDeleted;
+    @Column(name = "interest_rate")
+    private double interestRate;
+    @Column(name = "number_of_wallet")
+    private int numberOfWallet;
 
     public Wallet() {
     }
 
-    public Wallet(int id, User owner, BigDecimal balance, Currency currency) {
+    public Wallet(int id, User owner, BigDecimal balance, Currency currency, int numberOfWallet) {
         this.id = id;
         this.owner = owner;
         this.balance = balance;
@@ -42,6 +48,7 @@ public class Wallet {
         this.currency = currency;
         this.transactions = new HashSet<>();
         this.statusDeleted = 0;
+        this.numberOfWallet = numberOfWallet;
     }
 
     public int getStatusDeleted() {
@@ -102,6 +109,22 @@ public class Wallet {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public int getNumberOfWallet() {
+        return numberOfWallet;
+    }
+
+    public void setNumberOfWallet(int numberOfWallet) {
+        this.numberOfWallet = numberOfWallet;
     }
 
     @Override

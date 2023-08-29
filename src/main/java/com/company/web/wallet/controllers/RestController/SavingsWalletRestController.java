@@ -1,47 +1,55 @@
 package com.company.web.wallet.controllers.RestController;
 
-import com.company.web.wallet.exceptions.*;
+import com.company.web.wallet.exceptions.AuthorizationException;
+import com.company.web.wallet.exceptions.BlockedUserException;
+import com.company.web.wallet.exceptions.EntityDeletedException;
+import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
-import com.company.web.wallet.helpers.CardMapper;
-import com.company.web.wallet.models.Card;
-import com.company.web.wallet.models.CardDto;
+import com.company.web.wallet.helpers.SavingsWalletMapper;
+import com.company.web.wallet.models.SavingsWallet;
+import com.company.web.wallet.models.SavingsWalletDtoIn;
+import com.company.web.wallet.models.SavingsWalletDtoOut;
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.services.CardService;
-import com.company.web.wallet.services.CurrenciesServiceImpl;
+import com.company.web.wallet.services.SavingsWalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.List;
 
-//TODO Need to implement catching for Authorization exceptions after Nikolai fixes the Authentication helper.
 @RestController
-@RequestMapping("/api/cards")
-public class CardRestController {
-    private final CardService cardService;
+@RequestMapping("/api/savings")
+public class SavingsWalletRestController {
+    private final SavingsWalletService savingsWalletService;
     private final AuthenticationHelper authenticationHelper;
-    private final CardMapper cardMapper;
-    private final Logger logger = LoggerFactory.getLogger(CardRestController.class);
-
+    private final SavingsWalletMapper savingsWalletMapper;
+    private final Logger logger = LoggerFactory.getLogger(WalletRestController.class);
 
     @Autowired
-    public CardRestController(CardService cardService, AuthenticationHelper authenticationHelper, CardMapper cardMapper) {
-        this.cardService = cardService;
+    public SavingsWalletRestController(SavingsWalletService savingsWalletService, AuthenticationHelper authenticationHelper, SavingsWalletMapper savingsWalletMapper) {
+        this.savingsWalletService = savingsWalletService;
         this.authenticationHelper = authenticationHelper;
-        this.cardMapper = cardMapper;
+        this.savingsWalletMapper = savingsWalletMapper;
     }
 
-    @GetMapping
-    public List<Card> get(@RequestHeader HttpHeaders httpHeaders) {
+    @GetMapping("/{id}")
+    public SavingsWalletDtoOut get(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
-            return cardService.getAll(user);
+            SavingsWallet searchedSavingsWallet = savingsWalletService.get(id, user);
+            return savingsWalletMapper.returnSavingsWalletDto(searchedSavingsWallet);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -54,11 +62,12 @@ public class CardRestController {
         }
     }
 
-    @GetMapping("/{id}")
-    public Card get(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) {
+    @GetMapping
+    public List<SavingsWalletDtoOut> get(@RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
-            return cardService.get(id, user);
+            List<SavingsWallet> resultList = savingsWalletService.getAllForUser(user);
+            return savingsWalletMapper.savingsWalletDtoOutList(resultList);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -72,34 +81,15 @@ public class CardRestController {
     }
 
     @PostMapping
-    public Card create(@RequestHeader HttpHeaders httpHeaders, @Valid @RequestBody CardDto cardDto) {
+    public SavingsWalletDtoOut create(@RequestHeader HttpHeaders httpHeaders, @Valid @RequestBody SavingsWalletDtoIn savingsWalletDtoIn) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
-            Card card = cardMapper.createCardDto(cardDto, user);
-            cardService.create(card);
-            return card;
+            SavingsWallet savingsWallet = savingsWalletMapper.createSavingsWalletFromDto(savingsWalletDtoIn, user);
+            savingsWalletService.create(user, savingsWallet);
+            return savingsWalletMapper.returnSavingsWalletDto(savingsWallet);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (BlockedUserException | EntityDuplicateException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-    }
-
-    @PutMapping("/{id}")
-    public Card update(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody CardDto cardDto) {
-        try {
-            User user = authenticationHelper.tryGetUser(httpheaders);
-            Card card = cardMapper.updateCardDto(id, cardDto, user);
-            cardService.update(id, card, user);
-            return card;
-        } catch (AuthorizationException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException | EntityDeletedException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (BlockedUserException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
@@ -107,10 +97,10 @@ public class CardRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) {
+    public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
-            cardService.delete(id, user);
+            savingsWalletService.delete(id, user);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());

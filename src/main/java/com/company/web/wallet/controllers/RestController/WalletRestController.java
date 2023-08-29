@@ -8,9 +8,9 @@ import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.WalletMapper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
-import com.company.web.wallet.models.WalletDtoIn;
 import com.company.web.wallet.models.WalletDtoOut;
 
+import com.company.web.wallet.services.UserService;
 import com.company.web.wallet.services.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +31,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
+
 //TODO Need to implement catching for Authorization exceptions after Nikolai fixes the Authentication helper.
 @RestController
 @RequestMapping("/api/wallets")
@@ -38,17 +39,19 @@ public class WalletRestController {
     private final WalletService walletService;
     private final AuthenticationHelper authenticationHelper;
     private final WalletMapper walletMapper;
+    private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(WalletRestController.class);
 
     @Autowired
-    public WalletRestController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper) {
+    public WalletRestController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper, UserService userService) {
         this.walletService = walletService;
         this.authenticationHelper = authenticationHelper;
         this.walletMapper = walletMapper;
+        this.userService = userService;
     }
 
     @GetMapping
-    public List<WalletDtoOut> get(@RequestHeader HttpHeaders httpHeaders) {
+    public List<WalletDtoOut> get(@RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             List<Wallet> resultList = walletService.getAll(user);
@@ -66,7 +69,7 @@ public class WalletRestController {
     }
 
     @GetMapping("/{id}")
-    public WalletDtoOut get(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) {
+    public WalletDtoOut get(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             Wallet searchedWallet = walletService.get(id, user);
@@ -84,11 +87,12 @@ public class WalletRestController {
     }
 
     @PostMapping
-    public WalletDtoOut create(@RequestHeader HttpHeaders httpHeaders) {
+    public WalletDtoOut create(@RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             Wallet wallet = walletMapper.createWalletDto(user);
             walletService.create(wallet);
+            userService.addWallet(wallet, user);
             return walletMapper.walletDtoOut(wallet);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
@@ -100,10 +104,10 @@ public class WalletRestController {
     }
 
     @PutMapping("/{id}/overdraft")
-    public WalletDtoOut updateOverdraft(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody WalletDtoIn walletDtoIn) {
+    public WalletDtoOut updateOverdraft(@PathVariable int id, @RequestHeader HttpHeaders httpheaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
-            Wallet wallet = walletMapper.updateOverdraftDto(id, walletDtoIn, user);
+            Wallet wallet = walletMapper.updateOverdraftDto(id, user);
             walletService.updateOverdraft(id, user, wallet);
             return walletMapper.walletDtoOut(wallet);
         } catch (AuthorizationException e) {
@@ -119,7 +123,7 @@ public class WalletRestController {
     }
 
     @PutMapping("/{id}/deposit")
-    public WalletDtoOut updateDeposit(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) {
+    public WalletDtoOut deposit(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
             walletService.addToBalance(id, user, amount);
@@ -135,8 +139,9 @@ public class WalletRestController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+
     @PutMapping("/{id}/withdraw")
-    public WalletDtoOut updateWithdraw(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) {
+    public WalletDtoOut withdraw(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody BigDecimal amount) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
             walletService.removeFromBalance(id, user, amount);
@@ -152,8 +157,9 @@ public class WalletRestController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) {
+    public void delete(@PathVariable int id, @RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             walletService.delete(id, user);

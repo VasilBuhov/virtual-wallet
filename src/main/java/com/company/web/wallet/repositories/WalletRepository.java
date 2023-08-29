@@ -1,6 +1,8 @@
 package com.company.web.wallet.repositories;
 
 
+import com.company.web.wallet.exceptions.EntityDeletedException;
+import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 
@@ -8,8 +10,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface WalletRepository {
-    Wallet get(int id);
-    Wallet get(String owner);
+    Wallet get(int id) throws EntityNotFoundException;
+    Wallet get(String owner) throws EntityNotFoundException, EntityDeletedException;
 
     List<Wallet> getAll();
 

@@ -31,27 +31,25 @@ public class WalletRepositoryImpl implements WalletRepository {
             if (wallet == null) {
                 throw new EntityNotFoundException("Wallet", id);
             }
-            if (wallet.getStatusDeleted() == 1) {
-                throw new EntityDeletedException("Wallet", "ID", String.valueOf(id));
-            }
             return wallet;
         }
     }
-@Override
-    public Integer getWalletIdForUser(User user) {
-    try (Session session = sessionFactory.openSession()) {
-        String hql = "SELECT w.id FROM Wallet w WHERE w.owner = :user";
-        Query<Integer> query = session.createQuery(hql, Integer.class);
-        query.setParameter("user", user);
 
-        List<Integer> result = query.getResultList();
-        if (!result.isEmpty()) {
-            return result.get(0);
-        } else {
-            return null;
+    @Override
+    public Integer getWalletIdForUser(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT w.id FROM Wallet w WHERE w.owner = :user";
+            Query<Integer> query = session.createQuery(hql, Integer.class);
+            query.setParameter("user", user);
+
+            List<Integer> result = query.getResultList();
+            if (!result.isEmpty()) {
+                return result.get(0);
+            } else {
+                return null;
+            }
         }
     }
-}
 
     @Override
     public Wallet get(String owner) {
@@ -73,7 +71,7 @@ public class WalletRepositoryImpl implements WalletRepository {
             return session.createQuery("from Wallet ", Wallet.class)
                     .list()
                     .stream()
-                    .filter(card -> card.getStatusDeleted() == 0)
+                    .filter(wallet -> wallet.getStatusDeleted() == 0)
                     .collect(Collectors.toList());
         }
     }
