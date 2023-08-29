@@ -7,7 +7,7 @@ import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.CardDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.CardService;
-import com.company.web.wallet.services.CurrenciesServiceImpl;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
