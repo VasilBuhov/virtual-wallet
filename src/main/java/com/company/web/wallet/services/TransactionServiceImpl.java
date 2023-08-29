@@ -1,14 +1,13 @@
 package com.company.web.wallet.services;
 
-import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,6 +38,27 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getTransactionsByType(TransactionType type) {
         return transactionRepository.getTransactionsByType(type);
+    }
+    @Override
+    public List<Transaction> getTransactionsByDateRange(LocalDateTime startDate,
+                                                        LocalDateTime endDate) {
+        return transactionRepository.getTransactionsByDateRange(startDate, endDate);
+    }
+
+    @Override
+    public List<Transaction> getTransactionsBySender(User sender) {
+
+        return transactionRepository.getTransactionsBySender(sender);
+    }
+
+    @Override
+    public List<Transaction> getTransactionsByRecipient(User recipient) {
+        return transactionRepository.getTransactionsByRecipient(recipient);
+    }
+
+    @Override
+    public List<Transaction> getTransactionsByDirection(TransactionType direction) {
+        return transactionRepository.getTransactionsByDirection(direction);
     }
     @Override
     public void createTransaction(Transaction transaction) {

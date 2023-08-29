@@ -32,8 +32,12 @@ public class Wallet {
     private Currency currency;
     @Column(name = "status_deleted")
     private int statusDeleted;
+    @Basic
+    @Transient
     @Column(name = "interest_rate")
     private double interestRate;
+    @Basic
+    @Transient
     @Column(name = "number_of_wallet")
     private int numberOfWallet;
 

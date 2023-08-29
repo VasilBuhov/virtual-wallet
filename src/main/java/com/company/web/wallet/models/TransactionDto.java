@@ -32,6 +32,16 @@ public class TransactionDto {
     private String status;
 //    @JsonIgnore
     private Wallet wallet;
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    private String direction;
     public Wallet getWallet() {
         return wallet;
     }

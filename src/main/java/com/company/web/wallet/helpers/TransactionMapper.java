@@ -35,10 +35,53 @@ public class TransactionMapper {
         transaction.setStatus(transactionDto.getStatus());
 
         transaction.setWallet(transactionDto.getWallet());
-    return transaction;
+        return transaction;
     }
 
-    public TransactionDto toDto(Transaction transaction) {
+    public TransactionDto toDto(Transaction transaction, User currentUser) {
+        TransactionDto transactionDto = new TransactionDto();
+        UserSenderDto senderDto = userSenderMapper.toDto(transaction.getSender());
+        transactionDto.setSender(senderDto);
+        UserRecipientDto recipientDto = new UserRecipientDto();
+        recipientDto.setRecipientIdentifier(transaction.getRecipient().getUsername()); // Display only the username
+        transactionDto.setRecipient(recipientDto);
+        transactionDto.setAmount(transaction.getAmount());
+        transactionDto.setTransactionType(transaction.getTransactionType());
+        transactionDto.setTimestamp(transaction.getTimestamp());
+        transactionDto.setTransactionDescription(transaction.getTransactionDescription());
+        transactionDto.setStatus(transaction.getStatus());
+
+        // Set the direction based on the current user
+        if (currentUser != null && currentUser.getUsername().equals(transaction.getRecipient().getUsername())) {
+            transactionDto.setDirection("incoming");
+        } else {
+            transactionDto.setDirection("outgoing");
+        }
+
+        transactionDto.setWallet(transaction.getWallet());
+        return transactionDto;
+    }
+
+    public List<TransactionDto> toDtoList(List<Transaction> transactions, User currentUser) {
+        List<TransactionDto> transactionDtos = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+            TransactionDto transactionDto = toDto(transaction, currentUser); // Pass the current user
+            transactionDtos.add(transactionDto);
+        }
+        return transactionDtos;
+    }
+
+    public List<TransactionDto> toDtoList(List<Transaction> transactions) {
+        List<TransactionDto> transactionDtos = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+            TransactionDto transactionDto = toDtoAll(transaction);
+            transactionDtos.add(transactionDto);
+        }
+        return transactionDtos;
+    }
+
+
+    public TransactionDto toDtoAll(Transaction transaction) {
 
         TransactionDto transactionDto = new TransactionDto();
         UserSenderDto senderDto = userSenderMapper.toDto(transaction.getSender());
@@ -53,14 +96,5 @@ public class TransactionMapper {
         transactionDto.setStatus(transaction.getStatus());
         transactionDto.getWallet();
         return transactionDto;
-    }
-
-    public List<TransactionDto> toDtoList(List<Transaction> transactions) {
-        List<TransactionDto> transactionDtos = new ArrayList<>();
-        for (Transaction transaction : transactions) {
-            TransactionDto transactionDto = toDto(transaction);
-            transactionDtos.add(transactionDto);
-        }
-        return transactionDtos;
     }
 }

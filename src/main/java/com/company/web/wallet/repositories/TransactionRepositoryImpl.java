@@ -1,7 +1,6 @@
 package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
-import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +92,60 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return new ArrayList<>();
         }
     }
+    @Override
+    public List<Transaction> getTransactionsByDateRange(LocalDateTime startDate,
+                                                        LocalDateTime endDate) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM Transaction WHERE timestamp BETWEEN :startDate AND :endDate";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    @Override
+    public List<Transaction> getTransactionsBySender(User sender) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM Transaction WHERE sender = :sender";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("sender", sender);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    @Override
+    public List<Transaction> getTransactionsByRecipient(User recipient) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM Transaction WHERE recipient = :recipient";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("recipient", recipient);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    @Override
+    public List<Transaction> getTransactionsByDirection(TransactionType direction) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM Transaction WHERE transactionType = :direction";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("direction", direction);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+
+
+
 
     @Override
     public void deleteTransaction(Long id) {
@@ -111,4 +165,5 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             // Handle exceptions
         }
     }
+
 }
