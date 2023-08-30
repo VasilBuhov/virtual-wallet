@@ -1,7 +1,7 @@
 package com.company.web.wallet.helpers;
 
 import com.company.web.wallet.models.InterestRate;
-import com.company.web.wallet.models.InterestRateDto;
+import com.company.web.wallet.models.DTO.InterestRateDto;
 import com.company.web.wallet.services.InterestRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

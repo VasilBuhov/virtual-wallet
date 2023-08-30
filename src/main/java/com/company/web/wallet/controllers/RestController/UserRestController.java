@@ -1,13 +1,12 @@
 package com.company.web.wallet.controllers.RestController;
 
 import com.company.web.wallet.exceptions.AuthorizationException;
-import com.company.web.wallet.exceptions.BlockedUserException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.models.UserDto;
+import com.company.web.wallet.models.DTO.UserDto;
 import com.company.web.wallet.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,6 @@ public class UserRestController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final AuthenticationHelper authenticationHelper;
-    private byte[] avatarBytes;
     private final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
@@ -47,21 +45,16 @@ public class UserRestController {
     }
 
     @GetMapping
-    public List<UserDto> getAllUsers(@RequestHeader HttpHeaders httpHeaders) throws ResponseStatusException {
+    public List<UserDto> getAll(@RequestHeader HttpHeaders headers) {
         try {
-
-            authenticationHelper.tryGetUser(httpHeaders);
-            List<User> users = userService.getAllUsers();
+            AuthenticationHelper authHelper = new AuthenticationHelper(userService);
+            User user = authHelper.checkForRegisteredUser(headers);
+            List<User> users = userService.getAll(user);
             return userMapper.toDtoList(users);
-        } catch (BlockedUserException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (AuthorizationException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
-
 
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable int id) throws ResponseStatusException {
@@ -79,7 +72,7 @@ public class UserRestController {
         try {
             authenticationHelper.tryGetUser(headers);
             User user = userMapper.fromDto(userDto);
-            userService.createUser(user, GetSiteURLHelper.getSiteURL(request));
+            userService.create(user, GetSiteURLHelper.getSiteURL(request));
             return userMapper.toDto(user);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());

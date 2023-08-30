@@ -2,14 +2,10 @@ package com.company.web.wallet.helpers;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.SavingsWallet;
-import com.company.web.wallet.models.SavingsWalletDtoIn;
-import com.company.web.wallet.models.SavingsWalletDtoOut;
+import com.company.web.wallet.models.DTO.SavingsWalletDtoIn;
+import com.company.web.wallet.models.DTO.SavingsWalletDtoOut;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
-import com.company.web.wallet.services.SavingsWalletService;
-import com.company.web.wallet.services.UserService;
-import com.company.web.wallet.services.WalletService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

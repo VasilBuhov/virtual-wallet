@@ -8,7 +8,7 @@ import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.WalletMapper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
-import com.company.web.wallet.models.WalletDtoOut;
+import com.company.web.wallet.models.DTO.WalletDtoOut;
 
 import com.company.web.wallet.services.UserService;
 import com.company.web.wallet.services.WalletService;

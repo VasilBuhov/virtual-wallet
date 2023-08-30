@@ -28,17 +28,10 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getAllUsers() {
-
+    public List<User> getAll() {
         try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<User> cq = cb.createQuery(User.class);
-            Root<User> root = cq.from(User.class);
-            cq.select(root);
-            return session.createQuery(cq).list();
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            Query<User> query = session.createQuery("from User", User.class);
+            return query.list();
         }
     }
 
@@ -76,7 +69,7 @@ public class UserRepositoryImpl implements UserRepository {
             return user;
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(HERE)");
         }
     }
 
@@ -125,7 +118,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(REPO create)");
         }
     }
 
@@ -137,7 +130,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(REPO update)");
         }
     }
 
@@ -156,7 +149,7 @@ public class UserRepositoryImpl implements UserRepository {
             throw e;
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(REPO delete)");
         }
     }
 

@@ -4,10 +4,10 @@ import com.company.web.wallet.exceptions.*;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.CardMapper;
 import com.company.web.wallet.models.Card;
-import com.company.web.wallet.models.CardDto;
+import com.company.web.wallet.models.DTO.CardDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.CardService;
-import com.company.web.wallet.services.CurrenciesServiceImpl;
+//import com.company.web.wallet.services.CurrenciesServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.List;
 
 //TODO Need to implement catching for Authorization exceptions after Nikolai fixes the Authentication helper.

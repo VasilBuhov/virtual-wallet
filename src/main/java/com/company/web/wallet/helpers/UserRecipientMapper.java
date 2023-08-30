@@ -1,8 +1,7 @@
 package com.company.web.wallet.helpers;
 
-import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.models.UserDto;
+import com.company.web.wallet.models.DTO.UserDto;
 import com.company.web.wallet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -43,6 +43,11 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
+    public Wallet getByNumber(int number, User user) {
+        return null;
+    }
+
+    @Override
     public int getWalletIdForUser(User user) {
         return walletRepository.getWalletIdForUser(user);
     }
@@ -108,7 +113,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public void delete(int id, User user) {
         checkModifyPermissions(id, user);
-        user.getWallets().remove(walletRepository.get(id));
+//        user.getWallets().remove(walletRepository.get(id));
         userRepository.update(user);
         walletRepository.delete(id);
     }

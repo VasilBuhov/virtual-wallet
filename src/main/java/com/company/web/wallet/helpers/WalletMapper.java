@@ -2,11 +2,9 @@ package com.company.web.wallet.helpers;
 
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
-import com.company.web.wallet.models.WalletDtoIn;
-import com.company.web.wallet.models.WalletDtoOut;
+import com.company.web.wallet.models.DTO.WalletDtoOut;
 import com.company.web.wallet.services.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

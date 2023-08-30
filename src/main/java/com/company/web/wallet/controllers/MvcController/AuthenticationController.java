@@ -48,7 +48,7 @@ public class AuthenticationController {
         }
 
         try {
-//            authenticationHelper.verifyAuthentication(dto.getUsername(), dto.getPassword());
+            authenticationHelper.verifyAuthentication(dto.getUsername(), dto.getPassword());
             session.setAttribute("currentUser", dto.getUsername());
             return "redirect:/";
         } catch (AuthenticationFailureException e) {
