@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dummy page for development purposes</title>
+</head>
+<body>
+<h1>Dummy page for development purposes</h1>
+<!--Data test part-->
+
+<div th:if="${user.getUsername() != null}">
+    <p th:text="${user.getUsername()}"></p>
+</div>
+<!-- Display the avatar if available -->
+<div th:if="${user.getAvatar() != null}">
+    <p>Avatar Data:</p><p th:utext="|data:image/png;base64,${base64avatar}|"></p>
+    <img th:src="|data:image/png;base64,${base64avatar}|"
+         alt="Avatar Die MF Die">
+</div>
+
+
+        <h4>Edit profile details</h4>
+        <hr>
+        <h2 class="text-center">Edit Profile</h2>
+        <form action="/users/profile" th:object="${user}" method="post">
+            <label th:text="#{user.username}">Username</label>
+            <br/>
+            <input type="text" th:field="*{username}">
+            <div th:if="${#fields.hasErrors('username')}" class="alert alert-danger" role="alert">
+                <p th:errors="*{username}"></p>
+            </div>
+            <br><br/>
+
+            <label th:text="#{user.email}">Email</label>
+            <br/>
+            <input type="text" th:field="*{email}">
+            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" role="alert">
+                <p th:errors="*{email}"></p>
+            </div>
+            <br><br/>
+
+            <label th:text="#{user.firstName}">First Name</label>
+            <br/>
+            <input type="text" th:field="*{firstName}">
+            <br><br/>
+
+            <label th:text="#{user.lastName}">Last Name</label>
+            <br/>
+            <input type="text" th:field="*{lastName}">
+            <br><br/>
+
+            <label th:text="#{user.password}">Password</label>
+            <br/>
+            <input type="password" th:field="*{password}">
+            <br><br/>
+
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                <p th:text="${errorMessage}"></p>
+            </div>
+
+            <input type="submit" value="Save" class="btn btn-primary">
+        </form>
+
+        <a href="/users/delete" class="btn btn-danger">Delete Profile</a>
+
+
+<!--<property name="photo" column="PHOTO" type="binary" />-->
+<h1>Avatar Upload Test</h1>
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="avatarFile" accept="image/*">
+    <button type="submit">Upload Avatar</button>
+</form>
+
+</body>
+</html>

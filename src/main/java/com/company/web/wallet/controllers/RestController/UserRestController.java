@@ -72,7 +72,7 @@ public class UserRestController {
         try {
             authenticationHelper.tryGetUser(headers);
             User user = userMapper.fromDto(userDto);
-            userService.createUser(user, GetSiteURLHelper.getSiteURL(request));
+            userService.create(user, GetSiteURLHelper.getSiteURL(request));
             return userMapper.toDto(user);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());

@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
+    public void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
 //        User existingUserByEmail = userRepository.getByEmail(user.getEmail());
 //        if (existingUserByEmail != null) {
 //            throw new EntityDuplicateException("User", "email", user.getEmail());

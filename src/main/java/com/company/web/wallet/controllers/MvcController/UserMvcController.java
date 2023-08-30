@@ -1,5 +1,6 @@
 package com.company.web.wallet.controllers.MvcController;
 
+import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
@@ -34,7 +35,7 @@ public class UserMvcController {
 
     @PostMapping("/process_register")
     public String processRegister(User user, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        userService.createUser(user, GetSiteURLHelper.getSiteURL(request));
+        userService.create(user, GetSiteURLHelper.getSiteURL(request));
         return "register_success";
     }
 
@@ -83,7 +84,7 @@ public class UserMvcController {
         }
         try {
             User newUser = userMapper.fromDto(userDto);
-            userService.createUser(newUser, "localhost");
+            userService.create(newUser, "localhost");
             return "redirect:/" ;
         } catch (EntityDuplicateException e) {
             model.addAttribute("alreadyExists", e.getMessage());
@@ -94,6 +95,49 @@ public class UserMvcController {
         }
 
         return "AlreadyExistsView";
+    }
+
+    @GetMapping("/profile")
+    public String showUserProfile(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username != null) {
+            try {
+                User user = userService.getByUsername(username);
+                byte[] avatarData = user.getAvatar();
+                String base64DB = Base64.getEncoder().encodeToString(avatarData);
+                model.addAttribute("base64avatar", base64DB);
+                model.addAttribute("user", userMapper.toDto(user));
+                return "user_edit";
+            } catch (EntityNotFoundException e) {
+                model.addAttribute("error", "User not found");
+                return "NotFoundView";
+            }
+        } else {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @PostMapping("/profile")
+    public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, BindingResult errors, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username != null) {
+            if (errors.hasErrors()) return "user_edit";
+            try {
+                User authenticatedUser = userService.getByUsername(username);
+                User user = userMapper.fromDto(userDto);
+                user.setId(authenticatedUser.getId());
+                userService.update(authenticatedUser, user);
+                return "UpdateSuccessView";
+            } catch (EntityNotFoundException e) {
+                model.addAttribute("error", "User not found");
+                return "NotFoundView";
+            } catch (AuthorizationException e) {
+                model.addAttribute("error", "Unauthorized access");
+                return "UnauthorizedView";
+            }
+        } else {
+            return "redirect:/auth/login";
+        }
     }
 
 }

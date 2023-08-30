@@ -13,31 +13,23 @@ import java.util.List;
 
 public interface UserService {
     User getUserById(int id);
-
+    User getByUsername(String username);
     User getUserByEmail(String email);
+    List<User> getAll(User user);
 
-    void createUser(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
-
+    void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;
+    void delete(User authenticatedUser, int id) throws EntityNotFoundException;
+    boolean verify(String verificationCode);
+
     void addWallet(Wallet wallet, User user);
     void addCard(Card card, User user);
 
-    void delete(User authenticatedUser, int id) throws EntityNotFoundException;
 
-    default void makeRegularUserAdmin(int id) {
-    }
-
-    User getByUsername(String username);
-
+    default void makeRegularUserAdmin(int id) {}
     void checkModifyPermissionsForUpdating(User authenticatedUser, User user);
-
     void checkModifyPermissionsForDeleting(User authenticatedUser, User user);
-
     void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException;
-
     void blockOrUnblock(int userId, boolean block) throws EntityNotFoundException;
 
-    List<User> getAll(User user);
-
-    boolean verify(String verificationCode);
 }
