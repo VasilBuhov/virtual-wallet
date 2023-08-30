@@ -1,7 +1,7 @@
-package com.company.web.wallet.models;
+package com.company.web.wallet.models.DTO;
 
 import com.company.web.wallet.helpers.TransactionType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.company.web.wallet.models.Wallet;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

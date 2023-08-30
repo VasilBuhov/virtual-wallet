@@ -6,7 +6,7 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.models.UserDto;
+import com.company.web.wallet.models.DTO.UserDto;
 import com.company.web.wallet.services.UserService;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.company.web.wallet.models;
+package com.company.web.wallet.models.DTO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

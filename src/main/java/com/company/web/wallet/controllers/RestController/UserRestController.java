@@ -6,7 +6,7 @@ import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.models.UserDto;
+import com.company.web.wallet.models.DTO.UserDto;
 import com.company.web.wallet.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

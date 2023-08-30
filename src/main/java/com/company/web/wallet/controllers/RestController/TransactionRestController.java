@@ -8,7 +8,7 @@ import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.TransactionMapper;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
-import com.company.web.wallet.models.TransactionDto;
+import com.company.web.wallet.models.DTO.TransactionDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.UserRepository;
 import com.company.web.wallet.services.TransactionService;

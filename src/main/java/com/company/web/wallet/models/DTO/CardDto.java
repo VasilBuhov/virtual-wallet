@@ -1,4 +1,4 @@
-package com.company.web.wallet.models;
+package com.company.web.wallet.models.DTO;
 
 import com.company.web.wallet.validators.FutureDate;
 

@@ -1,7 +1,7 @@
 package com.company.web.wallet.helpers;
 
 import com.company.web.wallet.models.User;
-import com.company.web.wallet.models.UserDto;
+import com.company.web.wallet.models.DTO.UserDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

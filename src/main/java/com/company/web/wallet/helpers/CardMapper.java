@@ -1,7 +1,7 @@
 package com.company.web.wallet.helpers;
 
 import com.company.web.wallet.models.Card;
-import com.company.web.wallet.models.CardDto;
+import com.company.web.wallet.models.DTO.CardDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;

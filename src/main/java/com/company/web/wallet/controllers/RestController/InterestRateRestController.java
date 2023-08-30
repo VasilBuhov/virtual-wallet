@@ -1,12 +1,10 @@
 package com.company.web.wallet.controllers.RestController;
 
 import com.company.web.wallet.exceptions.AuthorizationException;
-import com.company.web.wallet.exceptions.BlockedUserException;
-import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.InterestRateMapper;
 import com.company.web.wallet.models.InterestRate;
-import com.company.web.wallet.models.InterestRateDto;
+import com.company.web.wallet.models.DTO.InterestRateDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.InterestRateService;
 import org.slf4j.Logger;

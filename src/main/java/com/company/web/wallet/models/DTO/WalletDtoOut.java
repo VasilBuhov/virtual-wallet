@@ -1,4 +1,6 @@
-package com.company.web.wallet.models;
+package com.company.web.wallet.models.DTO;
+
+import com.company.web.wallet.models.Transaction;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
