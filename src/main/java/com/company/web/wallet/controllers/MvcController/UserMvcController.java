@@ -59,6 +59,8 @@ public class UserMvcController {
             byte[] avatarData = user.getAvatar();
             String base64DB = Base64.getEncoder().encodeToString(avatarData);
             model.addAttribute("base64avatar", base64DB);
+            System.out.println(base64DB);
+            System.out.println(user.getAvatar());
             model.addAttribute("user", user);
             return "user_details";
         } catch (EntityNotFoundException e) {
@@ -70,14 +72,14 @@ public class UserMvcController {
     @GetMapping("/new")
     public String showNewUserPage(Model model){
         model.addAttribute("user", new UserDto());
-        return "user-new";
+        return "register";
     }
 
     @PostMapping("/new")
     public String createUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult errors, Model model) {
         if(errors.hasErrors()){
             model.addAttribute("errorMessage", "Please fill in all required fields.");
-            return "user-new";
+            return "register";
         }
         try {
             User newUser = userMapper.fromDto(userDto);

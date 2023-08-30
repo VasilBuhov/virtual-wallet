@@ -13,9 +13,9 @@
 </div>
 <!-- Display the avatar if available -->
 <div th:if="${user.getAvatar() != null}">
-    <p>Avatar Data:</p>
+    <p>Avatar Data:</p><p th:utext="|data:image/png;base64,${base64avatar}|"></p>
     <img th:src="|data:image/png;base64,${base64avatar}|"
-         alt="Avatar 22 1">
+         alt="Avatar Die MF Die">
 </div>
 
 

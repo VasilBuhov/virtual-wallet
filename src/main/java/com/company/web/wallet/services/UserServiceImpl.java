@@ -1,7 +1,6 @@
 package com.company.web.wallet.services;
 
 import com.company.web.wallet.exceptions.AuthorizationException;
-import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
@@ -26,11 +25,12 @@ public class UserServiceImpl implements UserService {
     public static final String PERMISSION_DENIED = "Unauthorized action for the current user.";
     private final UserRepository userRepository;
 
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, JavaMailSender mailSender) {
         this.userRepository = userRepository;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -45,22 +45,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
+//        User existingUserByEmail = userRepository.getByEmail(user.getEmail());
+//        if (existingUserByEmail != null) {
+//            throw new EntityDuplicateException("User", "email", user.getEmail());
+//        }
+//
+//        User existingUserByUsername = userRepository.getByUsername(user.getUsername());
+//        if (existingUserByUsername != null) {
+//            throw new EntityDuplicateException("User", "username", user.getUsername());
+//        }
 
-        User existingUser = userRepository.getByEmail(user.getEmail());
-        if (existingUser != null) {
-            throw new EntityDuplicateException("User", "email", user.getEmail());
+        if (user.getUsername() == null || user.getPassword() == null) {
+            throw new NullPointerException("Username and password cannot be null.");
         }
 
-        existingUser = userRepository.getByUsername(user.getUsername());
-        if (existingUser != null) {
-            throw new EntityDuplicateException("User", "username", user.getUsername());
-        }
-        if (user.getUsername() == null) {
-            throw new NullPointerException();
-        }
-
-        String randomCode = RandomString.make(64);
-        user.setVerificationCode(randomCode);
+        user.setVerificationCode(RandomString.make(64));
         user.setEnabled(false);
         user.setFirstName(user.getFirstName());
         user.setLastName(user.getLastName());
@@ -68,6 +67,7 @@ public class UserServiceImpl implements UserService {
         userRepository.create(user);
         sendVerificationEmail(user, siteURL);
     }
+
 
     @Override
     public void update(User authenticatedUser, User user) throws EntityNotFoundException {
@@ -133,11 +133,20 @@ public class UserServiceImpl implements UserService {
     }
 
     private void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
+
+        if (mailSender == null) throw new IllegalArgumentException("mailSender is not properly initialized.");
+        if (user == null || user.getEmail() == null) throw new IllegalArgumentException("User or user email is null.");
+        if (siteURL == null) throw new IllegalArgumentException("siteURL is null.");
+
         String toAddress = user.getEmail();
         String fromAddress = "Your email address";
         String senderName = "Your company name";
         String subject = "Please verify your registration";
-        String content = "Dear [[name]],<br>" + "Please click the link below to verify your registration:<br>" + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>" + "Thank you,<br>" + "Your company name.";
+        String content = "Dear [[name]],<br>" +
+                "Please click the link below to verify your registration:<br>" +
+                "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>" +
+                "Thank you,<br>" +
+                "The Wallet App.";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -150,8 +159,8 @@ public class UserServiceImpl implements UserService {
         content = content.replace("[[URL]]", verifyURL);
         helper.setText(content, true);
         mailSender.send(message);
-
     }
+
     @Override
     public boolean verify(String verificationCode) {
         User user = userRepository.getByVerificationCode(verificationCode);

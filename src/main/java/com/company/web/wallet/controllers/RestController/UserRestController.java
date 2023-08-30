@@ -56,9 +56,6 @@ public class UserRestController {
         }
     }
 
-
-
-
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable int id) throws ResponseStatusException {
         try {

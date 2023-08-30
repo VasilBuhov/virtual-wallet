@@ -69,7 +69,7 @@ public class UserRepositoryImpl implements UserRepository {
             return user;
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(HERE)");
         }
     }
 
@@ -118,7 +118,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(REPO create)");
         }
     }
 
@@ -130,7 +130,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(REPO update)");
         }
     }
 
@@ -149,7 +149,7 @@ public class UserRepositoryImpl implements UserRepository {
             throw e;
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
+            throw new UnknownError("Something went wrong(REPO delete)");
         }
     }
 

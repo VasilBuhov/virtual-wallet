@@ -7,13 +7,48 @@
 <body>
 <h1>Dummy register page for development purposes</h1>
 
-<form method="post" action="localhost/users/new">
-    <input type="text" placeholder="Username*"/>
-    <input type="email" placeholder="E-Mail*"/>
-    <input type="password" placeholder="Password*"/>
-    <input type="password" placeholder="Confirm Password*"/>
+<div class="form-container">
+    <h2 class="text-center">Register</h2>
+    <form action="#" th:action="@{/users/new}" th:object="${user}" method="post">
+        <label th:text="#{user.username}">User</label>
+        <br/>
+        <input type="text" th:field="*{username}">
+        <!-- Display the validation errors for the username field -->
+        <div th:if="${#fields.hasErrors('username')}" class="alert alert-danger" role="alert">
+            <p th:errors="*{username}"></p>
+        </div>
+        <br><br/>
 
-    <button type="submit">Register</button>
-</form>
+        <label th:text="#{user.email}">User</label>
+        <br/>
+        <input type="text" th:field="*{email}">
+        <!-- Display the validation errors for the email field -->
+        <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" role="alert">
+            <p th:errors="*{email}"></p>
+        </div>
+        <br><br/>
+
+        <label th:text="#{user.firstName}">User</label>
+        <br/>
+        <input type="text" th:field="*{firstName}">
+        <br><br/>
+
+        <label th:text="#{user.lastName}">User</label>
+        <br/>
+        <input type="text" th:field="*{lastName}">
+        <br><br/>
+
+        <label th:text="#{user.password}">User</label>
+        <br/>
+        <input type="text" th:field="*{password}">
+        <br><br/>
+
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <input type="submit" value="Save" class="btn btn-primary">
+    </form>
+</div>
 </body>
 </html>
