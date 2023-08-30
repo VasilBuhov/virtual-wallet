@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dummy register page</title>
+</head>
+<body>
+<h1>Dummy register page for development purposes</h1>
+
+<div class="form-container">
+    <h2 class="text-center">Register</h2>
+    <form action="#" th:action="@{/users/new}" th:object="${user}" method="post">
+        <label th:text="#{user.username}">User</label>
+        <br/>
+        <input type="text" th:field="*{username}">
+        <!-- Display the validation errors for the username field -->
+        <div th:if="${#fields.hasErrors('username')}" class="alert alert-danger" role="alert">
+            <p th:errors="*{username}"></p>
+        </div>
+        <br><br/>
+
+        <label th:text="#{user.email}">User</label>
+        <br/>
+        <input type="text" th:field="*{email}">
+        <!-- Display the validation errors for the email field -->
+        <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" role="alert">
+            <p th:errors="*{email}"></p>
+        </div>
+        <br><br/>
+
+        <label th:text="#{user.firstName}">User</label>
+        <br/>
+        <input type="text" th:field="*{firstName}">
+        <br><br/>
+
+        <label th:text="#{user.lastName}">User</label>
+        <br/>
+        <input type="text" th:field="*{lastName}">
+        <br><br/>
+
+        <label th:text="#{user.password}">User</label>
+        <br/>
+        <input type="text" th:field="*{password}">
+        <br><br/>
+
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <input type="submit" value="Save" class="btn btn-primary">
+    </form>
+</div>
+</body>
+</html>
