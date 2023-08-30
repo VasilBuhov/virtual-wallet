@@ -13,6 +13,14 @@ public interface TransactionRepository {
 
     List<Transaction> getAllTransactions();
 
+//    List<Transaction> getTransactions(
+//            String username,
+//            LocalDateTime startDate,
+//            LocalDateTime endDate,
+//            TransactionType direction,
+//            String sortBy,
+//            String sortDirection);
+
     Transaction getTransactionById(Long id) throws EntityNotFoundException;
 
     void createTransaction(Transaction transaction);
@@ -20,6 +28,8 @@ public interface TransactionRepository {
     List<Transaction> getTransactionsByUser(User user);
 
     List<Transaction> getTransactionsByType(TransactionType type);
+
+    List<Transaction> getTransactionsByUsernameAndDirection(User user, TransactionType direction);
 
     List<Transaction> getTransactionsByDateRange(LocalDateTime startDate,
                                                  LocalDateTime endDate);

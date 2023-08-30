@@ -38,6 +38,45 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return query.getResultList();
         }
     }
+//    @Override
+//    public List<Transaction> getTransactions(
+//            String username,
+//            LocalDateTime startDate,
+//            LocalDateTime endDate,
+//            TransactionType direction,
+//            String sortBy,
+//            String sortDirection) {
+//        try (Session session = sessionFactory.openSession()) {
+//            String hql = "SELECT t FROM Transaction t " +
+//                    "LEFT JOIN FETCH t.sender sender " +
+//                    "LEFT JOIN FETCH t.recipient recipient " +
+//                    "WHERE (:username IS NULL OR sender.username = :username OR recipient.username = :username) " +
+//                    "AND (:startDate IS NULL OR t.timestamp >= :startDate) " +
+//                    "AND (:endDate IS NULL OR t.timestamp <= :endDate) " +
+//                    "AND (:direction IS NULL OR t.transactionType = :direction) " +
+//                    "ORDER BY " +
+//                    "CASE WHEN :sortBy = 'timestamp' THEN t.timestamp END " +
+//                    ", CASE WHEN :sortBy = 'sender' THEN sender.username END " +
+//                    ", CASE WHEN :sortBy = 'recipient' THEN recipient.username END ";
+//
+//            if ("desc".equalsIgnoreCase(sortDirection)) {
+//                hql += "DESC NULLS LAST";
+//            } else {
+//                hql += "ASC NULLS LAST";
+//            }
+//
+//            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+//            query.setParameter("username", username);
+//            query.setParameter("startDate", startDate);
+//            query.setParameter("endDate", endDate);
+//            query.setParameter("direction", direction);
+//
+//            return query.getResultList();
+//        } catch (Exception e) {
+//            logger.error(e.getMessage());
+//            return new ArrayList<>();
+//        }
+//    }
 
     @Override
     public Transaction getTransactionById(Long id) {
@@ -48,9 +87,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             }
             return transaction;
         }
-//        catch (Exception e) {
-//            throw new EntityNotFoundException("Transaction", "id", String.valueOf(id));
-//        }
+
     }
 
     @Override
@@ -92,6 +129,19 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return new ArrayList<>();
         }
     }
+    @Override
+    public List<Transaction> getTransactionsByUsernameAndDirection(User user, TransactionType direction) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM Transaction WHERE (sender = :user OR recipient = :user) AND transactionType = :direction";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("user", user);
+            query.setParameter("direction", direction);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+    }
+}
     @Override
     public List<Transaction> getTransactionsByDateRange(LocalDateTime startDate,
                                                         LocalDateTime endDate) {

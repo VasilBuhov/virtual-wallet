@@ -15,6 +15,7 @@ import com.company.web.wallet.services.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -43,13 +45,19 @@ public class TransactionRestController {
         this.authenticationHelper = authenticationHelper;
         this.userRepository = userRepository;
     }
-
     @GetMapping
-    public List<TransactionDto> getAllTransactions(@RequestHeader HttpHeaders httpHeaders) {
+    public List<TransactionDto> getAllTransactions(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime endDate,
+            @RequestParam(required = false) TransactionType direction,
+            @RequestParam(defaultValue = "timestamp") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection,
+            @RequestHeader HttpHeaders httpHeaders) {
         try {
-            authenticationHelper.tryGetUser(httpHeaders);
-            List<Transaction> transactions = transactionService.getAllTransactions();
-            return transactionMapper.toDtoList(transactions);
+            User user = authenticationHelper.tryGetUser(httpHeaders);
+            List<Transaction> transactions = transactionService.getTransactions(username, startDate, endDate, direction, sortBy, sortDirection);
+            return transactionMapper.toDtoList(transactions, user);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -61,6 +69,24 @@ public class TransactionRestController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+
+//    @GetMapping
+//    public List<TransactionDto> getAllTransactions(@RequestHeader HttpHeaders httpHeaders) {
+//        try {
+//            authenticationHelper.tryGetUser(httpHeaders);
+//            List<Transaction> transactions = transactionService.getAllTransactions();
+//            return transactionMapper.toDtoList(transactions);
+//        } catch (AuthorizationException e) {
+//            logger.error(e.getMessage());
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//        } catch (EntityNotFoundException | EntityDeletedException e) {
+//            logger.error(e.getMessage());
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        } catch (BlockedUserException e) {
+//            logger.error(e.getMessage());
+//            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+//        }
+//    }
 
     @GetMapping("/{id}")
     public TransactionDto getTransactionById(@PathVariable Long id, @RequestHeader HttpHeaders httpHeaders) {
@@ -137,9 +163,9 @@ public class TransactionRestController {
     @GetMapping("/sender/{username}")
     public List<TransactionDto> getTransactionsBySender(@PathVariable String username, @RequestHeader HttpHeaders httpHeaders) {
         try {
-            authenticationHelper.tryGetUser(httpHeaders);
+            User authenticatedUser= authenticationHelper.tryGetUser(httpHeaders);
             User sender = userRepository.getByUsername(username);
-            List<Transaction> transactions = transactionService.getTransactionsBySender(sender);
+            List<Transaction> transactions = transactionService.getTransactionsBySender(authenticatedUser,sender);
             return transactionMapper.toDtoList(transactions,sender);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
@@ -156,9 +182,9 @@ public class TransactionRestController {
     @GetMapping("/recipient/{username}")
     public List<TransactionDto> getTransactionsByRecipient(@PathVariable String username, @RequestHeader HttpHeaders httpHeaders) {
         try {
-            authenticationHelper.tryGetUser(httpHeaders);
+            User authenticatedUser= authenticationHelper.tryGetUser(httpHeaders);
             User recipient = userRepository.getByUsername(username);
-            List<Transaction> transactions = transactionService.getTransactionsByRecipient(recipient);
+            List<Transaction> transactions = transactionService.getTransactionsByRecipient(authenticatedUser,recipient);
             return transactionMapper.toDtoList(transactions,recipient);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());

@@ -9,6 +9,14 @@ import java.util.List;
 
 public interface TransactionService {
 
+    List<Transaction> getTransactions(
+            String username,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            TransactionType direction,
+            String sortBy,
+            String sortDirection);
+
     List<Transaction> getAllTransactions();
 
     Transaction getTransactionById(Long id);
@@ -19,9 +27,13 @@ public interface TransactionService {
 
     List<Transaction> getTransactionsByDateRange(LocalDateTime startDate, LocalDateTime endDate);
 
-    List<Transaction> getTransactionsBySender(User sender);
 
-    List<Transaction> getTransactionsByRecipient(User recipient);
+
+    List<Transaction> getTransactionsBySender(User authenticatedUser, User sender);
+
+
+
+    List<Transaction> getTransactionsByRecipient(User authenticatedUser, User recipient);
 
     List<Transaction> getTransactionsByDirection(TransactionType direction);
 

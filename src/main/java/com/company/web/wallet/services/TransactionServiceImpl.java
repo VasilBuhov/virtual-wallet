@@ -1,13 +1,17 @@
 package com.company.web.wallet.services;
 
+import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.TransactionRepository;
+import com.company.web.wallet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -15,12 +19,52 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final WalletService walletService;
+    private final UserRepository userRepository;
 
 
     @Autowired
-    public TransactionServiceImpl(TransactionRepository transactionRepository, WalletService walletService) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository, WalletService walletService, UserRepository userRepository) {
         this.transactionRepository = transactionRepository;
         this.walletService = walletService;
+        this.userRepository = userRepository;
+    }
+    @Override
+    public List<Transaction> getTransactions(
+            String username,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            TransactionType direction,
+            String sortBy,
+            String sortDirection) {
+        List<Transaction> transactions;
+
+        if (username != null) {
+            User user = userRepository.getByUsername(username);
+            if (direction != null) {
+                transactions = transactionRepository.getTransactionsByUsernameAndDirection(user, direction);
+            } else {
+                transactions = transactionRepository.getTransactionsByUser(user);
+            }
+        } else if (startDate != null && endDate != null) {
+            transactions = transactionRepository.getTransactionsByDateRange(startDate, endDate);
+        } else if (direction != null) {
+            transactions = transactionRepository.getTransactionsByDirection(direction);
+        } else {
+            transactions = transactionRepository.getAllTransactions();
+        }
+
+        // Sort transactions based on sortBy and sortDirection
+        if ("timestamp".equals(sortBy)) {
+            transactions.sort(Comparator.comparing(Transaction::getTimestamp));
+        } else if ("amount".equals(sortBy)) {
+            transactions.sort(Comparator.comparing(Transaction::getAmount));
+        } // Add more sorting criteria if needed
+
+        if ("desc".equals(sortDirection)) {
+            Collections.reverse(transactions);
+        }
+
+        return transactions;
     }
     @Override
     public List<Transaction> getAllTransactions() {
@@ -46,13 +90,15 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactionsBySender(User sender) {
+    public List<Transaction> getTransactionsBySender(User authenticatedUser,User sender) {
 
+     checkAccessPermissions(authenticatedUser, sender.getId());
         return transactionRepository.getTransactionsBySender(sender);
     }
 
     @Override
-    public List<Transaction> getTransactionsByRecipient(User recipient) {
+    public List<Transaction> getTransactionsByRecipient(User authenticatedUser, User recipient) {
+        checkAccessPermissions(authenticatedUser,recipient.getId());
         return transactionRepository.getTransactionsByRecipient(recipient);
     }
 
@@ -83,4 +129,13 @@ public class TransactionServiceImpl implements TransactionService {
     public void deleteTransaction(Long id) {
         transactionRepository.deleteTransaction(id);
     }
+
+    private void checkAccessPermissions(User authenticatedUser,int userId) {
+        if (!(authenticatedUser.getUserLevel() == 1 ||
+               authenticatedUser.getId()==userId))
+                 {
+            throw new AuthorizationException("You do not have permission for this operation");
+        }
+    }
+
 }
