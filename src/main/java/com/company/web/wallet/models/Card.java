@@ -34,17 +34,20 @@ public class Card {
     private int checkNumber;
     @Column(name = "status_deleted")
     private int statusDeleted;
+    @Column(name = "name")
+    private String name;
 
     public Card() {
     }
 
-    public Card(int id, String cardNumber, LocalDate expirationDate, User cardHolder, int checkNumber, int statusDeleted) {
+    public Card(int id, String cardNumber, LocalDate expirationDate, User cardHolder, int checkNumber, int statusDeleted, String name) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.cardHolder = cardHolder;
         this.checkNumber = checkNumber;
         this.statusDeleted = statusDeleted;
+        this.name = name;
     }
 
     public int getId() {
@@ -93,6 +96,14 @@ public class Card {
 
     public void setStatusDeleted(int statusDeleted) {
         this.statusDeleted = statusDeleted;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
