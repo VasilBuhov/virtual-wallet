@@ -1,22 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Dummy page for development purposes</title>
+    <title>The Wallet Project - User details</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}"/>
+    <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}"/>
+    <link rel="stylesheet" th:href="@{/css/aos.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/user-details.css}"/>
 </head>
-<body>
-<h1>Dummy page for development purposes</h1>
-<!--Data test part-->
 
-<div th:if="${user.getUsername() != null}">
-    <p th:text="${user.getUsername()}"></p>
-</div>
-<!-- Display the avatar if available -->
-<div th:if="${user.getAvatar() != null}">
-    <p>Avatar Data:</p><p th:utext="|data:image/png;base64,${base64avatar}|"></p>
-    <img th:src="|data:image/png;base64,${base64avatar}|"
-         alt="Avatar Die MF Die">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 </div>
 
+<div th:replace="fragments/header :: header"></div>
+
+<!--Insert code here-->
+
+<div class="site-blocks-cover overlay" th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
+     data-aos="fade" id="home-section">
+
+
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-10 mt-lg-5 text-center">
+
+                <div class="user-profile">
+                    <div class="avatar-section">
+                        <div th:if="${user.getAvatar() != null}">
+                            <img th:src="|data:image/png;base64,${base64avatar}|"
+                                 alt="User profile picture" class="avatar-image">
+                        </div>
+                        <div th:unless="${user.getAvatar() != null}">
+                            <img th:src="@{/images/default_profile_pic.png}"
+                                 alt="Default profile picture" class="avatar-image">
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-info-section">
+                            <div th:if="${user.getUsername() != null}">
+                                <p><strong th:text="#{user.username} + ': '" /> <span th:text="${user.getUsername()}" class="user-info"></span></p>
+                            </div>
+                            <div th:if="${user.getFirstName() != null}">
+                                <p><strong th:text="#{user.firstName} + ': '" /> <span th:text="${user.getFirstName()}" class="user-info"></span></p>
+                            </div>
+                            <div th:if="${user.getLastName() != null}">
+                                <p><strong th:text="#{user.lastName} + ': '" /> <span th:text="${user.getLastName()}" class="user-info"></span></p>
+                            </div>
+                            <div th:if="${user.getEmail() != null}">
+                                <p><strong th:text="#{user.email} + ': '" /> <span th:text="${user.getEmail()}" class="user-info"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="single-text owl-carousel">
+                    <div class="slide">
+                        <h2 class="text-uppercase" data-aos="fade-up" th:text="#{user.send_funds}  + ' ' + ${user.getUsername()}" />
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100" th:text="#{user.send_funds_msg}" />
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a href="#" target="_blank" class="btn  btn-primary mr-2 mb-2" th:text="#{user.send_funds}  + ' ' + ${user.getLastName()}" />
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <h2 class="text-uppercase" data-aos="fade-up" th:text="#{user.request_funds} + ' ' + ${user.getUsername()}" />
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100" th:text="#{user.request_funds_msg}" />
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a href="#" target="_blank" class="btn  btn-primary mr-2 mb-2" th:text="#{user.request_funds} + ' ' + ${user.getLastName()}" />
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <h2 class="text-uppercase" data-aos="fade-up" th:text="#{user.poke} + ' ' + ${user.getFirstName()}" />
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100" th:text="#{user.poke_msg}" />
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a href="#" target="_blank" class="btn  btn-primary mr-2 mb-2" th:text="#{user.poke} + ' ' + ${user.getFirstName()}" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--End code insertion-->
+
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.sticky.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>
+
