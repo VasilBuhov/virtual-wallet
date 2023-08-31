@@ -58,7 +58,7 @@ public class UserMvcController {
 //        }
         try {
             User user = userService.getUserById(id);
-            byte[] avatarData = user.getAvatar();
+            byte[] avatarData = user.getProfilePicture();
             String base64DB = Base64.getEncoder().encodeToString(avatarData);
             model.addAttribute("base64avatar", base64DB);
             model.addAttribute("user", user);
@@ -70,21 +70,21 @@ public class UserMvcController {
     }
 
     @GetMapping("/new")
-    public String showNewUserPage(Model model){
+    public String showNewUserPage(Model model) {
         model.addAttribute("user", new UserDto());
         return "register";
     }
 
     @PostMapping("/new")
     public String createUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult errors, Model model) {
-        if(errors.hasErrors()){
+        if (errors.hasErrors()) {
             model.addAttribute("errorMessage", "Please fill in all required fields.");
             return "register";
         }
         try {
             User newUser = userMapper.fromDto(userDto);
             userService.create(newUser, "localhost");
-            return "redirect:/" ;
+            return "redirect:/";
         } catch (EntityDuplicateException e) {
             model.addAttribute("alreadyExists", e.getMessage());
         } catch (MessagingException e) {
@@ -100,11 +100,14 @@ public class UserMvcController {
     public String showUserProfile(Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
         if (username != null) {
+            model.addAttribute("base64avatar", null);
             try {
                 User user = userService.getByUsername(username);
-                byte[] avatarData = user.getAvatar();
-                String base64DB = Base64.getEncoder().encodeToString(avatarData);
-                model.addAttribute("base64avatar", base64DB);
+                if (user.getProfilePicture() != null) {
+                    byte[] avatarData = user.getProfilePicture();
+                    String base64DB = Base64.getEncoder().encodeToString(avatarData);
+                    model.addAttribute("base64avatar", base64DB);
+                }
                 model.addAttribute("user", userMapper.toDto(user));
                 return "user_edit";
             } catch (EntityNotFoundException e) {
@@ -117,7 +120,7 @@ public class UserMvcController {
     }
 
     @PostMapping("/profile")
-    public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, @RequestParam(value = "avatarFile", required = false) MultipartFile avatarFile, BindingResult errors, Model model, HttpSession session) {
+    public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, @RequestParam(value = "profilePictureFile", required = false) MultipartFile profilePictureFile, BindingResult errors, Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
         if (username != null) {
             if (errors.hasErrors()) return "user_edit";
@@ -125,11 +128,18 @@ public class UserMvcController {
                 User authenticatedUser = userService.getByUsername(username);
                 User user = userMapper.fromDto(userDto);
                 user.setId(authenticatedUser.getId());
-                if (avatarFile != null && !avatarFile.isEmpty()) {
-                    user.setAvatar(avatarFile.getBytes());
+                if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
+                    user.setProfilePicture(profilePictureFile.getBytes());
+                    System.out.println("Picture h1t on upload");
                 } else {
-                    user.setAvatar(user.getAvatar());
+                    user.setProfilePicture(user.getProfilePicture());
+                    System.out.println("Picture considered empty");
                 }
+                user.setUsername(authenticatedUser.getUsername());
+                user.setPassword(authenticatedUser.getPassword());
+                user.setVerified(authenticatedUser.getVerified());
+                user.setUserLevel(authenticatedUser.getUserLevel());
+                user.setEnabled(authenticatedUser.isEnabled());
                 userService.update(authenticatedUser, user);
                 return "UpdateSuccessView";
             } catch (EntityNotFoundException e) {
@@ -145,7 +155,6 @@ public class UserMvcController {
             return "redirect:/auth/login";
         }
     }
-
 
 
 }
