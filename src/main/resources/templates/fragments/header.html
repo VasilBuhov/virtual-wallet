@@ -5,7 +5,7 @@
     <title>Wallet header</title>
 </head>
 <body>
-<div th:fragment="eader">
+<div th:fragment="header">
     <div class="site-wrap">
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
@@ -19,7 +19,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-6 col-xl-2">
-                        <h1 class="mb-0 site-logo"><a href="index.html" class="h2 mb-0">Finances<span
+                        <h1 class="mb-0 site-logo"><a th:href="@{/}" class="h2 mb-0">Finances<span
                                 class="text-primary">.</span> </a></h1>
                     </div>
                     <div class="col-12 col-md-10 d-none d-xl-block">
@@ -48,7 +48,24 @@
                                 </li>
 
 
-                                <li><a href="#login-section" class="nav-link">Login</a></li>
+                                <li th:if="${session.currentUser == null}">
+                                    <a th:href="@{/auth/login}" class="nav-link" th:text="#{user.login}"/>
+                                </li>
+
+                                <li class="has-children" th:if="${session.currentUser != null}">
+                                    <a href="_blank" class="nav-link" th:text="${session.currentUser}"/>
+                                    <ul class="dropdown">
+                                        <li><a th:href="@{/user/profile}" class="nav-link"
+                                               th:text="#{user.edit_profile}"/></li>
+                                        <li><a th:href="@{/auth/logout}" class="nav-link" th:text="#{user.logout}"/>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+                                <li th:if="${session.currentUser != null}">
+                                    <a th:href="@{/wallet}" class="nav-link" th:text="#{user.wallet}"/>
+                                </li>
                                 <li><a href="#contact-section" class="nav-link">Contact</a></li>
                                 <li class="social"><a href="#contact-section" class="nav-link"><span
                                         class="icon-facebook"></span></a></li>
@@ -69,5 +86,6 @@
             </div>
         </header>
     </div>
+</div>
 </body>
 </html>
