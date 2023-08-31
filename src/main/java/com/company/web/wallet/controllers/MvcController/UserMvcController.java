@@ -70,21 +70,21 @@ public class UserMvcController {
     }
 
     @GetMapping("/new")
-    public String showNewUserPage(Model model){
+    public String showNewUserPage(Model model) {
         model.addAttribute("user", new UserDto());
         return "register";
     }
 
     @PostMapping("/new")
     public String createUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult errors, Model model) {
-        if(errors.hasErrors()){
+        if (errors.hasErrors()) {
             model.addAttribute("errorMessage", "Please fill in all required fields.");
             return "register";
         }
         try {
             User newUser = userMapper.fromDto(userDto);
             userService.create(newUser, "localhost");
-            return "redirect:/" ;
+            return "redirect:/";
         } catch (EntityDuplicateException e) {
             model.addAttribute("alreadyExists", e.getMessage());
         } catch (MessagingException e) {
@@ -100,11 +100,14 @@ public class UserMvcController {
     public String showUserProfile(Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
         if (username != null) {
+            model.addAttribute("base64avatar", null);
             try {
                 User user = userService.getByUsername(username);
-                byte[] avatarData = user.getAvatar();
-                String base64DB = Base64.getEncoder().encodeToString(avatarData);
-                model.addAttribute("base64avatar", base64DB);
+                if (user.getAvatar() != null) {
+                    byte[] avatarData = user.getAvatar();
+                    String base64DB = Base64.getEncoder().encodeToString(avatarData);
+                    model.addAttribute("base64avatar", base64DB);
+                }
                 model.addAttribute("user", userMapper.toDto(user));
                 return "user_edit";
             } catch (EntityNotFoundException e) {
@@ -145,7 +148,6 @@ public class UserMvcController {
             return "redirect:/auth/login";
         }
     }
-
 
 
 }

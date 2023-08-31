@@ -1780,3 +1780,891 @@ java.lang.IllegalStateException: Neither BindingResult nor plain target object f
 2023-08-31 15:55:12.305  INFO 13824 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2023-08-31 15:55:12.312  INFO 13824 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2023-08-31 15:55:12.315  INFO 13824 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-31 16:09:51.890  INFO 13824 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 16:09:51.896  INFO 13824 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:09:59.000  INFO 8640 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 8640 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 16:09:59.004  INFO 8640 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 16:09:59.076  INFO 8640 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 16:09:59.076  INFO 8640 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 16:10:00.612  INFO 8640 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 16:10:00.643  INFO 8640 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2023-08-31 16:10:01.530  INFO 8640 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 16:10:01.542  INFO 8640 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 16:10:01.543  INFO 8640 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 16:10:01.642  INFO 8640 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 16:10:01.643  INFO 8640 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2565 ms
+2023-08-31 16:10:01.892  INFO 8640 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 16:10:02.071  INFO 8640 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 16:10:03.135  INFO 8640 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 16:10:04.053  INFO 8640 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 16:10:04.492  WARN 8640 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 16:10:04.791  INFO 8640 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:10:04.833  INFO 8640 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 16:10:04.910  INFO 8640 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 16:10:05.097  INFO 8640 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 16:10:05.221  INFO 8640 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 16:10:05.789  INFO 8640 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.298 seconds (JVM running for 8.839)
+2023-08-31 16:10:27.772  INFO 8640 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 16:10:27.772  INFO 8640 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 16:10:27.772  INFO 8640 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-08-31 16:10:28.243  WARN 8640 --- [http-nio-8080-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [329] milliseconds.
+2023-08-31 16:10:36.746 DEBUG 8640 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:10:37.527 DEBUG 8640 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:10:51.546 DEBUG 8640 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:10:52.258 DEBUG 8640 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:33:03.108  INFO 8640 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 16:33:03.113  INFO 8640 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:33:11.397  INFO 6184 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 6184 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 16:33:11.401  INFO 6184 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 16:33:11.471  INFO 6184 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 16:33:11.471  INFO 6184 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 16:33:12.998  INFO 6184 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 16:33:13.051  INFO 6184 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 JPA repository interfaces.
+2023-08-31 16:33:14.097  INFO 6184 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 16:33:14.111  INFO 6184 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 16:33:14.112  INFO 6184 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 16:33:14.278  INFO 6184 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 16:33:14.279  INFO 6184 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2806 ms
+2023-08-31 16:33:14.647  INFO 6184 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 16:33:14.847  INFO 6184 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 16:33:15.993  INFO 6184 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 16:33:16.980  INFO 6184 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 16:33:17.450  WARN 6184 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 16:33:17.768  INFO 6184 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:33:17.883  INFO 6184 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 16:33:17.917  INFO 6184 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 16:33:18.139  INFO 6184 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 16:33:18.275  INFO 6184 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 16:33:18.872  INFO 6184 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 8.017 seconds (JVM running for 9.716)
+2023-08-31 16:33:30.882  INFO 6184 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 16:33:30.883  INFO 6184 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 16:33:30.885  INFO 6184 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-08-31 16:33:31.379 DEBUG 6184 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:33:32.167 DEBUG 6184 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:38:46.263  INFO 6184 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 16:38:46.266  INFO 6184 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:38:53.258  INFO 10108 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 10108 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 16:38:53.266  INFO 10108 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 16:38:53.354  INFO 10108 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 16:38:53.355  INFO 10108 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 16:38:55.079  INFO 10108 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 16:38:55.118  INFO 10108 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 0 JPA repository interfaces.
+2023-08-31 16:38:56.224  INFO 10108 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 16:38:56.236  INFO 10108 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 16:38:56.238  INFO 10108 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 16:38:56.353  INFO 10108 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 16:38:56.355  INFO 10108 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2998 ms
+2023-08-31 16:38:56.688  INFO 10108 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 16:38:56.883  INFO 10108 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 16:38:58.012  INFO 10108 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 16:38:59.210  INFO 10108 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 16:38:59.784  WARN 10108 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 16:39:00.190  INFO 10108 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:39:00.244  INFO 10108 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 16:39:00.347  INFO 10108 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 16:39:00.572  INFO 10108 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 16:39:00.730  INFO 10108 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 16:39:01.467  INFO 10108 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 8.859 seconds (JVM running for 11.12)
+2023-08-31 16:42:37.532  INFO 10108 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 16:42:37.532  INFO 10108 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 16:42:37.532  INFO 10108 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-08-31 16:42:37.831 DEBUG 10108 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:42:38.599 DEBUG 10108 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:46:07.620 DEBUG 10108 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:46:08.327 DEBUG 10108 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:46:17.852  INFO 10108 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 16:46:17.852  INFO 10108 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:46:27.727  INFO 14780 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 14780 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 16:46:27.731  INFO 14780 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 16:46:27.802  INFO 14780 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 16:46:27.802  INFO 14780 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 16:46:29.151  INFO 14780 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 16:46:29.184  INFO 14780 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 0 JPA repository interfaces.
+2023-08-31 16:46:30.054  INFO 14780 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 16:46:30.066  INFO 14780 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 16:46:30.066  INFO 14780 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 16:46:30.166  INFO 14780 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 16:46:30.166  INFO 14780 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2363 ms
+2023-08-31 16:46:30.454  INFO 14780 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 16:46:30.625  INFO 14780 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 16:46:31.670  INFO 14780 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 16:46:32.711  INFO 14780 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 16:46:33.233  WARN 14780 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 16:46:33.541  INFO 14780 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:46:33.580  INFO 14780 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 16:46:33.610  INFO 14780 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 16:46:33.775  INFO 14780 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 16:46:33.921  INFO 14780 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 16:46:34.515  INFO 14780 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.472 seconds (JVM running for 9.839)
+2023-08-31 16:46:37.697  INFO 14780 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 16:46:37.697  INFO 14780 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 16:46:37.700  INFO 14780 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-31 16:46:38.003 DEBUG 14780 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:46:38.804 DEBUG 14780 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:47:07.759  INFO 14780 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 16:47:07.761  INFO 14780 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:47:12.414  INFO 11752 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 11752 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 16:47:12.418  INFO 11752 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 16:47:12.499  INFO 11752 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 16:47:12.500  INFO 11752 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 16:47:14.048  INFO 11752 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 16:47:14.084  INFO 11752 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 0 JPA repository interfaces.
+2023-08-31 16:47:15.812  INFO 11752 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 16:47:15.827  INFO 11752 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 16:47:15.828  INFO 11752 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 16:47:15.957  INFO 11752 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 16:47:15.957  INFO 11752 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3455 ms
+2023-08-31 16:47:16.347  INFO 11752 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 16:47:17.054  INFO 11752 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 16:47:18.416  INFO 11752 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 16:47:19.852  INFO 11752 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 16:47:20.432  WARN 11752 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 16:47:20.702  INFO 11752 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:47:20.741  INFO 11752 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 16:47:20.812  INFO 11752 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 16:47:21.012  INFO 11752 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 16:47:21.164  INFO 11752 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 16:47:21.802  INFO 11752 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 9.976 seconds (JVM running for 11.364)
+2023-08-31 16:47:30.628  INFO 11752 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 16:47:30.630  INFO 11752 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 16:47:30.634  INFO 11752 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2023-08-31 16:47:30.925 DEBUG 11752 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:47:31.730 DEBUG 11752 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:51:31.040 DEBUG 11752 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:51:31.761 DEBUG 11752 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:52:08.130 DEBUG 11752 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:52:08.858 DEBUG 11752 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:52:08.889 ERROR 11752 --- [http-nio-8080-exec-4] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+
+java.lang.NullPointerException: null
+	at java.base/java.util.Base64$Encoder.encode(Base64.java:267) ~[na:na]
+	at java.base/java.util.Base64$Encoder.encodeToString(Base64.java:321) ~[na:na]
+	at com.company.web.wallet.controllers.MvcController.UserMvcController.showUserProfile(UserMvcController.java:106) ~[main/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
+
+2023-08-31 16:53:10.053  INFO 11752 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 16:53:10.057  INFO 11752 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:53:16.273  INFO 12920 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 12920 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 16:53:16.277  INFO 12920 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 16:53:16.359  INFO 12920 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 16:53:16.359  INFO 12920 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 16:53:17.699  INFO 12920 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 16:53:17.732  INFO 12920 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 0 JPA repository interfaces.
+2023-08-31 16:53:18.755  INFO 12920 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 16:53:18.766  INFO 12920 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 16:53:18.767  INFO 12920 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 16:53:18.870  INFO 12920 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 16:53:18.871  INFO 12920 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2511 ms
+2023-08-31 16:53:19.136  INFO 12920 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 16:53:19.301  INFO 12920 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 16:53:20.377  INFO 12920 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 16:53:21.297  INFO 12920 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 16:53:21.761  WARN 12920 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 16:53:22.056  INFO 12920 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:53:22.098  INFO 12920 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 16:53:22.129  INFO 12920 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 16:53:22.358  INFO 12920 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 16:53:22.488  INFO 12920 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 16:53:23.069  INFO 12920 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.305 seconds (JVM running for 8.93)
+2023-08-31 16:53:29.656  INFO 12920 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 16:53:29.657  INFO 12920 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 16:53:29.659  INFO 12920 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-08-31 16:53:29.931 DEBUG 12920 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:53:30.722 DEBUG 12920 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 16:54:09.500  INFO 12920 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 16:54:09.503  INFO 12920 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:54:15.786  INFO 14180 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 14180 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 16:54:15.792  INFO 14180 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 16:54:15.868  INFO 14180 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 16:54:15.869  INFO 14180 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 16:54:17.276  INFO 14180 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 16:54:17.309  INFO 14180 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 0 JPA repository interfaces.
+2023-08-31 16:54:18.165  INFO 14180 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 16:54:18.176  INFO 14180 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 16:54:18.177  INFO 14180 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 16:54:18.278  INFO 14180 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 16:54:18.279  INFO 14180 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2409 ms
+2023-08-31 16:54:18.559  INFO 14180 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 16:54:18.719  INFO 14180 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 16:54:19.784  INFO 14180 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 16:54:20.788  INFO 14180 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 16:54:21.237  WARN 14180 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 16:54:21.545  INFO 14180 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 16:54:21.585  INFO 14180 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 16:54:21.616  INFO 14180 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 16:54:21.848  INFO 14180 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 16:54:21.996  INFO 14180 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 16:54:22.584  INFO 14180 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.4 seconds (JVM running for 9.955)
+2023-08-31 16:54:47.350  INFO 14180 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 16:54:47.351  INFO 14180 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 16:54:47.353  INFO 14180 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-08-31 16:54:47.625 DEBUG 14180 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 16:54:48.404 DEBUG 14180 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:14:26.380 DEBUG 14180 --- [http-nio-8080-exec-9] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:14:27.091 DEBUG 14180 --- [http-nio-8080-exec-9] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:14:27.118 ERROR 14180 --- [http-nio-8080-exec-9] org.thymeleaf.TemplateEngine             : [THYMELEAF][http-nio-8080-exec-9] Exception processing template "UnauthorizedView": Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers
+
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1393) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1138) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1077) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
+
+2023-08-31 17:14:27.127 ERROR 14180 --- [http-nio-8080-exec-9] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers] with root cause
+
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1393) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1138) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1077) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
+
+2023-08-31 17:14:36.851 DEBUG 14180 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:14:37.564 DEBUG 14180 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:14:45.326 DEBUG 14180 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:14:46.051 DEBUG 14180 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:14:46.071 ERROR 14180 --- [http-nio-8080-exec-2] org.thymeleaf.TemplateEngine             : [THYMELEAF][http-nio-8080-exec-2] Exception processing template "UnauthorizedView": Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers
+
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1393) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1138) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1077) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
+
+2023-08-31 17:14:46.071 ERROR 14180 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers] with root cause
+
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [UnauthorizedView], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072) ~[thymeleaf-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190) ~[thymeleaf-spring5-3.0.12.RELEASE.jar:3.0.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1393) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1138) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1077) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.3.jar:5.3.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) ~[tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.3.3.jar:5.3.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
+
+2023-08-31 17:15:23.131 DEBUG 14180 --- [http-nio-8080-exec-9] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:15:23.851 DEBUG 14180 --- [http-nio-8080-exec-9] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:21:24.727  INFO 14180 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:21:24.731  INFO 14180 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:21:30.760  INFO 8728 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 8728 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:21:30.779  INFO 8728 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:21:30.858  INFO 8728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:21:30.859  INFO 8728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:21:33.052  INFO 8728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:21:33.097  INFO 8728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:21:34.474  INFO 8728 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:21:34.489  INFO 8728 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:21:34.491  INFO 8728 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:21:34.606  INFO 8728 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:21:34.607  INFO 8728 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3746 ms
+2023-08-31 17:21:35.263  INFO 8728 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:21:35.534  INFO 8728 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:21:36.971  INFO 8728 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:21:38.784  INFO 8728 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:21:39.543  WARN 8728 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:21:40.141  INFO 8728 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:21:40.217  INFO 8728 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:21:40.329  INFO 8728 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:21:40.633  INFO 8728 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:21:40.869  INFO 8728 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:21:42.022  INFO 8728 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 12.206 seconds (JVM running for 14.281)
+2023-08-31 17:22:52.332  INFO 8728 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:22:52.332  INFO 8728 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:22:52.336  INFO 8728 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2023-08-31 17:22:52.709 DEBUG 8728 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:22:53.500 DEBUG 8728 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:25:58.028  INFO 8728 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:25:58.032  INFO 8728 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:26:09.125  INFO 9004 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 9004 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:26:09.132  INFO 9004 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:26:09.361  INFO 9004 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:26:09.362  INFO 9004 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:26:12.210  INFO 9004 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:26:12.254  INFO 9004 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:26:13.917  INFO 9004 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:26:13.933  INFO 9004 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:26:13.939  INFO 9004 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:26:14.123  INFO 9004 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:26:14.146  INFO 9004 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4782 ms
+2023-08-31 17:26:14.640  INFO 9004 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:26:14.896  INFO 9004 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:26:16.275  INFO 9004 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:26:18.082  INFO 9004 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:26:19.010  WARN 9004 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:26:19.482  INFO 9004 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:26:19.562  INFO 9004 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:26:19.748  INFO 9004 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:26:20.224  INFO 9004 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:26:20.555  INFO 9004 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:26:21.987  INFO 9004 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 14.087 seconds (JVM running for 17.759)
+2023-08-31 17:26:58.153  INFO 9004 --- [http-nio-8080-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:26:58.154  INFO 9004 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:26:58.156  INFO 9004 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-31 17:26:58.450 DEBUG 9004 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:26:59.235 DEBUG 9004 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:27:49.483  INFO 9004 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:27:49.485  INFO 9004 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:27:54.325  INFO 9324 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 9324 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:27:54.330  INFO 9324 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:27:54.439  INFO 9324 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:27:54.440  INFO 9324 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:27:55.983  INFO 9324 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:27:56.015  INFO 9324 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:27:56.938  INFO 9324 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:27:56.949  INFO 9324 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:27:56.950  INFO 9324 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:27:57.050  INFO 9324 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:27:57.051  INFO 9324 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2610 ms
+2023-08-31 17:27:57.398  INFO 9324 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:27:57.583  INFO 9324 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:27:58.683  INFO 9324 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:27:59.715  INFO 9324 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:28:00.272  WARN 9324 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:28:00.568  INFO 9324 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:28:00.608  INFO 9324 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:28:00.639  INFO 9324 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:28:00.828  INFO 9324 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:28:00.965  INFO 9324 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:28:01.595  INFO 9324 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 8.055 seconds (JVM running for 9.587)
+2023-08-31 17:28:21.535  INFO 9324 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:28:21.535  INFO 9324 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:28:21.535  INFO 9324 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-08-31 17:28:21.786 DEBUG 9324 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:28:22.586 DEBUG 9324 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:30:05.334  INFO 9324 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:30:05.337  INFO 9324 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:30:09.678  INFO 2276 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 2276 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:30:09.682  INFO 2276 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:30:09.753  INFO 2276 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:30:09.754  INFO 2276 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:30:11.097  INFO 2276 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:30:11.136  INFO 2276 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:30:11.986  INFO 2276 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:30:11.996  INFO 2276 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:30:11.997  INFO 2276 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:30:12.090  INFO 2276 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:30:12.091  INFO 2276 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2336 ms
+2023-08-31 17:30:12.376  INFO 2276 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:30:12.541  INFO 2276 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:30:13.596  INFO 2276 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:30:14.918  INFO 2276 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:30:15.375  WARN 2276 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:30:15.719  INFO 2276 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:30:15.758  INFO 2276 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:30:15.788  INFO 2276 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:30:15.949  INFO 2276 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:30:16.078  INFO 2276 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:30:16.660  INFO 2276 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.58 seconds (JVM running for 8.896)
+2023-08-31 17:30:27.298  INFO 2276 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:30:27.299  INFO 2276 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:30:27.300  INFO 2276 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-08-31 17:30:27.552 DEBUG 2276 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:30:28.313 DEBUG 2276 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:31:40.141  INFO 2276 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:31:40.143  INFO 2276 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:31:44.283  INFO 11556 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 11556 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:31:44.289  INFO 11556 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:31:44.357  INFO 11556 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:31:44.358  INFO 11556 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:31:45.757  INFO 11556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:31:45.787  INFO 11556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:31:46.630  INFO 11556 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:31:46.641  INFO 11556 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:31:46.642  INFO 11556 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:31:46.835  INFO 11556 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:31:46.836  INFO 11556 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2477 ms
+2023-08-31 17:31:47.151  INFO 11556 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:31:47.363  INFO 11556 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:31:48.436  INFO 11556 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:31:49.519  INFO 11556 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:31:50.190  WARN 11556 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:31:50.593  INFO 11556 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:31:50.636  INFO 11556 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:31:50.670  INFO 11556 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:31:50.961  INFO 11556 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:31:51.113  INFO 11556 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:31:51.828  INFO 11556 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 8.079 seconds (JVM running for 9.402)
+2023-08-31 17:31:55.220  INFO 11556 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:31:55.221  INFO 11556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:31:55.223  INFO 11556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-31 17:31:55.500 DEBUG 11556 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:31:56.285 DEBUG 11556 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:33:16.679  INFO 11556 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:33:16.681  INFO 11556 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:33:20.848  INFO 9152 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 9152 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:33:20.852  INFO 9152 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:33:20.938  INFO 9152 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:33:20.938  INFO 9152 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:33:22.400  INFO 9152 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:33:22.450  INFO 9152 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:33:23.324  INFO 9152 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:33:23.339  INFO 9152 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:33:23.340  INFO 9152 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:33:23.453  INFO 9152 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:33:23.453  INFO 9152 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2513 ms
+2023-08-31 17:33:23.738  INFO 9152 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:33:23.909  INFO 9152 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:33:24.979  INFO 9152 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:33:25.988  INFO 9152 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:33:26.506  WARN 9152 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:33:26.807  INFO 9152 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:33:26.847  INFO 9152 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:33:26.886  INFO 9152 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:33:27.132  INFO 9152 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:33:27.300  INFO 9152 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:33:27.932  INFO 9152 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.708 seconds (JVM running for 9.145)
+2023-08-31 17:33:33.737  INFO 9152 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:33:33.740  INFO 9152 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:33:33.743  INFO 9152 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-31 17:33:34.003 DEBUG 9152 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:33:34.776 DEBUG 9152 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:33:48.913  INFO 9152 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:33:48.915  INFO 9152 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:33:53.502  INFO 10968 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 10968 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:33:53.507  INFO 10968 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:33:53.600  INFO 10968 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:33:53.601  INFO 10968 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:33:56.207  INFO 10968 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:33:57.665  INFO 10968 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1441 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:33:59.140  INFO 10968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:33:59.140  INFO 10968 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:33:59.140  INFO 10968 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:33:59.234  INFO 10968 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:33:59.234  INFO 10968 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5631 ms
+2023-08-31 17:33:59.516  INFO 10968 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:33:59.720  INFO 10968 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:34:00.818  INFO 10968 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:34:01.901  INFO 10968 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:34:02.371  WARN 10968 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:34:02.703  INFO 10968 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:34:02.753  INFO 10968 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:34:02.788  INFO 10968 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:34:02.966  INFO 10968 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:34:03.120  INFO 10968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:34:03.816  INFO 10968 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 10.872 seconds (JVM running for 12.295)
+2023-08-31 17:34:06.374  INFO 10968 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:34:06.376  INFO 10968 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:34:06.378  INFO 10968 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-31 17:34:06.687 DEBUG 10968 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:34:07.465 DEBUG 10968 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:34:19.824  INFO 10968 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:34:19.826  INFO 10968 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:34:24.192  INFO 12876 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 12876 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:34:24.197  INFO 12876 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:34:24.275  INFO 12876 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:34:24.276  INFO 12876 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:34:25.877  INFO 12876 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:34:25.908  INFO 12876 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:34:26.834  INFO 12876 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:34:26.848  INFO 12876 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:34:26.849  INFO 12876 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:34:26.964  INFO 12876 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:34:26.964  INFO 12876 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2687 ms
+2023-08-31 17:34:27.258  INFO 12876 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:34:27.442  INFO 12876 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:34:28.502  INFO 12876 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:34:29.493  INFO 12876 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:34:30.024  WARN 12876 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:34:30.350  INFO 12876 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:34:30.396  INFO 12876 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:34:30.428  INFO 12876 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:34:30.679  INFO 12876 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:34:30.819  INFO 12876 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:34:31.447  INFO 12876 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.824 seconds (JVM running for 9.245)
+2023-08-31 17:34:44.225  INFO 12876 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:34:44.225  INFO 12876 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:34:44.225  INFO 12876 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-08-31 17:34:44.508 DEBUG 12876 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:34:45.262 DEBUG 12876 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:34:57.874  INFO 12876 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:34:57.877  INFO 12876 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:35:02.824  INFO 11528 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 11528 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:35:02.828  INFO 11528 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:35:02.895  INFO 11528 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:35:02.896  INFO 11528 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:35:04.235  INFO 11528 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:35:04.265  INFO 11528 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:35:05.131  INFO 11528 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:35:05.142  INFO 11528 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:35:05.143  INFO 11528 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:35:05.237  INFO 11528 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:35:05.238  INFO 11528 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2341 ms
+2023-08-31 17:35:05.505  INFO 11528 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:35:05.689  INFO 11528 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:35:06.769  INFO 11528 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:35:07.983  INFO 11528 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:35:08.512  WARN 11528 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:35:08.879  INFO 11528 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:35:08.981  INFO 11528 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:35:09.030  INFO 11528 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:35:09.196  INFO 11528 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:35:09.383  INFO 11528 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:35:10.061  INFO 11528 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.758 seconds (JVM running for 9.347)
+2023-08-31 17:35:21.629  INFO 11528 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:35:21.629  INFO 11528 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:35:21.629  INFO 11528 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-08-31 17:35:21.895 DEBUG 11528 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:35:22.674 DEBUG 11528 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:37:43.107 DEBUG 11528 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:37:43.813 DEBUG 11528 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:38:37.408  INFO 11528 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:38:37.410  INFO 11528 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:38:42.856  INFO 12644 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 12644 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:38:42.869  INFO 12644 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:38:42.967  INFO 12644 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:38:42.968  INFO 12644 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:38:44.440  INFO 12644 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:38:44.476  INFO 12644 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:38:45.484  INFO 12644 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:38:45.496  INFO 12644 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:38:45.497  INFO 12644 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:38:45.607  INFO 12644 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:38:45.607  INFO 12644 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2638 ms
+2023-08-31 17:38:45.884  INFO 12644 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:38:46.084  INFO 12644 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:38:47.194  INFO 12644 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:38:48.306  INFO 12644 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:38:48.800  WARN 12644 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:38:49.090  INFO 12644 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:38:49.199  INFO 12644 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:38:49.240  INFO 12644 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:38:49.397  INFO 12644 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:38:49.527  INFO 12644 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:38:50.107  INFO 12644 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.787 seconds (JVM running for 9.309)
+2023-08-31 17:38:52.681  INFO 12644 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:38:52.681  INFO 12644 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:38:52.696  INFO 12644 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
+2023-08-31 17:38:52.963 DEBUG 12644 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:38:53.764 DEBUG 12644 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:40:33.051  INFO 12644 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:40:33.054  INFO 12644 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:40:38.255  INFO 5364 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 5364 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:40:38.259  INFO 5364 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:40:38.335  INFO 5364 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:40:38.336  INFO 5364 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:40:39.933  INFO 5364 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:40:39.965  INFO 5364 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:40:40.906  INFO 5364 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:40:40.921  INFO 5364 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:40:40.921  INFO 5364 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:40:41.047  INFO 5364 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:40:41.047  INFO 5364 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2710 ms
+2023-08-31 17:40:41.314  INFO 5364 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:40:41.533  INFO 5364 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:40:42.648  INFO 5364 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:40:43.823  INFO 5364 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:40:44.435  WARN 5364 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:40:44.921  INFO 5364 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:40:44.999  INFO 5364 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:40:45.031  INFO 5364 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:40:45.313  INFO 5364 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:40:45.438  INFO 5364 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:40:46.160  INFO 5364 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 8.568 seconds (JVM running for 10.315)
+2023-08-31 17:40:58.595  INFO 5364 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:40:58.603  INFO 5364 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:41:04.246  INFO 14532 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 14532 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:41:04.251  INFO 14532 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:41:04.334  INFO 14532 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:41:04.335  INFO 14532 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:41:05.699  INFO 14532 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:41:05.730  INFO 14532 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:41:06.565  INFO 14532 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:41:06.576  INFO 14532 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:41:06.577  INFO 14532 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:41:06.676  INFO 14532 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:41:06.677  INFO 14532 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2341 ms
+2023-08-31 17:41:06.965  INFO 14532 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:41:07.168  INFO 14532 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:41:08.272  INFO 14532 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:41:09.264  INFO 14532 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:41:09.712  WARN 14532 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:41:10.009  INFO 14532 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:41:10.047  INFO 14532 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:41:10.078  INFO 14532 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:41:10.242  INFO 14532 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:41:10.386  INFO 14532 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:41:11.177  INFO 14532 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.46 seconds (JVM running for 8.81)
+2023-08-31 17:41:18.652  INFO 14532 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:41:18.654  INFO 14532 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:41:18.656  INFO 14532 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-08-31 17:41:18.929 DEBUG 14532 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:41:19.696 DEBUG 14532 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:42:23.936  INFO 14532 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:42:23.938  INFO 14532 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:42:28.064  INFO 9980 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 9980 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:42:28.068  INFO 9980 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:42:28.151  INFO 9980 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:42:28.152  INFO 9980 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:42:29.491  INFO 9980 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:42:29.523  INFO 9980 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:42:30.406  INFO 9980 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:42:30.418  INFO 9980 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:42:30.418  INFO 9980 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:42:30.511  INFO 9980 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:42:30.512  INFO 9980 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2359 ms
+2023-08-31 17:42:30.803  INFO 9980 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:42:30.973  INFO 9980 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:42:32.036  INFO 9980 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:42:32.985  INFO 9980 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:42:33.441  WARN 9980 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:42:33.819  INFO 9980 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:42:33.860  INFO 9980 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:42:33.890  INFO 9980 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:42:34.062  INFO 9980 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:42:34.224  INFO 9980 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:42:34.933  INFO 9980 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.413 seconds (JVM running for 8.749)
+2023-08-31 17:42:38.123  INFO 9980 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:42:38.125  INFO 9980 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:42:38.131  INFO 9980 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2023-08-31 17:42:38.536 DEBUG 9980 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:42:39.352 DEBUG 9980 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?
+2023-08-31 17:45:45.151  INFO 9980 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2023-08-31 17:45:45.154  INFO 9980 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:45:50.046  INFO 11332 --- [restartedMain] c.company.web.wallet.WalletApplication   : Starting WalletApplication using Java 11.0.20.1 on ReliableRelic with PID 11332 (C:\Users\ARCH\IdeaProjects\virtual-wallet\build\classes\java\main started by ARCH in C:\Users\ARCH\IdeaProjects\virtual-wallet)
+2023-08-31 17:45:50.052  INFO 11332 --- [restartedMain] c.company.web.wallet.WalletApplication   : No active profile set, falling back to default profiles: default
+2023-08-31 17:45:50.162  INFO 11332 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-31 17:45:50.163  INFO 11332 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-31 17:45:51.671  INFO 11332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-31 17:45:51.726  INFO 11332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2023-08-31 17:45:52.773  INFO 11332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-31 17:45:52.784  INFO 11332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-31 17:45:52.785  INFO 11332 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-31 17:45:52.887  INFO 11332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-31 17:45:52.888  INFO 11332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2724 ms
+2023-08-31 17:45:53.203  INFO 11332 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2023-08-31 17:45:53.392  INFO 11332 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-31 17:45:54.472  INFO 11332 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect
+2023-08-31 17:45:55.414  INFO 11332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-31 17:45:55.950  WARN 11332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-31 17:45:56.258  INFO 11332 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-31 17:45:56.339  INFO 11332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-31 17:45:56.386  INFO 11332 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-08-31 17:45:56.579  INFO 11332 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2023-08-31 17:45:56.714  INFO 11332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-31 17:45:57.381  INFO 11332 --- [restartedMain] c.company.web.wallet.WalletApplication   : Started WalletApplication in 7.965 seconds (JVM running for 9.655)
+2023-08-31 17:46:02.290  INFO 11332 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-31 17:46:02.291  INFO 11332 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-31 17:46:02.293  INFO 11332 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-08-31 17:46:02.587 DEBUG 11332 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select user0_.id as id1_4_, user0_.avatar as avatar2_4_, user0_.email as email3_4_, user0_.enabled as enabled4_4_, user0_.first_name as first_na5_4_, user0_.last_name as last_nam6_4_, user0_.password as password7_4_, user0_.user_level as user_lev8_4_, user0_.username as username9_4_, user0_.verification_code as verific10_4_, user0_.verified as verifie11_4_ from users user0_ where user0_.username=?
+2023-08-31 17:46:03.365 DEBUG 11332 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cards0_.card_holder as card_hol7_0_0_, cards0_.id as id1_0_0_, cards0_.id as id1_0_1_, cards0_.card_holder as card_hol7_0_1_, cards0_.card_number as card_num2_0_1_, cards0_.check_number as check_nu3_0_1_, cards0_.expiration_date as expirati4_0_1_, cards0_.name as name5_0_1_, cards0_.status_deleted as status_d6_0_1_ from cards cards0_ where cards0_.card_holder=?

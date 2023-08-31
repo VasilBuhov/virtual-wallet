@@ -35,7 +35,7 @@
                                 <li class="has-children" th:if="${session.currentUser != null}">
                                     <a href="_blank" class="nav-link" th:text="${session.currentUser}"/>
                                     <ul class="dropdown">
-                                        <li><a th:href="@{/user/profile}" class="nav-link"
+                                        <li><a th:href="@{/users/profile}" class="nav-link"
                                                th:text="#{user.edit_profile}"/></li>
                                         <li><a th:href="@{/wallet}" class="nav-link"
                                                th:text="#{user.my_wallet}"/></li>
@@ -77,8 +77,6 @@
                             </ul>
                         </nav>
                     </div>
-
-
                     <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a
                             href="#" class="site-menu-toggle js-menu-toggle float-right"><span
                             class="icon-menu h3"></span></a>

@@ -4,26 +4,59 @@
     align-items: center;
     padding: 20px;
 }
-.avatar-section {
-    padding-right: 20px;
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
-    border-radius: 50%;
-}
-
-.avatar-image {
-    max-width: 100%;
-    height: auto;
-}
-
-.user-info-section {
-    padding-left: 20px;
-    text-align: left;
-}
 
 .user-info {
     font-size: 14px;
     margin: 5px 0;
 }
 
+/**/
+.user-profile-form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.avatar-section {
+    flex: 1;
+    padding-right: 20px;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.avatar-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.user-info-section {
+    flex: 2;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.username-field {
+    display: inline-block;
+    width: 36%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f7f7f7;
+    font-size: 14px;
+    color: #333;
+    height: 30px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.avatar-section-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
