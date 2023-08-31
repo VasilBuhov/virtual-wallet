@@ -41,11 +41,11 @@
 
                 <div class="user-profile">
                     <div class="avatar-section">
-                        <div th:if="${user.getAvatar() != null}">
+                        <div th:if="${user.getProfilePicture() != null}">
                             <img th:src="|data:image/png;base64,${base64avatar}|"
                                  alt="User profile picture" class="avatar-image">
                         </div>
-                        <div th:unless="${user.getAvatar() != null}">
+                        <div th:unless="${user.getProfilePicture() != null}">
                             <img th:src="@{/images/default_profile_pic.png}"
                                  alt="Default profile picture" class="avatar-image">
                         </div>

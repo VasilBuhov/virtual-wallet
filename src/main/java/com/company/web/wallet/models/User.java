@@ -33,8 +33,8 @@ public class User {
     @Column(name = "verified")
     private int verified;
     @Lob
-    @Column(name = "avatar")
-    private byte[] avatar;
+    @Column(name = "profile_picture")
+    private byte[] profilePicture;
 
     @Column(name = "user_level")
     private int userLevel;
@@ -65,7 +65,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.verified = verified;
-        this.avatar = avatar;
+        this.profilePicture = avatar;
         setUserLevel(userLevel);
     }
 
@@ -133,12 +133,12 @@ public class User {
         this.verified = verified;
     }
 
-    public byte[] getAvatar() {
-        return avatar;
+    public byte[] getProfilePicture() {
+        return profilePicture;
     }
 
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
+    public void setProfilePicture(byte[] avatar) {
+        this.profilePicture = avatar;
     }
 
     public String getVerificationCode() {

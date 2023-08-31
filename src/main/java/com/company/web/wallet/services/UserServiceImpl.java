@@ -101,19 +101,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void checkModifyPermissionsForUpdating(User authenticatedUser, User user) {
-        if (authenticatedUser.getId() == user.getId()) throw new AuthorizationException(MODIFY_USER_ERROR_MESSAGE);
+        if (authenticatedUser.getId() != user.getId()) throw new AuthorizationException(MODIFY_USER_ERROR_MESSAGE);
     }
 
     @Override
     public void checkModifyPermissionsForDeleting(User authenticatedUser, User user) {
-        if (authenticatedUser.getId() == user.getId()) {
+        if (authenticatedUser.getId() != user.getId()) {
             throw new AuthorizationException(DELETE_USER_ERROR_MESSAGE);
         }
     }
 
     @Override
     public void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException {
-        throw new AuthorizationException("Only admin or blocked user can modify a user.");
+        throw new AuthorizationException("Only admin can block a user.");
     }
 
     @Override

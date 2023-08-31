@@ -178,14 +178,14 @@ public class UserRestController {
         User authenticatedUser = authenticationHelper.tryGetUser(headers);
         User user = userMapper.fromDto(userDto);
         user.setId(id);
-        user.setAvatar(avatarBytes);
+        user.setProfilePicture(avatarBytes);
         userService.update(authenticatedUser, user);
         return "redirect:/";
     }
 
     @GetMapping("/avatar/{id}")
     public String showUploadForm(Model model, @PathVariable int id) {
-        String base64Avatar = Base64.getEncoder().encodeToString(userService.getUserById(id).getAvatar());
+        String base64Avatar = Base64.getEncoder().encodeToString(userService.getUserById(id).getProfilePicture());
         model.addAttribute("avatarBase64", base64Avatar);
         return "user_details";
     }
