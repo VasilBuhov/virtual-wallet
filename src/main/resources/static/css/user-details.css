@@ -1,0 +1,29 @@
+.user-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.avatar-section {
+    padding-right: 20px;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.avatar-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.user-info-section {
+    padding-left: 20px;
+    text-align: left;
+}
+
+.user-info {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
