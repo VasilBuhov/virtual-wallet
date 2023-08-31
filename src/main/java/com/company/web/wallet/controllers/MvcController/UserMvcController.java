@@ -13,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
@@ -56,12 +58,9 @@ public class UserMvcController {
 //        }
         try {
             User user = userService.getUserById(id);
-            String base64Avatar = "iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABUUlEQVR4nOzTQQnDQABE0VIWugp6KfRWXfUTNdEVFRGxh0fIfwoGPjP27fW4sjH/esKSpx5wdwXACoAVACsAVgCsAFgBsAJgBcAKgBUAKwBWAKwAWAGwAmAFwAqAFQArAFYArABYAbACYAXACoAVACsAVgCsAFgBsAJgBcAKgBUAKwBWAKwAWAGwAmAFwAqAFQArAFYArABYAbACYAXACoAVACsAVgCsAFgBsAJgBcAKgBUAKwBWAKwA2Pi+p96w5PM79IQlPQArAFYArABYAbACYAXACoAVACsAVgCsAFgBsAJgBcAKgBUAKwBWAKwAWAGwAmAFwAqAFQArAFYArABYAbACYAXACoAVACsAVgCsAFgBsAJgBcAKgBUAKwBWAKwAWAGwAmAFwAqAFQArAFYArABYAbACYAXACoAVACsAVgCsAFgBsAJgBcDOAAAA//9cNgQXxEbgzwAAAABJRU5ErkJggg==";
             byte[] avatarData = user.getAvatar();
             String base64DB = Base64.getEncoder().encodeToString(avatarData);
             model.addAttribute("base64avatar", base64DB);
-            System.out.println(base64DB);
-            System.out.println(user.getAvatar());
             model.addAttribute("user", user);
             return "user_details";
         } catch (EntityNotFoundException e) {
@@ -118,7 +117,7 @@ public class UserMvcController {
     }
 
     @PostMapping("/profile")
-    public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, BindingResult errors, Model model, HttpSession session) {
+    public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, @RequestParam(value = "avatarFile", required = false) MultipartFile avatarFile, BindingResult errors, Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
         if (username != null) {
             if (errors.hasErrors()) return "user_edit";
@@ -126,6 +125,11 @@ public class UserMvcController {
                 User authenticatedUser = userService.getByUsername(username);
                 User user = userMapper.fromDto(userDto);
                 user.setId(authenticatedUser.getId());
+                if (avatarFile != null && !avatarFile.isEmpty()) {
+                    user.setAvatar(avatarFile.getBytes());
+                } else {
+                    user.setAvatar(user.getAvatar());
+                }
                 userService.update(authenticatedUser, user);
                 return "UpdateSuccessView";
             } catch (EntityNotFoundException e) {
@@ -134,10 +138,14 @@ public class UserMvcController {
             } catch (AuthorizationException e) {
                 model.addAttribute("error", "Unauthorized access");
                 return "UnauthorizedView";
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } else {
             return "redirect:/auth/login";
         }
     }
+
+
 
 }

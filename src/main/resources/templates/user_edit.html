@@ -23,6 +23,17 @@
         <hr>
         <h2 class="text-center">Edit Profile</h2>
         <form action="/users/profile" th:object="${user}" method="post">
+
+
+            <label th:text="#{user.profile_picture}">Avatar</label>
+            <br/>
+            <img th:src="@{'data:image/png;base64,' + ${#strings.escapeXml(base64avatar)}}" width="100" height="100" alt="Profile Picture">
+            <br/>
+            <input type="file" name="profilePicFile" accept="image/*">
+            <br/>
+            <a th:href="@{/users/delete-avatar}" class="btn btn-danger">Delete Profile Picture</a>
+            <br><br>
+
             <label th:text="#{user.username}">Username</label>
             <br/>
             <input type="text" th:field="*{username}">
@@ -62,14 +73,6 @@
         </form>
 
         <a href="/users/delete" class="btn btn-danger">Delete Profile</a>
-
-
-<!--<property name="photo" column="PHOTO" type="binary" />-->
-<h1>Avatar Upload Test</h1>
-<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-    <input type="file" name="avatarFile" accept="image/*">
-    <button type="submit">Upload Avatar</button>
-</form>
 
 </body>
 </html>
