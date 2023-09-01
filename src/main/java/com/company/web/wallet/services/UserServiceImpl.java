@@ -147,32 +147,32 @@ public class UserServiceImpl implements UserService {
         return userRepository.getAll();
     }
 
-    private void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
-
-        if (mailSender == null) throw new IllegalArgumentException("mailSender is not properly initialized.");
-        if (user == null || user.getEmail() == null) throw new IllegalArgumentException("User or user email is null.");
-        if (siteURL == null) throw new IllegalArgumentException("siteURL is null.");
-
-        String toAddress = user.getEmail();
-        String fromAddress = "Your email address";
-        String senderName = "Your company name";
+    @Override
+    public void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
         String subject = "Please verify your registration";
-        String content = "Dear [[name]],<br>" +
-                "Please click the link below to verify your registration:<br>" +
-                "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>" +
-                "Thank you,<br>" +
-                "The Wallet App.";
+        String senderName = "The Wallet Project Team";
+
+        String mailContent = "<p>Dear " + user.getUsername() + ",</p>";
+        mailContent += "<p><br>Please click on the link below to verify to your registration:<br></p>";
+        mailContent += "<p><br>Thank you,<br>The Wallet Project<br><br><br></p>";
+
+        String verifyURL = siteURL + "/users/verify?code=" + user.getVerificationCode();
+        sendMessage(user, subject, senderName, mailContent, verifyURL);
+    }
+
+    private void sendMessage(User user, String subject,
+                             String senderName,
+                             String mailContent,
+                             String verifyURL) throws MessagingException, UnsupportedEncodingException {
+        mailContent += "<h3><a href=\"" + verifyURL + "\">VERIFY</a></h3>";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom(fromAddress, senderName);
-        helper.setTo(toAddress);
+        helper.setFrom("paysphere.wallet@gmail.com", senderName);
         helper.setSubject(subject);
-        content = content.replace("[[name]]", user.getUsername());
-        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
-        content = content.replace("[[URL]]", verifyURL);
-        helper.setText(content, true);
+        helper.setTo(user.getEmail());
+        helper.setText(mailContent, true);
         mailSender.send(message);
     }
 

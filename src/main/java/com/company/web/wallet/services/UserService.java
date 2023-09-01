@@ -25,6 +25,9 @@ public interface UserService {
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;
     void delete(User authenticatedUser, int id) throws EntityNotFoundException;
+
+    void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
+
     boolean verify(String verificationCode);
 
     void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException;

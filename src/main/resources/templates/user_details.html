@@ -40,7 +40,7 @@
             <div class="col-md-10 mt-lg-5 text-center">
 
                 <div class="user-profile">
-                    <div class="avatar-section">
+                    <div class="avatar-section" >
                         <div th:if="${user.getProfilePicture() != null}">
                             <img th:src="|data:image/png;base64,${base64avatar}|"
                                  alt="User profile picture" class="avatar-image">

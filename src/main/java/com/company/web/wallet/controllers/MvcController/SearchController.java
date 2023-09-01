@@ -33,6 +33,7 @@ public class SearchController {
         model.addAttribute("usersByName", usersPage);
         int totalPages = usersPage.getTotalPages();
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("username", username);
         return "user_search_results";
     }
 

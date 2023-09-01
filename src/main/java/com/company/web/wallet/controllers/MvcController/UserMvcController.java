@@ -68,8 +68,12 @@ public class UserMvcController {
         try {
             User user = userService.getUserById(id);
             byte[] avatarData = user.getProfilePicture();
-            String base64DB = Base64.getEncoder().encodeToString(avatarData);
-            model.addAttribute("base64avatar", base64DB);
+            if (avatarData != null) {
+                String base64DB = Base64.getEncoder().encodeToString(avatarData);
+                model.addAttribute("base64avatar", base64DB);
+            }
+            else
+                model.addAttribute("base64avatar", "");
             model.addAttribute("user", user);
             return "user_details";
         } catch (EntityNotFoundException e) {
@@ -203,8 +207,8 @@ public class UserMvcController {
                 User authenticatedUser = userService.getByUsername(username);
                 authenticationHelper.verifyAuthentication(authenticatedUser.getUsername(), password);
 
-                userService.deleteUser(authenticatedUser,authenticatedUser.getId());
-                if(userService.getByUsername(username)==null) {
+                userService.deleteUser(authenticatedUser, authenticatedUser.getId());
+                if (userService.getByUsername(username) == null) {
                     session.invalidate();
                 }
                 return "redirect:/";

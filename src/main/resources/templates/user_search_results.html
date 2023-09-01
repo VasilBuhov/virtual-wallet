@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>The Wallet Project - Error 415</title>
+    <title>The Wallet Project - Search results</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -43,8 +43,8 @@
                         <li class="user-item-search">
                             <div class="user-name" th:text="${user.username}"></div>
                             <div class="user-details-search" style="display: none;">
-                                <p><i th:text="#{user.email_details} + ' '" /><span th:text="${user.email}" /></p>
                                 <p><i th:text="#{user.phone_details} + ' '" /><span th:text="${user.phone}" /></p>
+                                <a th:href="@{/users/{user_id}(user_id=${user.id})}" class="profile-link">View Profile</a>
                             </div>
                         </li>
                     </th:block>
