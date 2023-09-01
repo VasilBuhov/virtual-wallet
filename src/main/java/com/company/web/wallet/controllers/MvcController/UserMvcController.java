@@ -144,10 +144,10 @@ public class UserMvcController {
                 return "UpdateSuccessView";
             } catch (EntityNotFoundException e) {
                 model.addAttribute("error", "User not found");
-                return "NotFoundView";
+                return "errors/404";
             } catch (AuthorizationException e) {
                 model.addAttribute("error", "Unauthorized access");
-                return "UnauthorizedView";
+                return "errors/401";
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
