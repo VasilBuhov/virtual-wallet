@@ -6,6 +6,8 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -16,8 +18,7 @@ public interface UserService {
     User getByUsername(String username);
     User getUserByEmail(String email);
     List<User> getAll();
-
-    List<User> get(String username);
+    Page<User> findByUsernameContaining(String username, Pageable pageable);
 
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;

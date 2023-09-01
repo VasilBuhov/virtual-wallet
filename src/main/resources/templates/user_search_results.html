@@ -49,6 +49,14 @@
                         </li>
                     </th:block>
                 </ul>
+                <br /><br /><br /><br />
+                <div class="text-center" th:align="center">
+                    <ul class="pagination">
+                        <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}">
+                            <a th:href="@{/search(username=${username}, page=${page})}" th:text="'Page ' + ${page + 1}" th:classappend="${page == usersByName.number} ? 'active'"></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
