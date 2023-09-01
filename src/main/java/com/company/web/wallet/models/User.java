@@ -36,6 +36,9 @@ public class User {
     @Column(name = "profile_picture")
     private byte[] profilePicture;
 
+    @Column(name = "phone")
+    private String phone;
+
     @Column(name = "user_level")
     private int userLevel;
 
@@ -57,7 +60,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String username, String email, String password, int userLevel, int verified, byte[] avatar) {
+    public User(int id, String firstName, String lastName, String username, String email, String password, String phone, int userLevel, int verified, byte[] avatar) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -66,6 +69,7 @@ public class User {
         this.password = password;
         this.verified = verified;
         this.profilePicture = avatar;
+        this.phone = phone;
         setUserLevel(userLevel);
     }
 
@@ -155,6 +159,14 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Set<Card> getCards() {

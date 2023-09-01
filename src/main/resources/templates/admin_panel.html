@@ -36,7 +36,7 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10 mt-lg-5 text-center">
                 <br /><br /><br />
-                <h2>User Management</h2>
+                <h2 th:text="#{user.management}" />
                 <ul class="user-list">
                     <!-- Loop through the list of users -->
                     <th:block th:each="user : ${users}">
@@ -44,22 +44,23 @@
                             <div class="user-name" th:text="${user.username}"></div>
                             <div class="user-details" style="display: none;">
                                 <!-- Additional user information here -->
-                                <p>Email: <span th:text="${user.email}"></span></p>
-                                <p>User Level: <span th:text="${user.userLevel}"></span></p>
+                                <p><i th:text="#{user.email_details} + ' '" /><span th:text="${user.email}"></span></p>
+                                <p><i th:text="#{user.level_details} + ' '" /><span th:text="${user.userLevel}"></span></p>
+                                <p th:if="${user.phone != null}"><i th:text="#{user.phone_details} + ' '" /><span th:text="${user.phone}"></span></p>
                                 <!-- Add more details as needed -->
                             </div>
                             <div class="action-buttons">
                                 <form th:action="@{'/users/' + ${user.id} + '/delete'}" method="post"
                                       th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit">Delete</button>
+                                    <button class="action-button" type="submit" th:text="#{user.delete}" />
                                 </form>
                                 <form th:action="@{'/users/' + ${user.id} + '/block'}" method="post"
                                       th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit">Block</button>
+                                    <button class="action-button" type="submit" th:text="#{user.block}" />
                                 </form>
                                 <form th:action="@{'/users/' + ${user.id} + '/unblock'}" method="post"
                                       th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit">Unblock</button>
+                                    <button class="action-button" type="submit" th:text="#{user.unblock}" />
                                 </form>
                                 <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
                                       th:if="${session.currentUserLevel > 1}">

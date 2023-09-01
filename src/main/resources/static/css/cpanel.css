@@ -55,4 +55,13 @@ h2 {
     margin-top: 10px;
     position: relative;
     left: -30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-details p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
 }

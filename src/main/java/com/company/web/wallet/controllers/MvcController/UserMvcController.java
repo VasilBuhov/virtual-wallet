@@ -143,7 +143,7 @@ public class UserMvcController {
                 user.setUserLevel(authenticatedUser.getUserLevel());
                 user.setEnabled(authenticatedUser.isEnabled());
                 userService.update(authenticatedUser, user);
-                return "UpdateSuccessView";
+                return "update_success";
             } catch (EntityNotFoundException e) {
                 model.addAttribute("error", "User not found");
                 return "errors/404";

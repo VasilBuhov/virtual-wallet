@@ -20,6 +20,7 @@ public class UserMapper {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setPassword(user.getPassword());
+        userDto.setPhone(user.getPhone());
         return userDto;
     }
 
@@ -30,6 +31,7 @@ public class UserMapper {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPassword(userDto.getPassword());
+        user.setPhone(userDto.getPhone());
         return user;
     }
 
@@ -41,6 +43,7 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
         userDto.setAvatar(user.getProfilePicture());
         userDto.setUserLevel(user.getUserLevel());
+        user.setPhone(user.getPhone());
         return userDto;
     }
 
