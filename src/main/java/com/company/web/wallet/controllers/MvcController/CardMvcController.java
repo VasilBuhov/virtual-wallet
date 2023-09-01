@@ -11,12 +11,7 @@ import javax.servlet.http.HttpSession;
 public class CardMvcController {
     @GetMapping
 public String getCards(HttpSession session){
-        System.out.println(session.getId());
-        System.out.println(session.getAttribute("name"));
-        if (session.getId().equals("FDCBCDAFDC43B4E0FE9B47A10EA05A49")) {
-            session.setAttribute("name", "Svetoslav");
 
-        }
     return "cards";
 }
 }

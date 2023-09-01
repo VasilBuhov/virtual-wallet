@@ -8,6 +8,8 @@ public class UserLoginDto {
     @NotNull
     private String password;
 
+    private int userLevel;
+
     public String getUsername() {
         return username;
     }
@@ -22,5 +24,13 @@ public class UserLoginDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
     }
 }

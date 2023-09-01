@@ -15,7 +15,7 @@ public interface UserService {
     User getUserById(int id);
     User getByUsername(String username);
     User getUserByEmail(String email);
-    List<User> getAll(User user);
+    List<User> getAll();
 
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;

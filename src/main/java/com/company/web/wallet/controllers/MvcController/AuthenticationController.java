@@ -4,6 +4,8 @@ import com.company.web.wallet.exceptions.AuthenticationFailureException;
 import com.company.web.wallet.exceptions.BlockedUserException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.models.DTO.UserLoginDto;
+import com.company.web.wallet.models.User;
+import com.company.web.wallet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -21,9 +22,13 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthenticationController {
     private final AuthenticationHelper authenticationHelper;
+
+    private final UserService userService;
+
     @Autowired
-    public AuthenticationController(AuthenticationHelper authenticationHelper) {
+    public AuthenticationController(AuthenticationHelper authenticationHelper, UserService userService) {
         this.authenticationHelper = authenticationHelper;
+        this.userService = userService;
     }
 
     @GetMapping("/login")
@@ -42,14 +47,16 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public String handleLogin(@Valid @ModelAttribute("login") UserLoginDto dto, BindingResult bindingResult,
-                              HttpSession session, RedirectAttributes redirectAttributes) {
+                              HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "user_login";
         }
 
         try {
-            authenticationHelper.verifyAuthentication(dto.getUsername(), dto.getPassword());
+            authenticationHelper.verifyAuthentication(dto.getUsername(), dto.getPassword(), dto.getUserLevel());
             session.setAttribute("currentUser", dto.getUsername());
+            User user = userService.getByUsername(dto.getUsername());
+            session.setAttribute("currentUserLevel", user.getUserLevel());
             return "redirect:/";
         } catch (AuthenticationFailureException e) {
             bindingResult.rejectValue("username", "auth error", e.getMessage());

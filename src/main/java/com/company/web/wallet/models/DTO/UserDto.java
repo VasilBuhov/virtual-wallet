@@ -24,13 +24,16 @@ public class UserDto {
     @NotEmpty(message = "Password is required")
     @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
 
+    private int userLevel;
+    private String phone;
     private String password;
 
-    private String avatar;
+    private byte[] avatar;
 
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -67,11 +70,27 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public String getAvatar() {
-        return email;
+    public byte[] getAvatar() {
+        return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
+    }
+
+    public int getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
