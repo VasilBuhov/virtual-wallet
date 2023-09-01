@@ -37,7 +37,6 @@ public class TransactionServiceImpl implements TransactionService {
             String sortBy,
             String sortDirection) {
         List<Transaction> transactions;
-
         if (username != null) {
             User user = userRepository.getByUsername(username);
             if (direction != null) {
@@ -52,30 +51,28 @@ public class TransactionServiceImpl implements TransactionService {
         } else {
             transactions = transactionRepository.getAllTransactions();
         }
-
-        // Sort transactions based on sortBy and sortDirection
         if ("timestamp".equals(sortBy)) {
             transactions.sort(Comparator.comparing(Transaction::getTimestamp));
         } else if ("amount".equals(sortBy)) {
             transactions.sort(Comparator.comparing(Transaction::getAmount));
-        } // Add more sorting criteria if needed
-
+        }
         if ("desc".equals(sortDirection)) {
             Collections.reverse(transactions);
         }
-
         return transactions;
     }
+
     @Override
     public List<Transaction> getAllTransactions() {
         return transactionRepository.getAllTransactions();
     }
+
     @Override
     public Transaction getTransactionById(Long id) {
         return transactionRepository.getTransactionById(id);
     }
-    @Override
 
+    @Override
     public List<Transaction> getTransactionsByUser(User user) {
         return transactionRepository.getTransactionsByUser(user);
     }
@@ -88,52 +85,42 @@ public class TransactionServiceImpl implements TransactionService {
                                                         LocalDateTime endDate) {
         return transactionRepository.getTransactionsByDateRange(startDate, endDate);
     }
-
     @Override
-    public List<Transaction> getTransactionsBySender(User authenticatedUser,User sender) {
+    public List<Transaction> getTransactionsBySender(User authenticatedUser, User sender) {
 
-     checkAccessPermissions(authenticatedUser, sender.getId());
+        checkAccessPermissions(authenticatedUser, sender.getId());
         return transactionRepository.getTransactionsBySender(sender);
     }
-
     @Override
     public List<Transaction> getTransactionsByRecipient(User authenticatedUser, User recipient) {
-        checkAccessPermissions(authenticatedUser,recipient.getId());
+        checkAccessPermissions(authenticatedUser, recipient.getId());
         return transactionRepository.getTransactionsByRecipient(recipient);
     }
-
     @Override
     public List<Transaction> getTransactionsByDirection(TransactionType direction) {
         return transactionRepository.getTransactionsByDirection(direction);
     }
     @Override
     public void createTransaction(Transaction transaction) {
-        // Assuming the transaction has sender, recipient, amount, and other relevant fields
-        // Validate the sender, recipient, and other data as needed
-        System.out.println("tova e "+transaction.getSender().getUsername());
-        System.out.println("tova e "+transaction.getRecipient().getUsername());
-        // Add amount to recipient's wallet
+        User sender = userRepository.getByUsername(transaction.getSender().getUsername());
+        User recipient = userRepository.getByUsername(transaction.getRecipient().getUsername());
+        transaction.setSender(sender);
+        transaction.setRecipient(recipient);
         walletService.addToBalance(walletService.getWalletIdForUser(transaction.getRecipient()),
                 transaction.getRecipient(), transaction.getAmount());
-        System.out.println("stiga li do tuk>? ");
-
-        // Remove amount from sender's wallet
-        walletService.removeFromBalance(walletService.getWalletIdForUser(transaction.getSender()), transaction.getSender(), transaction.getAmount());
-
-        // Save the transaction
+        walletService.removeFromBalance(walletService.getWalletIdForUser(userRepository.getByUsername(transaction.getSender().getUsername())),
+                transaction.getSender(),
+                transaction.getAmount());
         transactionRepository.createTransaction(transaction);
     }
-
-
     @Override
     public void deleteTransaction(Long id) {
         transactionRepository.deleteTransaction(id);
     }
 
-    private void checkAccessPermissions(User authenticatedUser,int userId) {
+    private void checkAccessPermissions(User authenticatedUser, int userId) {
         if (!(authenticatedUser.getUserLevel() == 1 ||
-               authenticatedUser.getId()==userId))
-                 {
+                authenticatedUser.getId() == userId)) {
             throw new AuthorizationException("You do not have permission for this operation");
         }
     }

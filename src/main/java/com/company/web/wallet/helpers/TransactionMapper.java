@@ -17,14 +17,13 @@ public class TransactionMapper {
     private final UserMapper userMapper;
     private final UserRecipientMapper userRecipientMapper;
     private final UserSenderMapper userSenderMapper;
-    private final WalletRepository walletRepository;
+    private final WalletRepository walletService;
 
-    @Autowired
-    public TransactionMapper(UserMapper userMapper, UserRecipientMapper userRecipientMapper, UserSenderMapper userSenderMapper, WalletRepository walletRepository) {
+    public TransactionMapper(UserMapper userMapper, UserRecipientMapper userRecipientMapper, UserSenderMapper userSenderMapper, WalletRepository walletService) {
         this.userMapper = userMapper;
         this.userRecipientMapper = userRecipientMapper;
         this.userSenderMapper = userSenderMapper;
-        this.walletRepository = walletRepository;
+        this.walletService = walletService;
     }
 
     public Transaction fromDto(TransactionDto transactionDto) {
@@ -32,12 +31,9 @@ public class TransactionMapper {
         transaction.setSender(userSenderMapper.toEntity(transactionDto.getSender()));
         transaction.setRecipient(userRecipientMapper.findUserByEmailOrUsername(transactionDto.getRecipient().getRecipientIdentifier()));
         transaction.setAmount(transactionDto.getAmount());
-//        transaction.setTransactionType(transactionDto.getTransactionType());
-//        transaction.setTimestamp(transactionDto.getTimestamp());
         transaction.setTransactionDescription(transactionDto.getTransactionDescription());
         transaction.setStatus(transactionDto.getStatus());
-
-        transaction.setWallet(transactionDto.getWallet());
+        transaction.setWallet(walletService.get(transactionDto.getWalletId()));
         return transaction;
     }
 
@@ -54,14 +50,13 @@ public class TransactionMapper {
         transactionDto.setTransactionDescription(transaction.getTransactionDescription());
         transactionDto.setStatus(transaction.getStatus());
 
-        // Set the direction based on the current user
         if (currentUser != null && currentUser.getUsername().equals(transaction.getRecipient().getUsername())) {
             transactionDto.setDirection("incoming");
         } else {
             transactionDto.setDirection("outgoing");
         }
-
-        transactionDto.setWallet(transaction.getWallet());
+        Wallet wallet = walletService.get(transaction.getWallet().getId());
+        transactionDto.setWallet(wallet);
         return transactionDto;
     }
 
@@ -97,7 +92,8 @@ public class TransactionMapper {
         transactionDto.setTimestamp(transaction.getTimestamp());
         transactionDto.setTransactionDescription(transaction.getTransactionDescription());
         transactionDto.setStatus(transaction.getStatus());
-        transactionDto.getWallet();
+        transactionDto.setWallet(transaction.getWallet());
+        transactionDto.setWalletId(transaction.getWallet().getId());
         return transactionDto;
     }
 }

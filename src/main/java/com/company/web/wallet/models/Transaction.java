@@ -3,6 +3,7 @@ package com.company.web.wallet.models;
 import com.company.web.wallet.helpers.TransactionType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,11 +23,11 @@ public class Transaction {
     @Column(name = "amount")
     private BigDecimal amount;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "sender_id")
     private User sender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "recipient_id")
     private User recipient;
 

@@ -29,9 +29,19 @@ public class TransactionDto {
     private String transactionDescription;
 
     @NotEmpty(message = "Transaction status is required")
-    private String status;
+    private String status = "Completed";
 //    @JsonIgnore
+
+    private int walletId;
     private Wallet wallet;
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
 
     public String getDirection() {
         return direction;
@@ -42,9 +52,9 @@ public class TransactionDto {
     }
 
     private String direction;
-    public Wallet getWallet() {
-        return wallet;
-    }
+
+
+
 
 
 
@@ -104,7 +114,11 @@ public class TransactionDto {
         this.status = status;
     }
 
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
+    public int getWalletId() {
+        return walletId;
+    }
+
+    public void setWalletId(int walletId) {
+        this.walletId = walletId;
     }
 }

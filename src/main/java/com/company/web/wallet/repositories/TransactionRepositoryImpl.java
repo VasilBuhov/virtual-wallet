@@ -87,7 +87,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             }
             return transaction;
         }
-
     }
 
     @Override
@@ -107,8 +106,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             Root<Transaction> root = cq.from(Transaction.class);
             cq.select(root).where(cb.or(
                     cb.equal(root.get("sender"), user),
-                    cb.equal(root.get("recipient"), user)
-            ));
+                    cb.equal(root.get("recipient"), user)));
             return session.createQuery(cq).list();
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -129,6 +127,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return new ArrayList<>();
         }
     }
+
     @Override
     public List<Transaction> getTransactionsByUsernameAndDirection(User user, TransactionType direction) {
         try (Session session = sessionFactory.openSession()) {
@@ -140,8 +139,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ArrayList<>();
+        }
     }
-}
+
     @Override
     public List<Transaction> getTransactionsByDateRange(LocalDateTime startDate,
                                                         LocalDateTime endDate) {
@@ -156,6 +156,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return new ArrayList<>();
         }
     }
+
     @Override
     public List<Transaction> getTransactionsBySender(User sender) {
         try (Session session = sessionFactory.openSession()) {
@@ -168,6 +169,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return new ArrayList<>();
         }
     }
+
     @Override
     public List<Transaction> getTransactionsByRecipient(User recipient) {
         try (Session session = sessionFactory.openSession()) {
@@ -180,6 +182,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return new ArrayList<>();
         }
     }
+
     @Override
     public List<Transaction> getTransactionsByDirection(TransactionType direction) {
         try (Session session = sessionFactory.openSession()) {
@@ -192,9 +195,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return new ArrayList<>();
         }
     }
-
-
-
 
 
     @Override
