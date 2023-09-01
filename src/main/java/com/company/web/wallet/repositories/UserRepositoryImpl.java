@@ -9,12 +9,18 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -33,6 +39,47 @@ public class UserRepositoryImpl implements UserRepository {
             Query<User> query = session.createQuery("from User", User.class);
             return query.list();
         }
+    }
+
+    @Override
+    public Page<User> findAllUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
+
+        TypedQuery<Long> countQuery = entityManager.createQuery("SELECT COUNT(u) FROM User u", Long.class);
+
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+
+        Long total = countQuery.getSingleResult();
+
+        return new PageImpl<>(users, pageable, total);
+    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Page<User> findByUsernameContaining(String username, Pageable pageable) {
+        String queryString = "SELECT u FROM User u WHERE u.username LIKE :username";
+        TypedQuery<User> query = entityManager.createQuery(queryString, User.class);
+        query.setParameter("username", "%" + username + "%");
+
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.username LIKE :username",
+                Long.class
+        );
+        countQuery.setParameter("username", "%" + username + "%");
+
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+
+        Long total = countQuery.getSingleResult();
+
+        return new PageImpl<>(users, pageable, total);
     }
 
     @Override

@@ -10,9 +10,10 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
@@ -22,7 +23,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final String DELETE_USER_ERROR_MESSAGE = "Only admin and user who own profile can delete it";
     private static final String MODIFY_USER_ERROR_MESSAGE = "Only admin  can modify a user";
-    public static final String PERMISSION_DENIED = "Unauthorized action for the current user.";
     private final UserRepository userRepository;
 
     private final JavaMailSender mailSender;
@@ -42,6 +42,17 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return userRepository.getByEmail(email);
     }
+
+    @Override
+    public Page<User> findByUsernameContaining(String username, Pageable pageable) {
+        return userRepository.findByUsernameContaining(username, pageable);
+    }
+
+    @Override
+    public Page<User> getAllUsersPage(Pageable pageable) {
+        return userRepository.findAllUsers(pageable);
+    }
+
 
     @Override
     public void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
@@ -73,6 +84,12 @@ public class UserServiceImpl implements UserService {
     public void update(User authenticatedUser, User user) throws EntityNotFoundException {
         checkModifyPermissionsForUpdating(authenticatedUser, user);
         userRepository.update(user);
+    }
+    @Override
+    public void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException {
+        User user = userRepository.getById(id);
+        checkModifyPermissionsForDeleting(authenticatedUser, user);
+        userRepository.delete(id);
     }
 
     @Override
@@ -130,32 +147,32 @@ public class UserServiceImpl implements UserService {
         return userRepository.getAll();
     }
 
-    private void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
-
-        if (mailSender == null) throw new IllegalArgumentException("mailSender is not properly initialized.");
-        if (user == null || user.getEmail() == null) throw new IllegalArgumentException("User or user email is null.");
-        if (siteURL == null) throw new IllegalArgumentException("siteURL is null.");
-
-        String toAddress = user.getEmail();
-        String fromAddress = "Your email address";
-        String senderName = "Your company name";
+    @Override
+    public void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
         String subject = "Please verify your registration";
-        String content = "Dear [[name]],<br>" +
-                "Please click the link below to verify your registration:<br>" +
-                "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>" +
-                "Thank you,<br>" +
-                "The Wallet App.";
+        String senderName = "The Wallet Project Team";
+
+        String mailContent = "<p>Dear " + user.getUsername() + ",</p>";
+        mailContent += "<p><br>Please click on the link below to verify to your registration:<br></p>";
+        mailContent += "<p><br>Thank you,<br>The Wallet Project<br><br><br></p>";
+
+        String verifyURL = siteURL + "/users/verify?code=" + user.getVerificationCode();
+        sendMessage(user, subject, senderName, mailContent, verifyURL);
+    }
+
+    private void sendMessage(User user, String subject,
+                             String senderName,
+                             String mailContent,
+                             String verifyURL) throws MessagingException, UnsupportedEncodingException {
+        mailContent += "<h3><a href=\"" + verifyURL + "\">VERIFY</a></h3>";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom(fromAddress, senderName);
-        helper.setTo(toAddress);
+        helper.setFrom("paysphere.wallet@gmail.com", senderName);
         helper.setSubject(subject);
-        content = content.replace("[[name]]", user.getUsername());
-        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
-        content = content.replace("[[URL]]", verifyURL);
-        helper.setText(content, true);
+        helper.setTo(user.getEmail());
+        helper.setText(mailContent, true);
         mailSender.send(message);
     }
 

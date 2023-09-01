@@ -1,5 +1,6 @@
 package com.company.web.wallet.controllers.MvcController;
 
+import com.company.web.wallet.exceptions.AuthenticationFailureException;
 import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
@@ -9,12 +10,17 @@ import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.DTO.UserDto;
 import com.company.web.wallet.services.UserService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +29,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -63,8 +68,12 @@ public class UserMvcController {
         try {
             User user = userService.getUserById(id);
             byte[] avatarData = user.getProfilePicture();
-            String base64DB = Base64.getEncoder().encodeToString(avatarData);
-            model.addAttribute("base64avatar", base64DB);
+            if (avatarData != null) {
+                String base64DB = Base64.getEncoder().encodeToString(avatarData);
+                model.addAttribute("base64avatar", base64DB);
+            }
+            else
+                model.addAttribute("base64avatar", "");
             model.addAttribute("user", user);
             return "user_details";
         } catch (EntityNotFoundException e) {
@@ -76,14 +85,14 @@ public class UserMvcController {
     @GetMapping("/new")
     public String showNewUserPage(Model model) {
         model.addAttribute("user", new UserDto());
-        return "register";
+        return "user_register";
     }
 
     @PostMapping("/new")
     public String createUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("errorMessage", "Please fill in all required fields.");
-            return "register";
+            return "user_register";
         }
         try {
             User newUser = userMapper.fromDto(userDto);
@@ -95,7 +104,7 @@ public class UserMvcController {
             throw new RuntimeException(e);
         }
 
-        return "AlreadyExistsView";
+        return "errors/782";
     }
 
     @GetMapping("/profile")
@@ -159,12 +168,58 @@ public class UserMvcController {
     }
 
     @GetMapping("/cpanel")
-    public String showAdminPanel(Model model, HttpSession session) {
+    public String showAdminPanel(@RequestParam(name = "page", defaultValue = "0") int page,
+                                 @RequestParam(name = "size", defaultValue = "10") int size,
+                                 Model model, HttpSession session) {
         if (authenticationHelper.isAdmin(session)) {
-            List<User> users = userService.getAll();
-            model.addAttribute("users", users);
+            Pageable pageable = PageRequest.of(page, size);
+            Page<User> usersPage = userService.getAllUsersPage(pageable);
+            model.addAttribute("usersPage", usersPage);
+            int totalPages = usersPage.getTotalPages();
+            model.addAttribute("totalPages", totalPages);
             return "admin_panel";
-        } else return "errors/401";
+        } else {
+            return "errors/401";
+        }
+    }
+
+    @GetMapping("/delete")
+    public String showDeleteUserPage(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username != null) {
+            User user = userService.getByUsername(username);
+            if (user != null) {
+                model.addAttribute("user", user);
+                return "user_deleted";
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not logged in");
+        }
+    }
+
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam("password") String password, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username != null) {
+            try {
+                User authenticatedUser = userService.getByUsername(username);
+                authenticationHelper.verifyAuthentication(authenticatedUser.getUsername(), password);
+
+                userService.deleteUser(authenticatedUser, authenticatedUser.getId());
+                if (userService.getByUsername(username) == null) {
+                    session.invalidate();
+                }
+                return "redirect:/";
+            } catch (AuthenticationFailureException e) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+            } catch (EntityNotFoundException e) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not logged in");
+        }
     }
 
 }

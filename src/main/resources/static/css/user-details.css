@@ -20,7 +20,6 @@
 
 .avatar-section {
     flex: 1;
-    padding-right: 20px;
     width: 150px;
     height: 150px;
     overflow: hidden;
@@ -29,7 +28,7 @@
 }
 
 .avatar-image {
-    max-width: 100%;
+    max-width: 150px;
     height: auto;
     margin-bottom: 10px;
 }
