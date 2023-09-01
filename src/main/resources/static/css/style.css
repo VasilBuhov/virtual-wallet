@@ -2072,7 +2072,6 @@ figure figcaption {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
-/* New Style */
 .single-text .owl-dots {
   margin-top: 2rem;
   text-align: center; }
@@ -2090,3 +2089,38 @@ figure figcaption {
       background-color: rgba(255, 255, 255, 0.5); }
     .single-text .owl-dots .owl-dot.active > span {
       background-color: #fff; }
+
+/* Add styles for the search form */
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.form-control222 {
+  border: none; /* Remove the border */
+  background-color: transparent; /* Make the background transparent */
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 0;
+  transition: background-color 0.3s;
+}
+
+.form-control222:focus {
+  background-color: rgba(255, 255, 255, 0.1); /* Add a transparent background on focus */
+  outline: none;
+}
+
+.btn-default2913 {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.btn-default2913:hover {
+  color: #888;
+}

@@ -78,13 +78,30 @@
                                         class="icon-twitter"></span></a></li>
                                 <li class="social"><a href="#contact-section" class="nav-link"><span
                                         class="icon-linkedin"></span></a></li>
+                                <li th:if="${session.currentUser != null}">
+                                    <form th:action="@{/search/}" role="search" method="get">
+                                        <div class="input-group add-on">
+                                            <input class="form-control form-control222"
+                                                   th:placeholder="#{user.search_placeholder}" id="search" name="search"
+                                                   type="text">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-default btn-default2913" type="submit">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
+
                             </ul>
                         </nav>
+
                     </div>
                     <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a
                             href="#" class="site-menu-toggle js-menu-toggle float-right"><span
                             class="icon-menu h3"></span></a>
                     </div>
+
                 </div>
             </div>
         </header>
