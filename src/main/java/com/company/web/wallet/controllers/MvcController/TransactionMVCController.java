@@ -82,7 +82,7 @@ public class TransactionMVCController {
         TransactionDto transactionDto = new TransactionDto();
         model.addAttribute("transaction", transactionDto);
 
-        return "create_transaction"; // Return the name of the view template for the create transaction form
+        return "create_transaction";
     }
 
     @PostMapping("/create")
