@@ -27,6 +27,8 @@ public interface UserService {
     void delete(User authenticatedUser, int id) throws EntityNotFoundException;
     boolean verify(String verificationCode);
 
+    void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException;
+
     void addWallet(Wallet wallet, User user);
     void addCard(Card card, User user);
 

@@ -95,8 +95,21 @@ public class AuthenticationHelper {
             {
                 throw new AuthenticationFailureException(AUTHENTICATION_FAILURE_MESSAGE);
             }
-            if (userLevel == -1) {//TODO blocked user level on another bit/boolean
+            if (userLevel == -1) {
                 throw new BlockedUserException("Blocked user can not perform any action");
+            }
+        } catch (EntityNotFoundException e){
+            throw new AuthenticationFailureException(AUTHENTICATION_FAILURE_MESSAGE);
+        }
+    }
+
+    public void verifyAuthentication(String username, String password){
+        try {
+            User user = userService.getByUsername(username);
+
+            if(!user.getPassword().equals(password))
+            {
+                throw new AuthenticationFailureException(AUTHENTICATION_FAILURE_MESSAGE);
             }
         } catch (EntityNotFoundException e){
             throw new AuthenticationFailureException(AUTHENTICATION_FAILURE_MESSAGE);

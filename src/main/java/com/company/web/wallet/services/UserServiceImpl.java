@@ -85,6 +85,12 @@ public class UserServiceImpl implements UserService {
         checkModifyPermissionsForUpdating(authenticatedUser, user);
         userRepository.update(user);
     }
+    @Override
+    public void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException {
+        User user = userRepository.getById(id);
+        checkModifyPermissionsForDeleting(authenticatedUser, user);
+        userRepository.delete(id);
+    }
 
     @Override
     public void addWallet(Wallet wallet, User user) {
