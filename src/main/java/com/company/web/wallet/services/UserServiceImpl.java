@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<User> getAllUsersPage(Pageable pageable) {
+        return userRepository.findAllUsers(pageable);
+    }
+
+
+    @Override
     public void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
 //        User existingUserByEmail = userRepository.getByEmail(user.getEmail());
 //        if (existingUserByEmail != null) {

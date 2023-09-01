@@ -9,12 +9,15 @@ import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.DTO.UserDto;
 import com.company.web.wallet.services.UserService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +26,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -159,12 +161,19 @@ public class UserMvcController {
     }
 
     @GetMapping("/cpanel")
-    public String showAdminPanel(Model model, HttpSession session) {
+    public String showAdminPanel(@RequestParam(name = "page", defaultValue = "0") int page,
+                                 @RequestParam(name = "size", defaultValue = "10") int size,
+                                 Model model, HttpSession session) {
         if (authenticationHelper.isAdmin(session)) {
-            List<User> users = userService.getAll();
-            model.addAttribute("users", users);
+            Pageable pageable = PageRequest.of(page, size);
+            Page<User> usersPage = userService.getAllUsersPage(pageable);
+            model.addAttribute("usersPage", usersPage);
+            int totalPages = usersPage.getTotalPages();
+            model.addAttribute("totalPages", totalPages);
             return "admin_panel";
-        } else return "errors/401";
+        } else {
+            return "errors/401";
+        }
     }
 
 }

@@ -20,6 +20,8 @@ public interface UserService {
     List<User> getAll();
     Page<User> findByUsernameContaining(String username, Pageable pageable);
 
+    Page<User> getAllUsersPage(Pageable pageable);
+
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;
     void delete(User authenticatedUser, int id) throws EntityNotFoundException;

@@ -11,6 +11,8 @@ public interface UserRepository {
 
     List<User> getAll();
 
+    Page<User> findAllUsers(Pageable pageable);
+
     Page<User> findByUsernameContaining(String username, Pageable pageable);
 
     User getById(int id) throws EntityNotFoundException;

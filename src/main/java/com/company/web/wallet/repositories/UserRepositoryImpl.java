@@ -41,6 +41,22 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public Page<User> findAllUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
+
+        TypedQuery<Long> countQuery = entityManager.createQuery("SELECT COUNT(u) FROM User u", Long.class);
+
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+
+        Long total = countQuery.getSingleResult();
+
+        return new PageImpl<>(users, pageable, total);
+    }
+
     @PersistenceContext
     private EntityManager entityManager;
 
