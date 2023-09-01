@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>The Wallet Project - Admin Control Panel</title>
+    <title>The Wallet Project - Error 415</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -29,44 +29,22 @@
 
 <div th:replace="fragments/header :: header"></div>
 
-<div class="site-blocks-cover overlay" th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
+<div class="site-blocks-cover overlay"
+     th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
      data-aos="fade" id="home-section">
 
-    <div class="container">
+    <div class="container" th:if="${session.currentUser != null}">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10 mt-lg-5 text-center">
                 <br /><br /><br />
-                <h2 th:text="#{user.management}" />
+                <h2 th:text="#{user.search_by_name}" />
                 <ul class="user-list">
-                    <th:block th:each="user : ${users}">
-                        <li class="user-item">
+                    <th:block th:each="user : ${usersByName}">
+                        <li class="user-item-search">
                             <div class="user-name" th:text="${user.username}"></div>
-                            <div class="user-details" style="display: none;">
-                                <!-- Additional user information here -->
-                                <p><i th:text="#{user.email_details} + ' '" /><span th:text="${user.email}"></span></p>
-                                <p><i th:text="#{user.level_details} + ' '" /><span th:text="${user.userLevel}"></span></p>
-                                <p th:if="${user.phone != null}"><i th:text="#{user.phone_details} + ' '" /><span th:text="${user.phone}"></span></p>
-                                <!-- Add more details as needed -->
-                            </div>
-                            <div class="action-buttons">
-                                <form th:action="@{'/users/' + ${user.id} + '/delete'}" method="post"
-                                      th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit" th:text="#{user.delete}" />
-                                </form>
-                                <form th:action="@{'/users/' + ${user.id} + '/block'}" method="post"
-                                      th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit" th:text="#{user.block}" />
-                                </form>
-                                <form th:action="@{'/users/' + ${user.id} + '/unblock'}" method="post"
-                                      th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit" th:text="#{user.unblock}" />
-                                </form>
-                                <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
-                                      th:if="${session.currentUserLevel > 1}">
-                                    <button class="action-button" type="submit">Set as Admin</button>
-                                </form>
-
-
+                            <div class="user-details-search" style="display: none;">
+                                <p><i th:text="#{user.email_details} + ' '" /><span th:text="${user.email}" /></p>
+                                <p><i th:text="#{user.phone_details} + ' '" /><span th:text="${user.phone}" /></p>
                             </div>
                         </li>
                     </th:block>
@@ -91,6 +69,6 @@
 <script th:src="@{/js/jquery.sticky.js}"></script>
 <script th:src="@{/js/isotope.pkgd.min.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-<script th:src="@{/js/cpanel.js}"></script>
+<script th:src="@{/js/search-results.js}"></script>
 </body>
 </html>

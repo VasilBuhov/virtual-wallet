@@ -22,7 +22,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final String DELETE_USER_ERROR_MESSAGE = "Only admin and user who own profile can delete it";
     private static final String MODIFY_USER_ERROR_MESSAGE = "Only admin  can modify a user";
-    public static final String PERMISSION_DENIED = "Unauthorized action for the current user.";
     private final UserRepository userRepository;
 
     private final JavaMailSender mailSender;
@@ -41,6 +40,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getByEmail(email);
+    }
+
+    @Override
+    public List<User> get(String username) {
+        return userRepository.get(username);
     }
 
     @Override

@@ -9,6 +9,8 @@ public interface UserRepository {
 
     List<User> getAll();
 
+    List<User> get(String username);
+
     User getById(int id) throws EntityNotFoundException;
 
     User getByEmail(String email) throws EntityNotFoundException;

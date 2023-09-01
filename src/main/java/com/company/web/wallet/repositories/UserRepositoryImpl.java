@@ -36,6 +36,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<User> get(String username) {
+        try (Session session = sessionFactory.openSession()) {
+            String queryString = "from User where username like :username";
+            Query<User> query = session.createQuery(queryString, User.class);
+            query.setParameter("username", "%" + username + "%"); // Add '%' before and after for partial matching
+            return query.list();
+        }
+    }
+
+    @Override
     public User getById(int id) throws EntityNotFoundException {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
