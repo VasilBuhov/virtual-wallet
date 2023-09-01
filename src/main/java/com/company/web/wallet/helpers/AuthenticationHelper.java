@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 
@@ -44,7 +45,6 @@ public class AuthenticationHelper {
         }
     }
 
-    //todo implement userService methods
     public User tryGetUser(HttpHeaders headers) {
         if (!headers.containsKey(AUTHORIZATION_HEADER_NAME)) {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
@@ -87,7 +87,7 @@ public class AuthenticationHelper {
         return userInfo.substring(firstSpace + 1);
     }
 
-    public void verifyAuthentication(String username, String password){
+    public void verifyAuthentication(String username, String password, int userLevel){
         try {
             User user = userService.getByUsername(username);
 
@@ -95,13 +95,22 @@ public class AuthenticationHelper {
             {
                 throw new AuthenticationFailureException(AUTHENTICATION_FAILURE_MESSAGE);
             }
-            if (user.getUserLevel() == -1) {//TODO blocked user level on another bit/boolean
+            if (userLevel == -1) {//TODO blocked user level on another bit/boolean
                 throw new BlockedUserException("Blocked user can not perform any action");
             }
         } catch (EntityNotFoundException e){
             throw new AuthenticationFailureException(AUTHENTICATION_FAILURE_MESSAGE);
         }
 
+    }
+
+    public boolean isAdmin(HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username != null) {
+            User user = userService.getByUsername(username);
+            return user != null && user.getUserLevel() == 1;
+        }
+        return false;
     }
 
 

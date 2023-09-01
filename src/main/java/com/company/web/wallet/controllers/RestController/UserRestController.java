@@ -45,11 +45,9 @@ public class UserRestController {
     }
 
     @GetMapping
-    public List<UserDto> getAll(@RequestHeader HttpHeaders headers) {
+    public List<UserDto> getAll() {
         try {
-            AuthenticationHelper authHelper = new AuthenticationHelper(userService);
-            User user = authHelper.checkForRegisteredUser(headers);
-            List<User> users = userService.getAll(user);
+            List<User> users = userService.getAll();
             return userMapper.toDtoList(users);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());

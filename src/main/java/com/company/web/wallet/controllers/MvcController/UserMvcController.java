@@ -3,6 +3,7 @@ package com.company.web.wallet.controllers.MvcController;
 import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
 import com.company.web.wallet.models.User;
@@ -22,15 +23,18 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
 public class UserMvcController {
-    private final UserService userService;
 
+    private final AuthenticationHelper authenticationHelper;
+    private final UserService userService;
     private final UserMapper userMapper;
 
-    public UserMvcController(UserService userService, UserMapper userMapper) {
+    public UserMvcController(AuthenticationHelper authenticationHelper, UserService userService, UserMapper userMapper) {
+        this.authenticationHelper = authenticationHelper;
         this.userService = userService;
         this.userMapper = userMapper;
     }
@@ -52,10 +56,10 @@ public class UserMvcController {
 
     @GetMapping("/{id}")
     public String showSingleUser(@PathVariable int id, Model model, HttpSession session) {
-//        String username = (String) session.getAttribute("currentUser");
-//        if (username == null) {
-//            return "redirect:/auth/login";
-//        }
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) {
+            return "redirect:/auth/login";
+        }
         try {
             User user = userService.getUserById(id);
             byte[] avatarData = user.getProfilePicture();
@@ -65,7 +69,7 @@ public class UserMvcController {
             return "user_details";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView";
+            return "errors/404";
         }
     }
 
@@ -87,9 +91,7 @@ public class UserMvcController {
             return "redirect:/";
         } catch (EntityDuplicateException e) {
             model.addAttribute("alreadyExists", e.getMessage());
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
+        } catch (MessagingException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
 
@@ -112,7 +114,7 @@ public class UserMvcController {
                 return "user_edit";
             } catch (EntityNotFoundException e) {
                 model.addAttribute("error", "User not found");
-                return "NotFoundView";
+                return "errors/404";
             }
         } else {
             return "redirect:/auth/login";
@@ -156,5 +158,13 @@ public class UserMvcController {
         }
     }
 
+    @GetMapping("/cpanel")
+    public String showAdminPanel(Model model, HttpSession session) {
+        if (authenticationHelper.isAdmin(session)) {
+            List<User> users = userService.getAll();
+            model.addAttribute("users", users);
+            return "admin_panel";
+        } else return "errors/401";
+    }
 
 }
