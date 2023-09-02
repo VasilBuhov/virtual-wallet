@@ -1,14 +1,12 @@
 package com.company.web.wallet.services;
 
 import com.company.web.wallet.exceptions.AuthorizationException;
-import com.company.web.wallet.exceptions.ZeroAmountTransactionException;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.TransactionRepository;
 import com.company.web.wallet.repositories.TransactionRepositoryImpl;
 import com.company.web.wallet.repositories.UserRepository;
-import com.company.web.wallet.repositories.UserRepositoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,8 @@ public class TransactionServiceImpl implements TransactionService {
         this.walletService = walletService;
         this.userRepository = userRepository;
     }
+
+
 
     @Override
     public List<Transaction> getTransactions(
@@ -136,11 +136,22 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
     }
+    @Override
+    public List<Transaction> getTransactionsPage(int offset, int pageSize) {
+        return transactionRepository.getTransactionsPage(offset, pageSize);
+    }
+    @Override
+    public List<Transaction> getTransactionsPageForCurrentUser(User currentUser, int offset, int pageSize) {
+        // Retrieve transactions where the current user is either the sender or recipient
+        return transactionRepository.findTransactionsBySenderOrRecipient(currentUser, offset, pageSize);
+    }
 
     @Override
     public void deleteTransaction(Long id) {
         transactionRepository.deleteTransaction(id);
     }
+
+
 
     private void checkAccessPermissions(User authenticatedUser, int userId) {
         if (!(authenticatedUser.getUserLevel() == 1 ||

@@ -39,5 +39,13 @@ public interface TransactionService {
 
     void createTransaction(Transaction transaction);
 
+    List<Transaction> getTransactionsPage(int offset, int pageSize);
+
+    List<Transaction> getTransactionsPageForCurrentUser(User currentUser, int offset, int pageSize);
+
     void deleteTransaction(Long id);
+
+
+
+
 }
