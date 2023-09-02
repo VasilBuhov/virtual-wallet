@@ -45,6 +45,8 @@
                                                th:text="#{user.my_wallet}"/></li>
                                         <li><a th:href="@{/transactions}" class="nav-link"
                                                th:text="#{user.my_transactions}"/></li>
+                                        <li><a th:href="@{/users/request}" class="nav-link"
+                                               th:text="#{user.request_funds_menu}"/></li>
 
 
                                         <li th:if="${session.currentUser != null and session.pokes != null}" class="has-children">
@@ -56,10 +58,6 @@
                                                 </li>
                                             </ul>
                                         </li>
-
-
-
-
 
                                         <li><a th:href="@{/auth/logout}" class="nav-link" th:text="#{user.logout}"/>
                                         </li>
@@ -75,24 +73,24 @@
                                         <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
                                         <li><a href="#services-section" class="nav-link">Services</a></li>
                                         <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
-                                        <li class="has-children">
-                                            <a href="#">More Links</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Menu One</a></li>
-                                                <li><a href="#">Menu Two</a></li>
-                                                <li><a href="#">Menu Three</a></li>
-                                            </ul>
-                                        </li>
+<!--                                        <li class="has-children">-->
+<!--                                            <a href="#">More Links</a>-->
+<!--                                            <ul class="dropdown">-->
+<!--                                                <li><a href="#">Menu One</a></li>-->
+<!--                                                <li><a href="#">Menu Two</a></li>-->
+<!--                                                <li><a href="#">Menu Three</a></li>-->
+<!--                                            </ul>-->
+<!--                                        </li>-->
                                     </ul>
                                 </li>
 
                                 <li><a href="#contact-section" class="nav-link">Contact</a></li>
 
-                                <li class="social"><a href="#contact-section" class="nav-link"><span
+                                <li class="social"><a href="https://www.facebook.com/profile.php?id=61550930370143" class="nav-link"><span
                                         class="icon-facebook"></span></a></li>
-                                <li class="social"><a href="#contact-section" class="nav-link"><span
+                                <li class="social"><a href="https://twitter.com/Wallet_tellaW" class="nav-link"><span
                                         class="icon-twitter"></span></a></li>
-                                <li class="social"><a href="#contact-section" class="nav-link"><span
+                                <li class="social"><a href="https://www.linkedin.com/in/wallet-tellaw-78246828b/" class="nav-link"><span
                                         class="icon-linkedin"></span></a></li>
                                 <li th:if="${session.currentUser != null}">
                                     <form th:action="@{/search/}" role="search" method="get">

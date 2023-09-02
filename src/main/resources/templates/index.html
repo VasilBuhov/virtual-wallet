@@ -90,9 +90,8 @@
     <div class="container">
         <div class="row mb-5 justify-content-center">
             <div class="col-md-8 text-center">
-                <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">About Us</h2>
-                <p class="lead" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Minus minima neque tempora reiciendis.</p>
+                <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="" th:text="#{site.about_us}"/>
+                <p class="lead" data-aos="fade-up" data-aos-delay="100" th:text="#{site.about_us_msg}"/>
             </div>
         </div>
         <div class="row">
@@ -102,16 +101,9 @@
                 </figure>
             </div>
             <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
-
-                <h3 class="text-black mb-4">We Solve Your Financial Problem</h3>
-
-                <p>Far, far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                    live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics,
-                    a large language ocean.</p>
-
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                    is a paradigmatic country, in which roasted parts of sentences fly into your mouth.</p>
-
+                <h3 class="text-black mb-4" th:text="#{site.solving}" />
+                <p th:text="#{site.solving_msg}" />
+                <p th:text="#{site.solving_msg_additional}" />
             </div>
         </div>
 
@@ -177,71 +169,32 @@
         <div class="row mb-5 justify-content-center">
             <div class="col-md-8 text-center">
                 <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">Meet Team</h2>
-                <p class="lead" data-aos="fade-up" data-aos-delay="100">A small river named Duden flows by their
-                    place and supplies it with the necessary regelialia.</p>
+                <p class="lead" th:text="#{site.team_msg}" data-aos="fade-up" data-aos-delay="100" />
             </div>
         </div>
         <div class="row">
-
-
-            <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="">
+            <div th:each="filename : ${imageFilenames}" class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="">
                 <div class="team-member">
                     <figure>
+
                         <ul class="social">
                             <li><a href="#"><span class="icon-facebook"></span></a></li>
                             <li><a href="#"><span class="icon-twitter"></span></a></li>
                             <li><a href="#"><span class="icon-linkedin"></span></a></li>
                             <li><a href="#"><span class="icon-instagram"></span></a></li>
                         </ul>
-                        <img th:src="@{/images/person_1.jpg}" alt="Image" class="img-fluid">
+                        <img th:src="@{'/images/team/' + ${filename}}" alt="Image" class="img-fluid">
                     </figure>
                     <div class="p-3">
-                        <h3>Kaiara Spencer</h3>
-                        <span class="position">Accountant</span>
+                        <h3>Team Member Name</h3>
+                        <span class="position">Position</span>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="team-member">
-                    <figure>
-                        <ul class="social">
-                            <li><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li><a href="#"><span class="icon-linkedin"></span></a></li>
-                            <li><a href="#"><span class="icon-instagram"></span></a></li>
-                        </ul>
-                        <img th:src="@{/images/person_2.jpg}" alt="Image" class="img-fluid">
-                    </figure>
-                    <div class="p-3">
-                        <h3>Dave Simpson</h3>
-                        <span class="position">Bank Teller</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="team-member">
-                    <figure>
-                        <ul class="social">
-                            <li><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li><a href="#"><span class="icon-linkedin"></span></a></li>
-                            <li><a href="#"><span class="icon-instagram"></span></a></li>
-                        </ul>
-                        <img th:src="@{/images/person_3.jpg}" alt="Image" class="img-fluid">
-                    </figure>
-                    <div class="p-3">
-                        <h3>Ben Thompson</h3>
-                        <span class="position">Bank Teller</span>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
 </section>
+
 
 <section class="site-section" id="gallery-section" data-aos="fade">
 
@@ -832,7 +785,7 @@
             <div class="col-md-4 text-center">
                 <p class="mb-4">
                     <span class="icon-room d-block h2 text-primary"></span>
-                    <span>203 Fake St. Mountain View, San Francisco, California, USA</span>
+                    <span>30, ul. "Krastyu Rakovski" str, 1729 Sofia</span>
                 </p>
             </div>
             <div class="col-md-4 text-center">
@@ -844,7 +797,7 @@
             <div class="col-md-4 text-center">
                 <p class="mb-0">
                     <span class="icon-mail_outline d-block h2 text-primary"></span>
-                    <a href="#">youremail@domain.com</a>
+                    <a href="mailto:wallet.project.a48@badmin.org">wallet.project.a48@badmin.org</a>
                 </p>
             </div>
         </div>
