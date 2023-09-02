@@ -4,6 +4,7 @@ import com.company.web.wallet.exceptions.AuthenticationFailureException;
 import com.company.web.wallet.exceptions.BlockedUserException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.models.DTO.UserLoginDto;
+import com.company.web.wallet.models.Pokes;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,11 @@ public class AuthenticationController {
             session.setAttribute("currentUser", dto.getUsername());
             User user = userService.getByUsername(dto.getUsername());
             session.setAttribute("currentUserLevel", user.getUserLevel());
-            session.setAttribute("pokes", null);
+            System.out.println(user.getPokes() + " 28907548975");
+            for (Pokes poke : user.getPokes()) {
+                System.out.println("Poke from: " + poke.getPokingUser().getUsername());
+            }
+            session.setAttribute("pokes", user.getPokes());
             return "redirect:/";
         } catch (AuthenticationFailureException e) {
             bindingResult.rejectValue("username", "auth error", e.getMessage());

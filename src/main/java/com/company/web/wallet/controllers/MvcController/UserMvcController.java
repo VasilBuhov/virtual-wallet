@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -128,6 +129,32 @@ public class UserMvcController {
         } else {
             return "redirect:/auth/login";
         }
+    }
+
+    @GetMapping("/pokes")
+    public String showUserPokes(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username != null) {
+            try {
+                return null;//TODO support this operation
+            } catch (EntityNotFoundException e) {
+                model.addAttribute("error", "User not found");
+                return "errors/404";
+            }
+        } else {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @GetMapping("/request")
+    public String requestFunds(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) {
+            return "redirect:/auth/login";
+        }
+        List<User> users = userService.getAll();
+        model.addAttribute("users", users);
+        return "user_request_funds";
     }
 
     @PostMapping("/profile")

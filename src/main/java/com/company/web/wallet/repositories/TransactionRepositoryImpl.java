@@ -10,11 +10,13 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,17 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         try (Session session = sessionFactory.openSession()) {
             String hql = "FROM Transaction";
             Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            return query.getResultList();
+        }
+    }
+    @Override
+    public List<Transaction> getTransactionsPage(int offset, int pageSize) {
+        try (Session session = sessionFactory.openSession()) {
+            // Implement pagination using database-specific features
+            String hql = "FROM Transaction";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setFirstResult(offset);
+            query.setMaxResults(pageSize);
             return query.getResultList();
         }
     }
@@ -170,6 +183,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         }
     }
 
+
     @Override
     public List<Transaction> getTransactionsByRecipient(User recipient) {
         try (Session session = sessionFactory.openSession()) {
@@ -197,7 +211,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
 
-    @Override
+        @Override
     public void deleteTransaction(Long id) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.get(Transaction.class, id);
@@ -215,5 +229,21 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             // Handle exceptions
         }
     }
+    @Override
+    public List<Transaction> findTransactionsBySenderOrRecipient(User currentUser, int offset, int pageSize) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM Transaction t WHERE t.sender = :currentUser OR t.recipient = :currentUser";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("currentUser", currentUser);
+            query.setFirstResult(offset);
+            query.setMaxResults(pageSize);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+
 
 }

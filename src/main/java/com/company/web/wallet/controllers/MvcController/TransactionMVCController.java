@@ -13,6 +13,7 @@ import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.UserService;
 import com.company.web.wallet.services.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ListResourceBundle;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/transactions")
@@ -50,8 +54,14 @@ public class TransactionMVCController {
     }
 
     @PostMapping()
-    public String filterTransactions(@RequestParam(required = false) String username, @RequestParam(required = false) LocalDateTime startDate, @RequestParam(required = false) LocalDateTime endDate, @RequestParam(required = false) TransactionType direction, @RequestParam(required = false) String sortBy, @RequestParam(required = false) String sortDirection, Model model) {
-        List<Transaction> filteredTransactions = transactionService.getTransactions(username, startDate, endDate, direction, sortBy, sortDirection);
+    public String filterTransactions(@RequestParam(required = false) String username,
+                                     @RequestParam(required = false) LocalDateTime startDate,
+                                     @RequestParam(required = false) LocalDateTime endDate,
+                                     @RequestParam(required = false) TransactionType direction,
+                                     @RequestParam(required = false) String sortBy,
+                                     @RequestParam(required = false) String sortDirection, Model model) {
+        List<Transaction> filteredTransactions =
+                transactionService.getTransactions(username, startDate, endDate, direction, sortBy, sortDirection);
         List<TransactionDto> filteredTransactionDtos = transactionMapper.toDtoList(filteredTransactions);
         model.addAttribute("transactions", filteredTransactionDtos);
         return "transaction_list"; // Return the name of the view template
@@ -105,4 +115,81 @@ public class TransactionMVCController {
         }
     }
 
+    @GetMapping("/your_transactions")
+    public String showTransactions(
+            Model model,
+            HttpSession session,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int pageSize) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) {
+            return "redirect:/auth/login";
+        }
+        User currentUser = userService.getByUsername(username);
+
+        List<Transaction> transactionsByUser = transactionService.getTransactionsByUser(currentUser);
+        int offset = page * pageSize;
+        int totalTransactions = transactionsByUser.size();
+        int totalPages = (int) Math.ceil((double) totalTransactions / pageSize);
+
+        List<Transaction> pagedTransactions = transactionsByUser.stream()
+                .skip(offset)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        List<TransactionDto> transactionDtos = transactionMapper.toDtoList(pagedTransactions, currentUser);
+
+        model.addAttribute("transactionsDto", transactionDtos);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalPages", totalPages);
+
+        return "current_user_transactions";
+    }
+
+    @PostMapping("/your_transactions")
+    public String filterTransactions(
+            @RequestParam(name = "startDate", required = false)
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime startDate,
+            @RequestParam(name = "endDate", required = false)
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime endDate,
+            @RequestParam(required = false) TransactionType direction,
+            @RequestParam(name = "sortBy", required = false) String sortBy,
+            @RequestParam(name = "sortDirection", required = false) String sortDirection,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int pageSize,
+            Model model,
+            HttpSession session) {
+
+        String username = (String) session.getAttribute("currentUser");
+
+        if (username == null) {
+
+            return "redirect:/auth/login";
+        }
+
+        User currentUser = userService.getByUsername(username);
+
+        List<Transaction> filteredTransactions =
+                transactionService.getTransactions(username, startDate, endDate, direction, sortBy, sortDirection);
+
+        int totalTransactions = filteredTransactions.size();
+        int totalPages = (int) Math.ceil((double) totalTransactions / pageSize);
+        int offset = page * pageSize;
+
+        List<Transaction> pagedFilteredTransactions = filteredTransactions.stream()
+                .skip(offset)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        List<TransactionDto> filteredTransactionDtos = transactionMapper.toDtoList(pagedFilteredTransactions, currentUser);
+
+        model.addAttribute("transactionsDto", filteredTransactionDtos);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalPages", totalPages);
+
+        return "current_user_transactions";
+    }
 }
+

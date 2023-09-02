@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class TransactionMapper {
@@ -95,5 +97,13 @@ public class TransactionMapper {
         transactionDto.setWallet(transaction.getWallet());
         transactionDto.setWalletId(transaction.getWallet().getId());
         return transactionDto;
+    }
+    public Set<TransactionDto> toDtoSet(List<Transaction> transactions, User currentUser) {
+        Set<TransactionDto> transactionDtos = new HashSet<>();
+        for (Transaction transaction : transactions) {
+            TransactionDto transactionDto = toDto(transaction, currentUser); // Pass the current user
+            transactionDtos.add(transactionDto);
+        }
+        return transactionDtos;
     }
 }

@@ -1,6 +1,9 @@
 package com.company.web.wallet.models.DTO;
 
+import com.company.web.wallet.models.Pokes;
+
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 public class UserLoginDto {
     @NotNull
@@ -9,6 +12,8 @@ public class UserLoginDto {
     private String password;
 
     private int userLevel;
+
+    private Set<Pokes> pokes;
 
     public String getUsername() {
         return username;
@@ -32,5 +37,13 @@ public class UserLoginDto {
 
     public void setUserLevel(int userLevel) {
         this.userLevel = userLevel;
+    }
+
+    public Set<Pokes> getPokes() {
+        return pokes;
+    }
+
+    public void setPokes(Set<Pokes> pokes) {
+        this.pokes = pokes;
     }
 }

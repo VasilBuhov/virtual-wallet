@@ -21,6 +21,7 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
         userDto.setPassword(user.getPassword());
         userDto.setPhone(user.getPhone());
+        userDto.setPokes(user.getPokes());
         return userDto;
     }
 
@@ -45,6 +46,7 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
         userDto.setAvatar(user.getProfilePicture());
         userDto.setUserLevel(user.getUserLevel());
+        user.setPokes(userDto.getPokes());
         userDto.setPhone(user.getPhone());
         return userDto;
     }
