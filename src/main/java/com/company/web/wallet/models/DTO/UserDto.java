@@ -1,9 +1,12 @@
 package com.company.web.wallet.models.DTO;
 
+import com.company.web.wallet.models.Pokes;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 public class UserDto {
 
@@ -29,6 +32,8 @@ public class UserDto {
     private String password;
 
     private byte[] avatar;
+
+    private Set<Pokes> pokes;
 
     public String getPassword() {
         return password;
@@ -92,5 +97,13 @@ public class UserDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Set<Pokes> getPokes() {
+        return pokes;
+    }
+
+    public void setPokes(Set<Pokes> pokes) {
+        this.pokes = pokes;
     }
 }

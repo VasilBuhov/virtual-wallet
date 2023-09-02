@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -47,7 +48,7 @@ public class UserMvcController {
     @PostMapping("/process_register")
     public String processRegister(User user, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         userService.create(user, GetSiteURLHelper.getSiteURL(request));
-        return "register_success";
+        return "user_register_success";
     }
 
     @GetMapping("/verify")
@@ -130,6 +131,32 @@ public class UserMvcController {
         }
     }
 
+    @GetMapping("/pokes")
+    public String showUserPokes(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username != null) {
+            try {
+                return null;//TODO support this operation
+            } catch (EntityNotFoundException e) {
+                model.addAttribute("error", "User not found");
+                return "errors/404";
+            }
+        } else {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @GetMapping("/request")
+    public String requestFunds(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) {
+            return "redirect:/auth/login";
+        }
+        List<User> users = userService.getAll();
+        model.addAttribute("users", users);
+        return "user_request_funds";
+    }
+
     @PostMapping("/profile")
     public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, @RequestParam(value = "profilePictureFile", required = false) MultipartFile profilePictureFile, BindingResult errors, Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
@@ -142,9 +169,11 @@ public class UserMvcController {
                 if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
                     user.setProfilePicture(profilePictureFile.getBytes());
                     System.out.println("Picture h1t on upload");
+                    System.out.println("profilePictureFile: " + profilePictureFile);
                 } else {
                     user.setProfilePicture(user.getProfilePicture());
                     System.out.println("Picture considered empty");
+                    System.out.println("profilePictureFile: " + profilePictureFile);
                 }
                 user.setUsername(authenticatedUser.getUsername());
                 user.setPassword(authenticatedUser.getPassword());
@@ -152,7 +181,7 @@ public class UserMvcController {
                 user.setUserLevel(authenticatedUser.getUserLevel());
                 user.setEnabled(authenticatedUser.isEnabled());
                 userService.update(authenticatedUser, user);
-                return "update_success";
+                return "user_update_success";
             } catch (EntityNotFoundException e) {
                 model.addAttribute("error", "User not found");
                 return "errors/404";
