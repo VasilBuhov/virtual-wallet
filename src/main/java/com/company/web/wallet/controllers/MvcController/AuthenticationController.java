@@ -55,8 +55,9 @@ public class AuthenticationController {
 
         try {
             authenticationHelper.verifyAuthentication(dto.getUsername(), dto.getPassword(), dto.getUserLevel());
-            session.setAttribute("currentUser", dto.getUsername());
             User user = userService.getByUsername(dto.getUsername());
+            if (user.getVerified() != 1) return "redirect:/user_unverified";
+            session.setAttribute("currentUser", dto.getUsername());
             session.setAttribute("currentUserLevel", user.getUserLevel());
             System.out.println(user.getPokes() + " 28907548975");
             for (Pokes poke : user.getPokes()) {

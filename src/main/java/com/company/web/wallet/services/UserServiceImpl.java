@@ -156,6 +156,8 @@ public class UserServiceImpl implements UserService {
         mailContent += "<p><br>Please click on the link below to verify to your registration:<br></p>";
         mailContent += "<p><br>Thank you,<br>The Wallet Project<br><br><br></p>";
 
+        String manualVerification = "<p> Or you can manually verify your email with the code provided</p>";
+        manualVerification += "<p>" + user.getVerificationCode() +"</p>";
         String verifyURL = siteURL + "/users/verify?code=" + user.getVerificationCode();
         sendMessage(user, subject, senderName, mailContent, verifyURL);
     }
