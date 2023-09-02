@@ -53,9 +53,9 @@ public class UserMvcController {
     @GetMapping("/verify")
     public String verifyUser(@Param("code") String code) {
         if (userService.verify(code)) {
-            return "verify_success";
+            return "user_verify_success";
         } else {
-            return "verify_fail";
+            return "user_verify_fail";
         }
     }
 

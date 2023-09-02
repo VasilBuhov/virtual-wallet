@@ -140,20 +140,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getByVerificationCode(String username) throws EntityNotFoundException {
-        try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<User> cq = cb.createQuery(User.class);
-            Root<User> root = cq.from(User.class);
-            cq.select(root).where(cb.equal(root.get("verification_code"), username));
-            User user = session.createQuery(cq).uniqueResultOptional().orElse(null);
-            if (user == null) {
-                throw new EntityNotFoundException("User", "verification code", username);
+    public User getByVerificationCode(String verificationCode) {
+        try(Session session = sessionFactory.openSession()){
+            Query<User> query = session.createQuery("from User where verificationCode = :verificationCode", User.class);
+            query.setParameter("verificationCode", verificationCode);
+            List<User> result = query.list();
+            if (result.size() == 0) {
+                throw new EntityNotFoundException("User", "verificationCode", verificationCode);
+            } else {
+                return result.get(0);
             }
-            return user;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong");
         }
     }
 
