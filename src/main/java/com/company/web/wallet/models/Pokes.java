@@ -8,11 +8,11 @@ public class Pokes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "poked_user_id")
     private User pokedUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "poking_user_id")
     private User pokingUser;
     public Pokes() {
@@ -23,8 +23,6 @@ public class Pokes {
         this.pokedUser = pokedUser;
         this.pokingUser = pokingUser;
     }
-
-
 
     public int getId() {
         return id;
