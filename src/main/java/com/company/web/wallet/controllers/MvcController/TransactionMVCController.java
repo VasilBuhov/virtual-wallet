@@ -1,5 +1,6 @@
 package com.company.web.wallet.controllers.MvcController;
 
+import com.company.web.wallet.exceptions.ZeroAmountTransactionException;
 import com.company.web.wallet.helpers.TransactionMapper;
 import com.company.web.wallet.helpers.UserSenderMapper;
 import com.company.web.wallet.models.DTO.TransactionDto;
@@ -49,24 +50,15 @@ public class TransactionMVCController {
     }
 
     @PostMapping()
-    public String filterTransactions(
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) LocalDateTime startDate,
-            @RequestParam(required = false) LocalDateTime endDate,
-            @RequestParam(required = false) TransactionType direction,
-            @RequestParam(required = false) String sortBy,
-            @RequestParam(required = false) String sortDirection,
-            Model model) {
-        List<Transaction> filteredTransactions = transactionService.getTransactions(
-                username, startDate, endDate, direction, sortBy, sortDirection);
+    public String filterTransactions(@RequestParam(required = false) String username, @RequestParam(required = false) LocalDateTime startDate, @RequestParam(required = false) LocalDateTime endDate, @RequestParam(required = false) TransactionType direction, @RequestParam(required = false) String sortBy, @RequestParam(required = false) String sortDirection, Model model) {
+        List<Transaction> filteredTransactions = transactionService.getTransactions(username, startDate, endDate, direction, sortBy, sortDirection);
         List<TransactionDto> filteredTransactionDtos = transactionMapper.toDtoList(filteredTransactions);
         model.addAttribute("transactions", filteredTransactionDtos);
         return "transaction_list"; // Return the name of the view template
     }
 
     @GetMapping("/create")
-    public String showCreateTransactionForm(Model model, HttpSession session,
-                                            RedirectAttributes redirectAttributes) {
+    public String showCreateTransactionForm(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
         String username = (String) session.getAttribute("currentUser");
         if (username == null) {
@@ -86,8 +78,7 @@ public class TransactionMVCController {
     }
 
     @PostMapping("/create")
-    public String createTransaction(@ModelAttribute("transaction") @Valid TransactionDto transactionDto,
-                                    Model model, HttpSession session) {
+    public String createTransaction(@ModelAttribute("transaction") @Valid TransactionDto transactionDto, Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
         if (username != null) {
             try {
@@ -102,6 +93,10 @@ public class TransactionMVCController {
                 Transaction transaction = transactionMapper.fromDto(transactionDto);
                 transactionService.createTransaction(transaction);
                 return "redirect:/transactions";
+
+            } catch (ZeroAmountTransactionException e) {
+                model.addAttribute("errorMessage", e.getMessage());
+                return "error_view_for_zero_amount"; // Redirect to a custom error view
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
