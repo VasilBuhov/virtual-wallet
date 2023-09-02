@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!doctype html>
-        <html lang="en" xmlns:th="http://www.thymeleaf.org">
-        <head>
-        <title>The Wallet Project - Error 781</title>
+    <title>The Wallet Project - New User Registration</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -37,47 +34,60 @@
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10 mt-lg-5 text-center">
-                <h2 class="text-center">Register</h2>
+                <h2 class="text-center">Register new user</h2>
                 <form action="#" th:action="@{/users/new}" th:object="${user}" method="post">
-                    <label th:text="#{user.username}">User</label>
                     <br/>
-                    <input type="text" th:field="*{username}">
+                    <input type="text" th:field="*{username}" placeholder="Enter your username"
+                           style="background-color: transparent; border: 1px dashed #555;">
                     <!-- Display the validation errors for the username field -->
                     <div th:if="${#fields.hasErrors('username')}" class="alert alert-danger" role="alert">
                         <p th:errors="*{username}"></p>
                     </div>
                     <br><br/>
 
-                    <label th:text="#{user.email}">User</label>
                     <br/>
-                    <input type="text" th:field="*{email}">
+                    <input type="text" th:field="*{email}" placeholder="Enter your email"
+                           style="background-color: transparent; border: 1px dashed #555;">
                     <!-- Display the validation errors for the email field -->
                     <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" role="alert">
                         <p th:errors="*{email}"></p>
                     </div>
                     <br><br/>
 
-                    <label th:text="#{user.firstName}">User</label>
                     <br/>
-                    <input type="text" th:field="*{firstName}">
+                    <input type="text" th:field="*{firstName}" placeholder="Enter your first name"
+                           style="background-color: transparent; border: 1px dashed #555;">
                     <br><br/>
 
-                    <label th:text="#{user.lastName}">User</label>
                     <br/>
-                    <input type="text" th:field="*{lastName}">
+                    <input type="text" th:field="*{lastName}" placeholder="Enter your last name"
+                           style="background-color: transparent; border: 1px dashed #555;">
                     <br><br/>
 
-                    <label th:text="#{user.password}">User</label>
                     <br/>
-                    <input type="text" th:field="*{password}">
+                    <input type="password" th:field="*{password}" placeholder="Enter your password" autocomplete="off"
+                           style="background-color: transparent; border: 1px dashed #555;">
                     <br><br/>
 
                     <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
                         <p th:text="${errorMessage}"></p>
                     </div>
 
-                    <input type="submit" value="Save" class="btn btn-primary">
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="termsCheckbox">
+                            I agree to the <a th:href="@{/terms}" target="_blank" th:text="#{site.terms}">Terms and
+                            Conditions</a>
+                        </label>
+                    </div>
+
+                    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                        <p th:text="${errorMessage}"></p>
+                    </div>
+
+                    <input type="submit" value="Create User" class="btn btn-primary" id="saveButton" disabled>
                 </form>
+
 
             </div>
 
@@ -99,10 +109,6 @@
 <script th:src="@{/js/jquery.sticky.js}"></script>
 <script th:src="@{/js/isotope.pkgd.min.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-</body>
-</html></title>
-</head>
-<body>
-
+<script th:src="@{/js/terms-check.js}"></script>
 </body>
 </html>
