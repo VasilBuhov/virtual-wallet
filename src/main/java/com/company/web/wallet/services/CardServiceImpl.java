@@ -22,7 +22,6 @@ public class CardServiceImpl implements CardService {
     private static final String MODIFY_CARD_ERROR_MESSAGE = "Only the card owner can modify the card information.";
     private final CardRepository repository;
     private final UserRepository userRepository;
-    private final Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
     @Autowired
     public CardServiceImpl(CardRepository repository, UserRepository userRepository) {
@@ -54,15 +53,10 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void create(Card card) {
-        try {
-            Card existingCard = repository.get(card.getCardNumber());
-            if (existingCard != null) {
-                throw new EntityDuplicateException("Card", "card number", String.valueOf(existingCard.getCardNumber()));
-            } else {
-                repository.create(card);
-            }
-        } catch (NoResultException e) {
-            logger.error(e.getMessage());
+        Card existingCard = repository.get(card.getCardNumber());
+        if (existingCard != null) {
+            throw new EntityDuplicateException("Card", "card number", String.valueOf(existingCard.getCardNumber()));
+        } else {
             repository.create(card);
         }
     }
@@ -76,7 +70,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public void delete(int id, User user) {
         checkModifyPermissions(id, user);
-//        user.getCards().remove(repository.get(id));
+        user.getCards().remove(repository.get(id));
         userRepository.update(user);
         repository.delete(id);
     }

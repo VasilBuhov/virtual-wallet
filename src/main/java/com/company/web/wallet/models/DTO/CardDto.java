@@ -10,7 +10,7 @@ public class CardDto {
     @Size(min = 16, max = 16, message = "Card number must be 16 digits.")
     private String cardNumber;
     @Size(min = 2, max = 30, message = "Name must be between 2 and 30 symbols long.")
-    private String ownerName;
+    private String name;
     @FutureDate(message = "Expiration date must be in the future")
     private LocalDate expirationDate;
     @Size(min = 3, max = 3, message = "Check number must be 16 digits.")
@@ -27,12 +27,12 @@ public class CardDto {
         this.cardNumber = cardNumber;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getName() {
+        return name;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDate getExpirationDate() {

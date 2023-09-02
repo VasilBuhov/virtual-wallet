@@ -3,18 +3,18 @@ package com.company.web.wallet.models.DTO;
 import java.math.BigDecimal;
 
 public class CardTopUpDto {
-    private String name;
+    private String cardNumber;
     private BigDecimal amount;
 
     public CardTopUpDto() {
     }
 
-    public String getName() {
-        return name;
+    public String getCardNumber() {
+        return cardNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public BigDecimal getAmount() {

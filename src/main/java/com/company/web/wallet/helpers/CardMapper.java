@@ -23,6 +23,7 @@ public class CardMapper {
         newCard.setStatusDeleted(0);
         newCard.setCheckNumber(cardDto.getCheckNumber());
         newCard.setExpirationDate(cardDto.getExpirationDate());
+        newCard.setName(cardDto.getName());
         return newCard;
     }
 
@@ -31,6 +32,7 @@ public class CardMapper {
         existingCard.setExpirationDate(cardDto.getExpirationDate());
         existingCard.setCardNumber(cardDto.getCardNumber());
         existingCard.setCheckNumber(cardDto.getCheckNumber());
+        existingCard.setName(cardDto.getName());
         return existingCard;
     }
 }
