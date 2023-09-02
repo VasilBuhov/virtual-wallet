@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>The Wallet Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}"/>
+    <link rel="stylesheet" th:href="@{/fonts/flaticon/flaticon.css}"/>
+    <link rel="stylesheet" th:href="@{/css/aos.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<!--Insert code here-->
+
+<div class="site-blocks-cover overlay" th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
+     data-aos="fade" id="home-section">
+
+    <!--    Start inserting code here to keep background image-->
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-10 mt-lg-5 text-center">
+                <!--    Start inserting code here to keep background image and centering -->
+                <div class="authincation section-padding">
+                    <div class="container h-100">
+                        <div class="row justify-content-center h-100 align-items-center">
+                            <div class="col-xl-5 col-md-6">
+                                <div class="mini-logo text-center my-4">
+                                    <a href="./index.html"><img src="../static/images/logo.png" alt=""></a>
+                                    <h4 class="card-title mt-5">Add new card </h4>
+                                </div>
+                                <div class="auth-form card">
+                                    <div class="card-body">
+                                        <form class="identity-upload needs-validation" novalidate th:action="@{/cards/new}" th:object="${cardDto}" method="post" >
+                                            <!--                            <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#addCard").modal("show");</script>-->
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+
+                                                        <div class="row g-3">
+                                                            <div class="col-xl-12">
+                                                                <label class="form-label">Name on card </label>
+                                                                <input type="text" class="form-control" th:field="*{cardHolder}" placeholder="John Atanasov">
+                                                                <label class="text-danger" th:if="${#fields.hasErrors('cardHolder')}" th:errors="*{cardHolder}">Title error placeholder</label>
+                                                            </div>
+                                                            <div class="col-xl-12">
+                                                                <label class="form-label">Card number </label>
+                                                                <input type="text" class="form-control"  th:field="*{cardNumber}"placeholder="5658 4258 6358 4756">
+                                                                <label class="text-danger" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">Title error placeholder</label>
+                                                            </div>
+                                                            <div class="col-xl-4">
+                                                                <label class="form-label">Expiration </label>
+                                                                <input type="text" class="form-control" th:field="*{expirationDate}" placeholder="10/22">
+                                                                <label class="text-danger" th:if="${#fields.hasErrors('expirationDate')}" th:errors="*{expirationDate}">Title error placeholder</label>
+                                                            </div>
+                                                            <div class="col-xl-4">
+                                                                <label class="form-label">CVC </label>
+                                                                <input type="text" class="form-control"th:field="*{ccv}" placeholder="125">
+                                                                <label class="text-danger" th:if="${#fields.hasErrors('ccv')}" th:errors="*{ccv}">Title error placeholder</label>
+                                                            </div>
+                                                            <div class="col-xl-4">
+                                                                <label class="form-label">Debit/Credit </label>
+                                                                <input type="text" class="form-control" th:field="*{cardType}" placeholder="debit/credit">
+                                                                <label class="text-danger" th:if="${#fields.hasErrors('cardType')}" th:errors="*{cardType}">Title error placeholder</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button"  class="btn btn-primary-second">
+                                                            <a  href="#"
+                                                                th:href="@{/cards}">Close</a>
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary"  >Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--End code insertion-->
+
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.sticky.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

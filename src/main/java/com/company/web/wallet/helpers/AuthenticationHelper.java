@@ -125,6 +125,14 @@ public class AuthenticationHelper {
         }
         return false;
     }
+    public User tryGetUser(HttpSession session) {
+        String currentUser = (String) session.getAttribute("currentUser");
 
+        if (currentUser == null) {
+            throw new AuthenticationFailureException("No user logged in.");
+        }
+
+        return userService.getByUsername(currentUser);
+    }
 
 }
