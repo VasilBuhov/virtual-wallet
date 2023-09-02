@@ -1726,6 +1726,20 @@ body:after {
       padding: 5px;
       color: #fff; }
 
+.header-container-team {
+  background-color: #f0f0f0; /* Grayish background color */
+  padding: 10px; /* Adjust padding as needed */
+}
+
+.terms-content {
+  text-align: left;
+  margin-top: 100px;
+}
+
+.terms-text {
+  color: black;
+ }
+
 .team-member h3 {
   color: #000;
   margin: 0;

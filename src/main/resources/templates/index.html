@@ -101,9 +101,9 @@
                 </figure>
             </div>
             <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
-                <h3 class="text-black mb-4" th:text="#{site.solving}" />
-                <p th:text="#{site.solving_msg}" />
-                <p th:text="#{site.solving_msg_additional}" />
+                <h3 class="text-black mb-4" th:text="#{site.solving}"/>
+                <p th:text="#{site.solving_msg}"/>
+                <p th:text="#{site.solving_msg_additional}"/>
             </div>
         </div>
 
@@ -169,11 +169,12 @@
         <div class="row mb-5 justify-content-center">
             <div class="col-md-8 text-center">
                 <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">Meet Team</h2>
-                <p class="lead" th:text="#{site.team_msg}" data-aos="fade-up" data-aos-delay="100" />
+                <p class="lead" th:text="#{site.team_msg}" data-aos="fade-up" data-aos-delay="100"/>
             </div>
         </div>
         <div class="row">
-            <div th:each="filename : ${imageFilenames}" class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="">
+            <div th:each="filename : ${imageFilenames}" class="col-md-6 col-lg-3 mb-4" data-aos="fade-up"
+                 data-aos-delay="">
                 <div class="team-member">
                     <figure>
 
@@ -601,67 +602,67 @@
 
         <div class="row site-section" id="faq-section">
             <div class="col-12 text-center" data-aos="fade">
-                <h2 class="section-title">Frequently Ask Questions</h2>
+                <h2 class="section-title" th:text="#{site.faq}"/>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-black h4 mb-4">Can I accept both Paypal and Stripe?</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
+                    <h3 class="text-black h4 mb-4">What types of transactions can I perform using the app?</h3>
+                    <p> Our app enables a wide range of transactions, including fund transfers, bill payments, mobile
+                        recharges, peer-to-peer transfers, and more. You can also monitor your account balance and
+                        transaction history in real-time.</p>
                 </div>
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-black h4 mb-4">What available is refund period?</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
+                    <h3 class="text-black h4 mb-4">How secure is my financial information and transactions?</h3>
+                    <p>We prioritize your security. Our app uses advanced encryption and security protocols to safeguard
+                        your personal and financial data. We also offer two-factor authentication (2FA) options for an
+                        added layer of protection.</p>
                 </div>
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-black h4 mb-4">Can I accept both Paypal and Stripe?</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
+                    <h3 class="text-black h4 mb-4">Are there any fees associated with using the app?</h3>
+                    <p>While many features of the app are free, certain transactions or services may incur fees. These
+                        fees will be clearly communicated before you proceed with the transaction, ensuring
+                        transparency.</p>
                 </div>
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-black h4 mb-4">What available is refund period?</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
+                    <h3 class="text-black h4 mb-4">How quickly are transactions processed?</h3>
+                    <p>Most transactions are processed instantly, ensuring that your funds are available when you need
+                        them. However, some transfers might take a bit longer due to factors such as bank processing
+                        times.</p>
                 </div>
             </div>
             <div class="col-lg-6">
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-black h4 mb-4">Where are you from?</h3>
-                    <p>Voluptatum nobis obcaecati perferendis dolor totam unde dolores quod maxime corporis officia
-                        et. Distinctio assumenda minima maiores.</p>
+                    <h3 class="text-black h4 mb-4"> Can I link my bank account to the app?</h3>
+                    <p>Yes, you can link your bank account to the app for seamless fund transfers. We use secure
+                        connections to ensure the safety of your financial information.</p>
                 </div>
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="text-black h4 mb-4">What is your opening time?</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
+                    <p>We're pleased to offer round-the-clock service, 24 hours a day, 7 days a week. Our commitment to
+                        accessibility means you can access our services, support, and assistance whenever you need them,
+                        no matter the time zone or location. Whether it's daytime or nighttime, we're here to provide
+                        uninterrupted support and ensure a seamless experience for all our users.</p>
                 </div>
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-black h4 mb-4">Can I accept both Paypal and Stripe?</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
+                    <h3 class="text-black h4 mb-4">What should I do if I encounter a problem with a transaction?</h3>
+                    <p>If you experience any issues with a transaction, reach out to our customer support team. We're
+                        available [business hours/timezone] to assist you and resolve any concerns you may have.</p>
                 </div>
 
                 <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-black h4 mb-4">What available is refund period?</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
+                    <h3 class="text-black h4 mb-4"> Is there a limit on how much I can transact using the app?</h3>
+                    <p>Depending on your account type and verification status, there might be transaction limits. You
+                        can find this information in the app or on our website. If you need higher limits, you can
+                        request an upgrade with the necessary documentation.</p>
                 </div>
             </div>
         </div>

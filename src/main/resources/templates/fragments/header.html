@@ -67,9 +67,22 @@
                                 <li class="has-children">
                                     <a href="#about-section" class="nav-link">About Us</a>
                                     <ul class="dropdown">
-                                        <li><a href="#team-section" class="nav-link">Team</a></li>
+                                        <li th:if="${#httpServletRequest.requestURI == '/'}">
+                                            <a href="#team-section" class="nav-link">Team</a>
+                                        </li>
+                                        <li th:unless="${#httpServletRequest.requestURI == '/'}">
+                                            <a th:href="@{/team}" class="nav-link">Team</a>
+                                        </li>
+
                                         <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-                                        <li><a href="#faq-section" class="nav-link">FAQ</a></li>
+
+                                        <li th:if="${#httpServletRequest.requestURI == '/'}">
+                                            <a href="#faq-section" class="nav-link">Team</a>
+                                        </li>
+                                        <li th:unless="${#httpServletRequest.requestURI == '/'}">
+                                            <a th:href="@{/faq}" class="nav-link">Team</a>
+                                        </li>
+
                                         <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
                                         <li><a href="#services-section" class="nav-link">Services</a></li>
                                         <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
