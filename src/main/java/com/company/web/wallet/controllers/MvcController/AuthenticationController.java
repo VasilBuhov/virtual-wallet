@@ -57,6 +57,7 @@ public class AuthenticationController {
             session.setAttribute("currentUser", dto.getUsername());
             User user = userService.getByUsername(dto.getUsername());
             session.setAttribute("currentUserLevel", user.getUserLevel());
+            session.setAttribute("pokes", null);
             return "redirect:/";
         } catch (AuthenticationFailureException e) {
             bindingResult.rejectValue("username", "auth error", e.getMessage());

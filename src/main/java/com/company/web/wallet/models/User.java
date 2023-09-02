@@ -56,11 +56,16 @@ public class User {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<SavingsWallet> savingsWallets;
 
+    @Transient
+    @JsonIgnore
+    @OneToMany(mappedBy = "poked_user_id", fetch = FetchType.EAGER)
+    private Set<Pokes> pokes;
+
     private boolean enabled;
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String username, String email, String password, String phone, int userLevel, int verified, byte[] avatar) {
+    public User(int id, String firstName, String lastName, String username, String email, String password, String phone, int userLevel, int verified, byte[] avatar, Set<Pokes> pokes) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -70,6 +75,7 @@ public class User {
         this.verified = verified;
         this.profilePicture = avatar;
         this.phone = phone;
+        this.pokes = pokes;
         setUserLevel(userLevel);
     }
 
@@ -191,6 +197,14 @@ public class User {
 
     public void setSavingsWallets(Set<SavingsWallet> savingsWallets) {
         this.savingsWallets = savingsWallets;
+    }
+
+    public Set<Pokes> getPokes() {
+        return pokes;
+    }
+
+    public void setPokes(Set<Pokes> pokes) {
+        this.pokes = pokes;
     }
 
     public boolean equals(Object o) {

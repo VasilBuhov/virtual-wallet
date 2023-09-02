@@ -45,6 +45,25 @@
                                                th:text="#{user.my_wallet}"/></li>
                                         <li><a th:href="@{/transactions}" class="nav-link"
                                                th:text="#{user.my_transactions}"/></li>
+                                        <li th:if="${session.currentUser != null}">
+                                            <a th:href="@{/users/pokes}" class="nav-link"
+                                               th:text="#{user.has_pokes}"/>
+
+                                        </li>
+
+
+<!--                                        <li th:if="${session.currentUser != null}" class="has-children">-->
+<!--                                            <a th:href="@{/users/pokes}" class="nav-link" th:text="#{user.has_pokes}" />-->
+<!--                                            <ul th:if="${user.pokes != null}" class="dropdown">-->
+<!--                                                <li th:each="user.pokes : ${currentUserPokes}">-->
+<!--                                                    <a href="#" th:text="${'Poke from ' + poke.pokingUser.username}" />-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </li>-->
+
+
+
+
                                         <li><a th:href="@{/auth/logout}" class="nav-link" th:text="#{user.logout}"/>
                                         </li>
                                     </ul>

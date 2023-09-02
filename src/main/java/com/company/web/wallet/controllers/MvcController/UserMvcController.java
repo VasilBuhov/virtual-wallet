@@ -47,7 +47,7 @@ public class UserMvcController {
     @PostMapping("/process_register")
     public String processRegister(User user, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         userService.create(user, GetSiteURLHelper.getSiteURL(request));
-        return "register_success";
+        return "user_register_success";
     }
 
     @GetMapping("/verify")
@@ -142,9 +142,11 @@ public class UserMvcController {
                 if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
                     user.setProfilePicture(profilePictureFile.getBytes());
                     System.out.println("Picture h1t on upload");
+                    System.out.println("profilePictureFile: " + profilePictureFile);
                 } else {
                     user.setProfilePicture(user.getProfilePicture());
                     System.out.println("Picture considered empty");
+                    System.out.println("profilePictureFile: " + profilePictureFile);
                 }
                 user.setUsername(authenticatedUser.getUsername());
                 user.setPassword(authenticatedUser.getPassword());
@@ -152,7 +154,7 @@ public class UserMvcController {
                 user.setUserLevel(authenticatedUser.getUserLevel());
                 user.setEnabled(authenticatedUser.isEnabled());
                 userService.update(authenticatedUser, user);
-                return "update_success";
+                return "user_update_success";
             } catch (EntityNotFoundException e) {
                 model.addAttribute("error", "User not found");
                 return "errors/404";

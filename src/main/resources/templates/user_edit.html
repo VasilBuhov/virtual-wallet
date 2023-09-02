@@ -36,20 +36,20 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10 mt-lg-5 text-center">
                 <h2 class="text-center">Edit Profile</h2>
-
-                <form action="/users/profile" th:object="${user}" method="post">
+                <form action="/users/profile" th:object="${user}" method="post" enctype="multipart/form-data">
                     <div class="user-profile">
                         <div class="avatar-section-container">
                             <div class="avatar-section">
-                                <div th:if="${base64avatar != null}">
-                                    <img th:src="|data:image/png;base64,${base64avatar}|" alt="User profile picture" class="avatar-image">
-                                </div>
-                                <div th:unless="${base64avatar != null}">
-                                    <img th:src="@{/images/default_profile_pic.png}" alt="Default profile picture" class="avatar-image">
-                                </div>
+                                <img id="profilePicture" th:if="${base64avatar != null}"
+                                     th:src="|data:image/png;base64,${base64avatar}|"
+                                     alt="User profile picture" class="avatar-image">
+                                <img id="defaultPicture" th:unless="${base64avatar != null}"
+                                     th:src="@{/images/default_profile_pic.png}"
+                                     alt="Default profile picture" class="avatar-image">
                             </div>
-                            <input type="file" name="profilePictureFile" accept="image/*">
+                            <input type="file" name="profilePictureFile" accept="image/*" onchange="previewImage(this)">
                             <a th:href="@{/users/delete-avatar}" class="btn btn-danger">Delete Profile Picture</a>
+
                         </div>
 
 
@@ -117,5 +117,6 @@
 <script th:src="@{/js/jquery.sticky.js}"></script>
 <script th:src="@{/js/isotope.pkgd.min.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/profile-edit-pic.js}"></script>
 </body>
 </html>
