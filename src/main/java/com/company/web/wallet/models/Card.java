@@ -12,11 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cards")
+@Table(name = "bank_cards")
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +24,12 @@ public class Card {
     @Column(name = "card_number")
     private String cardNumber;
     @Column(name = "expiration_date")
-    private LocalDate expirationDate;
+    private String expirationDate;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "card_holder")
     private User cardHolder;
-    @Column(name = "check_number")
+    @Column(name = "cvc")
     private int checkNumber;
     @Column(name = "status_deleted")
     private int statusDeleted;
@@ -40,7 +39,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(int id, String cardNumber, LocalDate expirationDate, User cardHolder, int checkNumber, int statusDeleted, String name) {
+    public Card(int id, String cardNumber, String expirationDate, User cardHolder, int checkNumber, int statusDeleted, String name) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
@@ -66,11 +65,11 @@ public class Card {
         this.cardNumber = cardNumber;
     }
 
-    public LocalDate getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 

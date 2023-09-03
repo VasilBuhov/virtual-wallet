@@ -8,6 +8,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Target({ElementType.FIELD, ElementType.PARAMETER})
@@ -20,14 +21,14 @@ public @interface FutureDate {
 
     Class<? extends Payload>[] payload() default {};
 
-    class FutureDateValidator implements ConstraintValidator<FutureDate, LocalDateTime> {
+    class FutureDateValidator implements ConstraintValidator<FutureDate, LocalDate> {
         @Override
-        public boolean isValid(LocalDateTime value, ConstraintValidatorContext context) {
+        public boolean isValid(LocalDate value, ConstraintValidatorContext context) {
             if (value == null) {
                 return true; // Let other validators handle null values
             }
 
-            LocalDateTime now = LocalDateTime.now();
+            LocalDate now = LocalDate.now();
             return value.isAfter(now);
         }
     }

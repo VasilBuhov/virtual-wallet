@@ -4,6 +4,7 @@ import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityDeletedException;
 import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.helpers.CardExpiration;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.repositories.CardRepository;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class CardServiceImpl implements CardService {
     private static final String MODIFY_CARD_ERROR_MESSAGE = "Only the card owner can modify the card information.";
+    public static final String CARD_HAS_EXPIRED = "Card has passed the expiration date determined by the credit card provider";
     private final CardRepository repository;
     private final UserRepository userRepository;
 
@@ -53,6 +55,9 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void create(Card card) {
+        if (CardExpiration.isExpired(card.getExpirationDate())) {
+            throw new EntityNotFoundException(CARD_HAS_EXPIRED);
+        }
         Card existingCard = repository.get(card.getCardNumber());
         if (existingCard != null) {
             throw new EntityDuplicateException("Card", "card number", String.valueOf(existingCard.getCardNumber()));
