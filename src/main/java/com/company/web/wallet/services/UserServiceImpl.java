@@ -4,6 +4,7 @@ import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.ContactForm;
+import com.company.web.wallet.models.DTO.UserPasswordDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.repositories.UserRepository;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -42,6 +44,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getByEmail(email);
+    }
+
+    @Override
+    public User getByPhone(String phone) {
+        return userRepository.getByPhone(phone);
+    }
+
+    @Override
+    public List<User> getAdmins() {
+        return userRepository.getAdmins();
+    }
+    @Override
+    public List<User> getBlocked() {
+        return userRepository.getBlocked();
     }
 
     @Override
@@ -207,6 +223,13 @@ public class UserServiceImpl implements UserService {
             userRepository.update(user);
             return true;
         }
+    }
+
+    @Override
+    public void changePassword(User user, UserPasswordDto userPasswordDto) {
+        user.setPassword(userPasswordDto.getNewPassword());
+        user.setLastUpdateDate(LocalDateTime.now());
+        userRepository.update(user);
     }
 
 }

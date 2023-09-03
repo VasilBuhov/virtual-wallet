@@ -1,12 +1,10 @@
 package com.company.web.wallet.controllers.MvcController;
 
-import com.company.web.wallet.exceptions.AuthenticationFailureException;
-import com.company.web.wallet.exceptions.AuthorizationException;
-import com.company.web.wallet.exceptions.EntityDuplicateException;
-import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.exceptions.*;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
+import com.company.web.wallet.models.DTO.UserPasswordDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.DTO.UserDto;
 import com.company.web.wallet.services.UserService;
@@ -72,8 +70,7 @@ public class UserMvcController {
             if (avatarData != null) {
                 String base64DB = Base64.getEncoder().encodeToString(avatarData);
                 model.addAttribute("base64avatar", base64DB);
-            }
-            else
+            } else
                 model.addAttribute("base64avatar", "");
             model.addAttribute("user", user);
             return "user_details";
@@ -128,6 +125,61 @@ public class UserMvcController {
             }
         } else {
             return "redirect:/auth/login";
+        }
+    }
+
+    @GetMapping("/password")
+    public String showChangePasswordPage(Model model, HttpSession session) {
+        try {
+            authenticationHelper.tryGetUser(session);
+        } catch (AuthorizationException e){
+            model.addAttribute("error", e.getMessage());
+            return "errors/401";
+        }
+
+        try {
+            String username = (String) session.getAttribute("currentUser");
+            User user = userService.getByUsername(username);
+            model.addAttribute("user", user);
+            model.addAttribute("passwordDto", new UserPasswordDto());
+            return "user_password_change";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        }
+    }
+
+    @PostMapping("/{id}/password")
+    public String changePassword(@Valid @ModelAttribute("passwordDto") UserPasswordDto userPasswordDto,
+                                 BindingResult errors,
+                                 Model model, HttpSession session) {
+
+        if (errors.hasErrors()) {
+            return "user_password_change";
+        }
+
+        if (!userPasswordDto.getNewPassword().equals(userPasswordDto.getPasswordConfirm())) {
+            errors.rejectValue("passwordConfirm", "password_error",
+                    "Password confirmation should match password.");
+            return "user_password_change";
+        }
+
+        String username = (String) session.getAttribute("currentUser");
+        if (!userPasswordDto.getCurrentPassword().equals(userService.getByUsername(username).getPassword())) {
+            errors.rejectValue("currentPassword", "password_error",
+                    "Wrong current password.");
+            return "user_password_change";
+        }
+
+        try {
+            userService.changePassword(userService.getByUsername(username), userPasswordDto);
+            return "user_pass_change_success";//change success?
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        } catch (UnauthorizedOperationException e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/";
         }
     }
 

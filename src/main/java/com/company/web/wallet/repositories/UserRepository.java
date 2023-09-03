@@ -21,6 +21,12 @@ public interface UserRepository {
 
     User getByUsername(String username) throws EntityNotFoundException;
 
+    User getByPhone(String phone);
+
+    List<User> getAdmins();
+
+    List<User> getBlocked();
+
     User getByVerificationCode(String username) throws EntityNotFoundException;
 
     void create(User user);

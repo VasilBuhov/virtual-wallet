@@ -5,6 +5,7 @@ import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.ContactForm;
+import com.company.web.wallet.models.DTO.UserPasswordDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,13 @@ public interface UserService {
     User getByUsername(String username);
     User getUserByEmail(String email);
     List<User> getAll();
+
+    User getByPhone(String phone);
+
+    List<User> getAdmins();
+
+    List<User> getBlocked();
+
     Page<User> findByUsernameContaining(String username, Pageable pageable);
 
     Page<User> getAllUsersPage(Pageable pageable);
@@ -45,4 +53,5 @@ public interface UserService {
     void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException;
     void blockOrUnblock(int userId, boolean block) throws EntityNotFoundException;
 
+    void changePassword(User user, UserPasswordDto userPasswordDto);
 }

@@ -51,6 +51,12 @@
                             <a th:href="@{/users/delete-avatar}" class="btn btn-danger">Delete Profile Picture</a>
                         </div>
 
+                        <div>
+                            <form th:action="@{/users/{id}/changepassword(id=${user.id})}" method="get">
+                                <button type="submit">Change Password</button>
+                            </form>
+                        </div>
+
                         <div class="user-info-section">
                             <label th:text="#{user.username}">Username</label>
                             <br/>

@@ -20,6 +20,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -133,16 +134,48 @@ public class UserRepositoryImpl implements UserRepository {
                 throw new EntityNotFoundException("User", "username", username);
             }
             return user;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw new UnknownError("Something went wrong");
         }
     }
 
     @Override
-    public User getByVerificationCode(String verificationCode) {
+    public User getByPhone(String phone) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<User> query = session.createQuery("from User where phone = :phone and enabled = true", User.class);
+            query.setParameter("phone", phone);
+            List<User> result = query.list();
+            if (!result.isEmpty()) return result.get(0);
+        }
+        throw new EntityNotFoundException("User", "phone number", phone);
+    }
+
+    @Override
+    public List<User> getAdmins() {
         try(Session session = sessionFactory.openSession()){
+            Query<User> query = session.createQuery("from User u WHERE u.userLevel = 1", User.class);
+            List<User> result = query.list();
+            if (result.isEmpty())
+                throw new EntityNotFoundException("User", "level", "admin");
+            else return result;
+        }
+    }
+
+    @Override
+    public List<User> getBlocked() {
+        try(Session session = sessionFactory.openSession()){
+            Query<User> query = session.createQuery("from User u WHERE u.userLevel = 0", User.class);
+            List<User> result = query.list();
+            if (result.isEmpty())
+                throw new EntityNotFoundException("User", "level", "blocked");
+            else return result;
+        }
+    }
+
+    @Override
+    public User getByVerificationCode(String verificationCode) {
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User where verificationCode = :verificationCode", User.class);
             query.setParameter("verificationCode", verificationCode);
             List<User> result = query.list();
