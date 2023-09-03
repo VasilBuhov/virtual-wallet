@@ -48,7 +48,8 @@
                                 </div>
                                 <div class="auth-form card">
                                     <div class="card-body">
-                                        <form class="identity-upload needs-validation" novalidate th:action="@{/cards/new}" th:object="${cardDto}" method="post" >
+                                        <form class="identity-upload needs-validation" novalidate
+                                              th:action="@{/cards/new}" th:object="${cardDto}" method="post">
                                             <!--                            <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#addCard").modal("show");</script>-->
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -56,34 +57,60 @@
 
                                                         <div class="row g-3">
                                                             <div class="col-xl-12">
+                                                                <label class="form-label">Name on card </label>
+                                                                <label>
+                                                                    <input type="text" class="form-control"
+                                                                           th:field="*{name}"
+                                                                           placeholder="John Atanasov">
+                                                                </label>
+                                                                <label class="text-danger"
+                                                                       th:if="${#fields.hasErrors('name')}"
+                                                                       th:errors="*{name}">Title error
+                                                                    placeholder</label>
+                                                            </div>
+                                                            <div class="col-xl-12">
                                                                 <label class="form-label">Card number </label>
                                                                 <label>
-                                                                    <input type="text" class="form-control"  th:field="*{cardNumber}"placeholder="5658 4258 6358 4756">
+                                                                    <input type="text" class="form-control"
+                                                                           th:field="*{cardNumber}"
+                                                                           placeholder="5658 4258 6358 4756">
                                                                 </label>
-                                                                <label class="text-danger" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">Title error placeholder</label>
+                                                                <label class="text-danger"
+                                                                       th:if="${#fields.hasErrors('cardNumber')}"
+                                                                       th:errors="*{cardNumber}">Title error
+                                                                    placeholder</label>
                                                             </div>
                                                             <div class="col-xl-4">
                                                                 <label class="form-label">Expiration </label>
                                                                 <label>
-                                                                    <input type="text" class="form-control" th:field="*{expirationDate}" placeholder="10/22">
+                                                                    <input type="text" class="form-control"
+                                                                           th:field="*{expirationDate}"
+                                                                           placeholder="10/22">
                                                                 </label>
-                                                                <label class="text-danger" th:if="${#fields.hasErrors('expirationDate')}" th:errors="*{expirationDate}">Title error placeholder</label>
+                                                                <label class="text-danger"
+                                                                       th:if="${#fields.hasErrors('expirationDate')}"
+                                                                       th:errors="*{expirationDate}">Title error
+                                                                    placeholder</label>
                                                             </div>
                                                             <div class="col-xl-4">
                                                                 <label class="form-label">CVC </label>
                                                                 <label>
-                                                                    <input type="text" class="form-control" th:field="*{checkNumber}" placeholder="125">
+                                                                    <input type="text" class="form-control"
+                                                                           th:field="*{checkNumber}" placeholder="125">
                                                                 </label>
-                                                                <label class="text-danger" th:if="${#fields.hasErrors('cvc')}" th:errors="*{checkNumber}">Title error placeholder</label>
+                                                                <label class="text-danger"
+                                                                       th:if="${#fields.hasErrors('checkNumber')}"
+                                                                       th:errors="*{checkNumber}">Title error
+                                                                    placeholder</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button"  class="btn btn-primary-second">
-                                                            <a  href="#"
-                                                                th:href="@{/cards}">Close</a>
+                                                        <button type="button" class="btn btn-primary-second">
+                                                            <a href="#"
+                                                               th:href="@{/cards}">Close</a>
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary"  >Submit</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
