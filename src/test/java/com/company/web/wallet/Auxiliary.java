@@ -1,5 +1,6 @@
 package com.company.web.wallet;
 
+import com.company.web.wallet.models.DTO.UserPasswordDto;
 import com.company.web.wallet.models.User;
 
 import java.time.LocalDateTime;
@@ -28,5 +29,19 @@ public class Auxiliary {
         User mockUser = createMockUser();
         mockUser.setUserLevel(0);
         return mockUser;
+    }
+
+    public static User createDisabledUser() {
+        User mockUser = createMockUser();
+        mockUser.setUserLevel(-1);
+        return mockUser;
+    }
+
+    public static UserPasswordDto createMockDPasswordDto() {
+        var mockPasswordDto = new UserPasswordDto();
+        mockPasswordDto.setCurrentPassword("Kote2016");
+        mockPasswordDto.setNewPassword("KolioChuvashLiMe");
+        mockPasswordDto.setPasswordConfirm("KolioChuvashLiMe");
+        return mockPasswordDto;
     }
 }

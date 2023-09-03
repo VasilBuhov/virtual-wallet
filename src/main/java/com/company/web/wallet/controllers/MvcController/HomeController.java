@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public HomeController(UserService userService) {
         this.userService = userService;
@@ -76,6 +76,20 @@ public class HomeController {
     @GetMapping("/faq")
     public String showFAQPage() {
         return "site/faq";
+    }
+
+    @GetMapping("/pricing")
+    public String showPricingPage() {
+        return "site/pricing";
+    }
+
+    @GetMapping("/testimonials")
+    public String showTestimonialsPage() {
+        return "site/testimonials";
+    }
+    @GetMapping("/services")
+    public String showServicesPage() {
+        return "site/services";
     }
 
     @GetMapping("/contact")

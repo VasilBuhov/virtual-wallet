@@ -1,4 +1,5 @@
 package com.company.web.wallet.controllers.MvcController;
+
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +13,24 @@ public class WalletErrorController implements ErrorController {
     @RequestMapping(ERROR_PATH)
     public String handleError(WebRequest webRequest) {
         Integer statusCode = (Integer) webRequest.getAttribute("javax.servlet.error.status_code", WebRequest.SCOPE_REQUEST);
-
         if (statusCode != null) {
-            if (statusCode == 403) {
-                return "errors/403";
-            } else if (statusCode == 404) {
-                return "errors/404";
+            switch (statusCode) {
+                case 401:
+                    return "errors/401";
+                case 403:
+                    return "errors/403";
+                case 404:
+                    return "errors/404";
+                case 413:
+                    return "errors/413";
+                case 415:
+                    return "errors/415";
+                case 500:
+                    return "errors/500";
+                default:
+                    break;
             }
         }
-
         return "errors/generic";
     }
 

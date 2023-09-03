@@ -27,6 +27,10 @@ public interface UserRepository {
 
     List<User> getBlocked();
 
+    User getByIdUnverified(int id);
+
+    User getByUsernameUnverified(String username);
+
     User getByVerificationCode(String username) throws EntityNotFoundException;
 
     void create(User user);

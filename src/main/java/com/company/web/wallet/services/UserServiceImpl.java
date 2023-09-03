@@ -50,7 +50,14 @@ public class UserServiceImpl implements UserService {
     public User getByPhone(String phone) {
         return userRepository.getByPhone(phone);
     }
-
+    @Override
+    public User getByIdUnverified(int id) {
+        return userRepository.getByIdUnverified(id);
+    }
+    @Override
+    public User getByUsernameUnverified(String username) {
+        return userRepository.getByUsernameUnverified(username);
+    }
     @Override
     public List<User> getAdmins() {
         return userRepository.getAdmins();
@@ -210,7 +217,6 @@ public class UserServiceImpl implements UserService {
         helper.setText(mailContent, false);
         mailSender.send(message);
     }
-
 
     @Override
     public boolean verify(String verificationCode) {

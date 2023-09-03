@@ -174,6 +174,31 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public User getByIdUnverified(int id) {
+        try (Session session = sessionFactory.openSession()){
+            Query<User> query = session.createQuery("from User where id = :id ", User.class);
+            query.setParameter("id", id);
+            User user = query.uniqueResult();
+            if (user == null || user.getVerified() != 0) {
+                throw new EntityNotFoundException("User", "id", String.valueOf(id));
+            } else return user;
+        }
+    }
+
+    @Override
+    public User getByUsernameUnverified(String username) {
+        try (Session session = sessionFactory.openSession()){
+            Query<User> query = session.createQuery("from User where username = :username ", User.class);
+            query.setParameter("username", username);
+            User user = query.uniqueResult();
+
+            if (user == null || user.getVerified() != 0) {
+                throw new EntityNotFoundException("User", "username", username);
+            } else return user;
+        }
+    }
+
+    @Override
     public User getByVerificationCode(String verificationCode) {
         try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User where verificationCode = :verificationCode", User.class);

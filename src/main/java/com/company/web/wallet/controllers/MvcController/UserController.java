@@ -31,13 +31,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/users")
-public class UserMvcController {
+public class UserController {
 
     private final AuthenticationHelper authenticationHelper;
     private final UserService userService;
     private final UserMapper userMapper;
 
-    public UserMvcController(AuthenticationHelper authenticationHelper, UserService userService, UserMapper userMapper) {
+    public UserController(AuthenticationHelper authenticationHelper, UserService userService, UserMapper userMapper) {
         this.authenticationHelper = authenticationHelper;
         this.userService = userService;
         this.userMapper = userMapper;
@@ -149,7 +149,7 @@ public class UserMvcController {
         }
     }
 
-    @PostMapping("/{id}/password")
+    @PostMapping("/password")
     public String changePassword(@Valid @ModelAttribute("passwordDto") UserPasswordDto userPasswordDto,
                                  BindingResult errors,
                                  Model model, HttpSession session) {

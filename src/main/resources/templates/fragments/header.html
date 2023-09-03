@@ -74,7 +74,12 @@
                                             <a th:href="@{/team}" class="nav-link">Team</a>
                                         </li>
 
-                                        <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
+                                        <li th:if="${#httpServletRequest.requestURI == '/'}">
+                                            <a href="#pricing-section" class="nav-link">Pricing</a>
+                                        </li>
+                                        <li th:unless="${#httpServletRequest.requestURI == '/'}">
+                                            <a th:href="@{/pricing}" class="nav-link">Pricing</a>
+                                        </li>
 
                                         <li th:if="${#httpServletRequest.requestURI == '/'}">
                                             <a href="#faq-section" class="nav-link">Team</a>
@@ -84,8 +89,20 @@
                                         </li>
 
                                         <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
-                                        <li><a href="#services-section" class="nav-link">Services</a></li>
-                                        <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
+
+                                        <li th:if="${#httpServletRequest.requestURI == '/'}">
+                                            <a href="#services-section" class="nav-link">Services</a>
+                                        </li>
+                                        <li th:unless="${#httpServletRequest.requestURI == '/'}">
+                                            <a th:href="@{/services}" class="nav-link">Services</a>
+                                        </li>
+
+                                        <li th:if="${#httpServletRequest.requestURI == '/'}">
+                                            <a href="#testimonials-section" class="nav-link">Testimonials</a>
+                                        </li>
+                                        <li th:unless="${#httpServletRequest.requestURI == '/'}">
+                                            <a th:href="@{/testimonials}" class="nav-link">Testimonials</a>
+                                        </li>
 <!--                                        <li class="has-children">-->
 <!--                                            <a href="#">More Links</a>-->
 <!--                                            <ul class="dropdown">-->

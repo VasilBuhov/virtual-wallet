@@ -116,20 +116,22 @@
             <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="">
                 <img th:src="@{/images/flaticon-svg/svg/001-wallet.svg}" alt="wallet" class="img-fluid w-25 mb-4">
                 <h3 class="card-title">Money Savings</h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p>Boost your wallet's health with smart Money Savings strategies. Secure your future while enjoying the
+                    present.</p>
             </div>
             <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="100">
                 <img th:src="@{/images/flaticon-svg/svg/004-cart.svg}" alt="card" class="img-fluid w-25 mb-4">
 
-                <h3 class="card-title">Online Shoppings</h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <h3 class="card-title">Online Shopping</h3>
+                <p>Shop with ease using our wallet app. Unleash savings while you shop online!</p>
             </div>
             <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="200">
                 <img th:src="@{/images/flaticon-svg/svg/006-credit-card.svg}" alt="credit card"
                      class="img-fluid w-25 mb-4">
 
                 <h3 class="card-title">Credit / Debit Cards</h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p>Experience seamless transactions by effortlessly connecting your cards to our service. Your
+                    convenient and secure way to pay.</p>
             </div>
 
         </div>
@@ -143,21 +145,16 @@
             <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
                 <div class="mb-4">
                     <h3 class="h3 mb-4 text-black">Banking Solutions Is Our Priority</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary
-                        regelialia.</p>
-
+                    <p>Specializing in banking solutions is our top priority. Count on us for expertly tailored services
+                        to meet your unique financial needs.</p>
                 </div>
-
                 <div class="mb-4">
                     <ul class="list-unstyled ul-check success">
-                        <li>Officia quaerat eaque neque</li>
-                        <li>Lorem ipsum dolor sit amet</li>
-                        <li>Consectetur adipisicing elit</li>
+                        <li>Expert Banking Solutions</li>
+                        <li>Tailored Financial Services</li>
+                        <li>Priority on Your Financial Needs</li>
                     </ul>
-
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -308,8 +305,8 @@
         <div class="row mb-5 justify-content-center">
             <div class="col-md-7 text-center">
                 <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">How It Works</h2>
-                <p class="lead" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor, sit amet consectetur
-                    adipisicing elit. Voluptas fugiat molestiae eligendi repudiandae error?</p>
+                <p class="lead" data-aos="fade-up" data-aos-delay="100">Get started in three simple steps: sign up on
+                    our site, create a secure wallet, and connect your cards. Enjoy easy transactions with us!</p>
             </div>
         </div>
 
@@ -331,25 +328,30 @@
 
                 <div class="owl-carousel slide-one-item-alt-text">
                     <div>
-                        <h2 class="section-title mb-3">01. Online Applications</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nisi, deserunt
-                            necessitatibus odio magnam nihil illum
-                            neque voluptas?</p>
+                        <h2 class="section-title mb-3">01. Online registration</h2>
+                        <p>Sign up hassle-free online! Register on our website, complete the
+                            form with your name, email, and password, then hit "Submit".
+                            Your financial journey begins now!</p>
 
-                        <p><a href="#" class="btn btn-primary mr-2 mb-2">Learn More</a></p>
+                        <p><a th:href="@{/users/new}" class="btn btn-primary mr-2 mb-2">Register now!</a></p>
                     </div>
                     <div>
-                        <h2 class="section-title mb-3">02. Get an approval</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nisi, deserunt
-                            necessitatibus odio magnam nihil illum neque voluptas?</p>
-                        <p><a href="#" class="btn btn-primary mr-2 mb-2">Learn More</a></p>
+                        <h2 class="section-title mb-3">02. Verify your email</h2>
+                        <p>Take the next step by verifying your email. After completing the registration, check your
+                            inbox for an email from us. Click on the verification link provided in the email to activate
+                            your account. This simple process ensures the security of your account and unlocks access to
+                            all our features. Your seamless experience awaits!
+                        </p>
+                        <p><a th:href="@{/users/verify}" class="btn btn-primary mr-2 mb-2">Verify manually</a></p>
                     </div>
                     <div>
-                        <h2 class="section-title mb-3">03. Card delivery</h2>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore sapiente labore eius
-                            ullam? Iusto?</p>
-
-                        <p><a href="#" class="btn btn-primary mr-2 mb-2">Learn More</a></p>
+                        <h2 class="section-title mb-3">03. Create wallet and add your cards</h2>
+                        <p>Once your email is verified, take the next step towards financial empowerment. Log in to your
+                            account and embark on a straightforward journey. Craft your own wallet within moments, and
+                            enjoy the convenience of a consolidated payment hub. Adding your credit and debit cards is a
+                            breeze – our intuitive interface guides you through the process effortlessly.
+                        </p>
+                        <p><a th:href="@{/cards}" class="btn btn-primary mr-2 mb-2">Add Card!</a></p>
                     </div>
 
                 </div>
@@ -376,9 +378,10 @@
                     </div>
                     <div>
                         <h3>Business Consulting</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione animi tempora sint hic
-                            quod!</p>
-                        <p><a href="#">Learn More</a></p>
+                        <p>Unlock the potential of your business with our expert consulting services. Navigate
+                            challenges, seize opportunities, and achieve growth under our strategic guidance. Your
+                            success is our priority.</p>
+                        <p><a th:href="${session.currentUser == null ? '/users/new' : '/wallet'}">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -389,10 +392,11 @@
                              class="img-fluid w-25 mb-4">
                     </div>
                     <div>
-                        <h3>Credit Card</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nemo beatae minus
-                            incidunt voluptates?</p>
-                        <p><a href="#">Learn More</a></p>
+                        <h3>Credit Cards</h3>
+                        <p>Experience the freedom of convenient payments with our credit card solutions. From everyday
+                            expenses to special purchases, we offer flexibility and security, making transactions
+                            a breeze.</p>
+                        <p><a th:href="${session.currentUser == null ? '/users/new' : '/wallet'}">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -404,9 +408,10 @@
                     </div>
                     <div>
                         <h3>Income Monitoring</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores optio veritatis aperiam
-                            consequuntur qui.</p>
-                        <p><a href="#">Learn More</a></p>
+                        <p>Monitor your income effortlessly through our user-friendly platform. With intuitive tools and
+                            clear insights, staying on top of your finances has never been this easy. Take control and
+                            make informed decisions with our income monitoring feature.</p>
+                        <p><a th:href="${session.currentUser == null ? '/users/new' : '/wallet'}">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -420,9 +425,10 @@
                     </div>
                     <div>
                         <h3>Insurance Consulting</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia labore suscipit
-                            distinctio inventore doloribus deserunt!</p>
-                        <p><a href="#">Learn More</a></p>
+                        <p>While we can't provide insurance directly, we're here to offer expert consulting that guides
+                            you through the complex world of insurance. Make informed decisions to protect what matters
+                            most with our reliable advice and personalized solutions.</p>
+                        <p><a th:href="${session.currentUser == null ? '/users/new' : '/wallet'}">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -434,9 +440,10 @@
                     </div>
                     <div>
                         <h3>Financial Investment</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque odio voluptatibus
-                            repellat hic officia quibusdam!</p>
-                        <p><a href="#">Learn More</a></p>
+                        <p>Grow your wealth with confidence through strategic financial investments. Our expert guidance
+                            and diverse investment options empower you to secure your future and achieve your goals.
+                            Start your journey towards financial prosperity today.</p>
+                        <p><a th:href="${session.currentUser == null ? '/users/new' : '/wallet'}">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -448,9 +455,10 @@
                     </div>
                     <div>
                         <h3>Financial Management</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, iusto eaque velit saepe
-                            nobis ipsa?</p>
-                        <p><a href="#">Learn More</a></p>
+                        <p>Take charge of your financial destiny with our comprehensive management solutions. From
+                            budgeting to planning for the future, our platform equips you with the tools you need to
+                            make wise decisions and achieve your financial aspirations. </p>
+                        <p><a th:href="${session.currentUser == null ? '/users/new' : '/wallet'}">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -472,8 +480,8 @@
             <div class="testimonial">
 
                 <blockquote class="mb-5">
-                    <p>&ldquo;Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti tenetur ad
-                        perspiciatis quam atque eius quia suscipit repudiandae animi voluptatem.&rdquo;</p>
+                    <p>&ldquo;Absolutely thrilled with the seamless experience! Managing my finances has never been
+                        easier. Kudos to your team!&rdquo;</p>
                 </blockquote>
 
                 <figure class="mb-4 d-flex align-items-center justify-content-center">
@@ -486,8 +494,8 @@
             <div class="testimonial">
 
                 <blockquote class="mb-5">
-                    <p>&ldquo;Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates exercitationem ut
-                        totam distinctio magnam quisquam, unde iure. Labore!.&rdquo;</p>
+                    <p>&ldquo;Impressed by the user-friendly interface. Adding cards to my wallet was a breeze. You've
+                        made my transactions hassle-free!&rdquo;</p>
                 </blockquote>
                 <figure class="mb-4 d-flex align-items-center justify-content-center">
                     <div><img th:src="@{/images/person_2.jpg}" alt="Image" class="w-50 img-fluid mb-3"></div>
@@ -501,8 +509,8 @@
             <div class="testimonial">
 
                 <blockquote class="mb-5">
-                    <p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime eligendi odio nihil
-                        officia quasi nostrum, ipsa est? Culpa, ullam dolorem!&rdquo;</p>
+                    <p>&ldquo;A game-changer for my financial management. Verified email, created my wallet, and voila!
+                        It's like magic. Thank you!&rdquo;</p>
                 </blockquote>
                 <figure class="mb-4 d-flex align-items-center justify-content-center">
                     <div><img th:src="@{/images/person_3.jpg}" alt="Image" class="w-50 img-fluid mb-3"></div>
@@ -517,8 +525,8 @@
             <div class="testimonial">
 
                 <blockquote class="mb-5">
-                    <p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam tempora beatae
-                        animi in sapiente quos maiores ex aut.&rdquo;</p>
+                    <p>&ldquo;I'm all smiles with your service. From registration to card linking, everything was a
+                        cakewalk. Can't imagine life without it!&rdquo;</p>
                 </blockquote>
                 <figure class="mb-4 d-flex align-items-center justify-content-center">
                     <div><img th:src="@{/images/person_1.jpg}" alt="Image" class="w-50 img-fluid mb-3"></div>
@@ -543,18 +551,18 @@
                 <div class="pricing">
                     <h3 class="text-center text-black">Basic</h3>
                     <div class="price text-center mb-4 ">
-                        <span><span>$47</span> / year</span>
+                        <span>Free</span>
                     </div>
                     <ul class="list-unstyled ul-check success mb-5">
 
-                        <li>Officia quaerat eaque neque</li>
-                        <li>Possimus aut consequuntur incidunt</li>
-                        <li class="remove">Lorem ipsum dolor sit amet</li>
-                        <li class="remove">Consectetur adipisicing elit</li>
-                        <li class="remove">Dolorum esse odio quas architecto sint</li>
+                        <li>Create wallets</li>
+                        <li>Add cards to wallets</li>
+                        <li>Send/receive money to/from other users</li>
+                        <li class="remove">Smiles through the FM radio</li>
+                        <li class="remove">Sneeze-like cardio instructions</li>
                     </ul>
                     <p class="text-center">
-                        <a href="#" class="btn btn-secondary">Buy Now</a>
+                        <a th:href="@{/users/new}" class="btn btn-secondary">Register</a>
                     </p>
                 </div>
             </div>
@@ -563,15 +571,15 @@
                 <div class="pricing">
                     <h3 class="text-center text-black">Premium</h3>
                     <div class="price text-center mb-4 ">
-                        <span><span>$200</span> / year</span>
+                        <span><span>$214</span> / year</span>
                     </div>
                     <ul class="list-unstyled ul-check success mb-5">
 
-                        <li>Officia quaerat eaque neque</li>
-                        <li>Possimus aut consequuntur incidunt</li>
-                        <li>Lorem ipsum dolor sit amet</li>
-                        <li>Consectetur adipisicing elit</li>
-                        <li class="remove">Dolorum esse odio quas architecto sint</li>
+                        <li>Create wallets</li>
+                        <li>Add cards to wallets</li>
+                        <li>Send/receive money to/from other users</li>
+                        <li>Smiles through the FM radio</li>
+                        <li class="remove">Sneeze-like cardio instructions</li>
                     </ul>
                     <p class="text-center">
                         <a href="#" class="btn btn-primary">Buy Now</a>
@@ -583,15 +591,15 @@
                 <div class="pricing">
                     <h3 class="text-center text-black">Professional</h3>
                     <div class="price text-center mb-4 ">
-                        <span><span>$750</span> / year</span>
+                        <span><span>$519</span> / year</span>
                     </div>
                     <ul class="list-unstyled ul-check success mb-5">
 
-                        <li>Officia quaerat eaque neque</li>
-                        <li>Possimus aut consequuntur incidunt</li>
-                        <li>Lorem ipsum dolor sit amet</li>
-                        <li>Consectetur adipisicing elit</li>
-                        <li>Dolorum esse odio quas architecto sint</li>
+                        <li>Create wallets</li>
+                        <li>Add cards to wallets</li>
+                        <li>Send/receive money to/from other users</li>
+                        <li>Smiles through the FM radio</li>
+                        <li>Sneeze-like cardio instructions</li>
                     </ul>
                     <p class="text-center">
                         <a href="#" class="btn btn-secondary">Buy Now</a>

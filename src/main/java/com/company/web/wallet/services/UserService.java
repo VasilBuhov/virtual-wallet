@@ -23,6 +23,10 @@ public interface UserService {
 
     User getByPhone(String phone);
 
+    User getByIdUnverified(int id);
+
+    User getByUsernameUnverified(String username);
+
     List<User> getAdmins();
 
     List<User> getBlocked();
