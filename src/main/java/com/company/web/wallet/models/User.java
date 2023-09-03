@@ -4,6 +4,7 @@ package com.company.web.wallet.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -58,8 +59,13 @@ public class User {
 
     @OneToMany(mappedBy = "pokedUser", fetch = FetchType.EAGER)
     private Set<Pokes> pokes;
-
     private boolean enabled;
+
+    @Column(name = "create_date", updatable = false)
+    private LocalDateTime createDate;
+    @Column(name = "last_update")
+    private LocalDateTime lastUpdateDate;
+
     public User() {
     }
 
@@ -203,6 +209,22 @@ public class User {
 
     public void setPokes(Set<Pokes> pokes) {
         this.pokes = pokes;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 
     public boolean equals(Object o) {

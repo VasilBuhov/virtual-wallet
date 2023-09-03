@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -156,6 +157,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void create(User user) {
         try (Session session = sessionFactory.openSession()) {
+            user.setCreateDate(LocalDateTime.now());
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
@@ -168,6 +170,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void update(User user) {
         try (Session session = sessionFactory.openSession()) {
+            user.setLastUpdateDate(LocalDateTime.now());
             session.beginTransaction();
             session.update(user);
             session.getTransaction().commit();

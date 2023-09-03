@@ -97,7 +97,12 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                                <li th:if="${#httpServletRequest.requestURI == '/'}">
+                                    <a href="#contact-section" class="nav-link">Contact</a>
+                                </li>
+                                <li th:unless="${#httpServletRequest.requestURI == '/'}">
+                                    <a th:href="@{/contact}" class="nav-link">Contact</a>
+                                </li>
 
                                 <li class="social"><a href="https://www.facebook.com/profile.php?id=61550930370143" class="nav-link"><span
                                         class="icon-facebook"></span></a></li>
