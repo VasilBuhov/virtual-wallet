@@ -3,6 +3,7 @@ package com.company.web.wallet.services;
 import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
+import com.company.web.wallet.models.ContactForm;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.repositories.UserRepository;
@@ -154,10 +155,11 @@ public class UserServiceImpl implements UserService {
 
         String mailContent = "<p>Dear " + user.getUsername() + ",</p>";
         mailContent += "<p><br>Please click on the link below to verify to your registration:<br></p>";
-        mailContent += "<p><br>Thank you,<br>The Wallet Project<br><br><br></p>";
 
-        String manualVerification = "<p> Or you can manually verify your email with the code provided</p>";
-        manualVerification += "<p>" + user.getVerificationCode() +"</p>";
+        mailContent += "<p> Or you can manually verify your email with the code provided</p>";
+        mailContent += "<br><p>" + user.getVerificationCode() +"</p><br>";
+
+        mailContent += "<p><br>Thank you,<br>The Wallet Project<br><br><br></p>";
         String verifyURL = siteURL + "/users/verify?code=" + user.getVerificationCode();
         sendMessage(user, subject, senderName, mailContent, verifyURL);
     }
@@ -171,12 +173,28 @@ public class UserServiceImpl implements UserService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("paysphere.wallet@gmail.com", senderName);
+        helper.setFrom("wallet.project.a48@badmin.org", senderName);
         helper.setSubject(subject);
         helper.setTo(user.getEmail());
         helper.setText(mailContent, true);
         mailSender.send(message);
     }
+
+    @Override
+    public void sendContactEmail(ContactForm contactForm) throws MessagingException, UnsupportedEncodingException {
+        String subject = contactForm.getSubject();
+        String senderName = contactForm.getFirstName() + ' ' + contactForm.getLastName();
+        String recipientEmail = "wallet.project.a48@badmin.org";
+        String mailContent = contactForm.getMessage();
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setFrom("wallet.project.a48@badmin.org", senderName);
+        helper.setSubject(subject);
+        helper.setTo(recipientEmail);
+        helper.setText(mailContent, false);
+        mailSender.send(message);
+    }
+
 
     @Override
     public boolean verify(String verificationCode) {

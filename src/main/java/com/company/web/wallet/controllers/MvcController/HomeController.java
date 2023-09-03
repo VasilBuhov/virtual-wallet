@@ -1,10 +1,16 @@
 package com.company.web.wallet.controllers.MvcController;
 
+import com.company.web.wallet.models.ContactForm;
+import com.company.web.wallet.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,8 +18,16 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
 
+    private UserService userService;
+
+    public HomeController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping
     public String showHomePage(Model model) {
+
+        model.addAttribute("contactForm", new ContactForm());
         List<String> imageFilenames = Arrays.asList(
                 "team_ceo.jpg", "team_coo.jpg",
                 "team_finance_manager.jpg", "team_hr.jpg",
@@ -62,5 +76,17 @@ public class HomeController {
     @GetMapping("/faq")
     public String showFAQPage() {
         return "site/faq";
+    }
+
+    @GetMapping("/contact")
+    public String showContactForm(Model model) {
+        model.addAttribute("contactForm", new ContactForm());
+        return "site/contact";
+    }
+
+    @PostMapping("/contact")
+    public String submitContactForm(@ModelAttribute("contactForm") ContactForm contactForm) throws MessagingException, UnsupportedEncodingException {
+        userService.sendContactEmail(contactForm);
+        return "user_contact_success";
     }
 }

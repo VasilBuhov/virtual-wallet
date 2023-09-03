@@ -4,6 +4,7 @@ package com.company.web.wallet.services;
 import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
+import com.company.web.wallet.models.ContactForm;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,8 @@ public interface UserService {
     void delete(User authenticatedUser, int id) throws EntityNotFoundException;
 
     void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
+
+    void sendContactEmail(ContactForm contactForm) throws MessagingException, UnsupportedEncodingException;
 
     boolean verify(String verificationCode);
 
