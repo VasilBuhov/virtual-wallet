@@ -52,10 +52,10 @@
                                               th:action="@{/cards/new}" th:object="${cardDto}" method="post">
                                             <!--                            <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#addCard").modal("show");</script>-->
                                             <div class="modal-dialog">
-                                                <div class="modal-content">
+                                                <div class="modal-content" style="background: transparent;">
                                                     <div class="modal-body">
 
-                                                        <div class="row g-3">
+                                                        <div class="row g-3" style="justify-content: center">
                                                             <div class="col-xl-12">
                                                                 <label class="form-label">Name on card </label>
                                                                 <label>
@@ -105,8 +105,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary-second">
+                                                    <div class="modal-footer" style="justify-content: center">
+                                                        <button type="button" class="btn btn-primary-second" style="background-color: white">
                                                             <a href="#"
                                                                th:href="@{/cards}">Close</a>
                                                         </button>
