@@ -13,6 +13,14 @@ public interface UserRepository {
 
     Page<User> findAllUsers(Pageable pageable);
 
+    Page<User> findAllUnverifiedUsers(Pageable pageable);
+
+    Page<User> findAllBlockedUsers(Pageable pageable);
+
+    Page<User> findAllAdminUsers(Pageable pageable);
+
+    Page<User> findAllDeletedUsers(Pageable pageable);
+
     Page<User> findByUsernameContaining(String username, Pageable pageable);
 
     User getById(int id) throws EntityNotFoundException;
@@ -33,9 +41,19 @@ public interface UserRepository {
 
     User getByVerificationCode(String username) throws EntityNotFoundException;
 
+    List<User> getAllContacts(int id);
+
+    byte[] getIdCard(int id);
+
+    byte[] getSelfie(int id);
+
     void create(User user);
 
+    void addContact(int contactOwner, int contactTarget);
+
     void update(User user);
+
+    void removeContact(int contactOwner, int contactTarget);
 
     void delete(int id) throws EntityNotFoundException;
 

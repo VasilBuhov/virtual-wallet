@@ -42,9 +42,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Add a payment method </h4>
+                                <h4 class="card-title" style="color: white">Add a payment method </h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="justify-content: center">
                                 <div class="verify-content col-xxl-12" th:each="card: ${cards}">
                                     <div class="d-flex align-items-center">
                                             <span class="me-3 icon-circle bg-primary text-white"><i
@@ -70,8 +70,8 @@
                                            th:href="@{/cards/{id}/update(id=${card.getId()})}">Update</a>
                                     </div>
                                 </div>
-                                <div class="mt-5 text-center">
-
+                                <br>
+                                <div class="mt-5 text-center" style="justify-content: center">
                                     <a class="btn btn-primary" href="#" th:href="@{/cards/new}">Add New
                                         Card</a>
                                 </div>
@@ -80,11 +80,11 @@
                     </div>
                 </div>
 
-                </div>
             </div>
-
         </div>
+
     </div>
+</div>
 </div>
 
 <!--End code insertion-->

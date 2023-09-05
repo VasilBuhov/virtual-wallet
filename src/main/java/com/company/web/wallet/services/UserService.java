@@ -35,8 +35,23 @@ public interface UserService {
 
     Page<User> getAllUsersPage(Pageable pageable);
 
+    Page<User> getAllUnverifiedUsersPage(Pageable pageable);
+
+    Page<User> getAllBlockedUsersPage(Pageable pageable);
+
+    Page<User> getAllAdminUsersPage(Pageable pageable);
+
+    Page<User> getAllDeletedUsersPage(Pageable pageable);
+
+    List<User> getAllContacts(int id);
+
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;
+
+    void addContact(int contactOwner, int contactTarget);
+
+    void removeContact(int contactOwner, int contactTarget);
+
     void delete(User authenticatedUser, int id) throws EntityNotFoundException;
 
     void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
@@ -52,6 +67,11 @@ public interface UserService {
 
 
     default void makeRegularUserAdmin(int id) {}
+
+    byte[] getIdCard(int id);
+
+    byte[] getSelfie(int id);
+
     void checkModifyPermissionsForUpdating(User authenticatedUser, User user);
     void checkModifyPermissionsForDeleting(User authenticatedUser, User user);
     void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException;

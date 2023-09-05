@@ -65,11 +65,14 @@ public class User {
     private LocalDateTime createDate;
     @Column(name = "last_update")
     private LocalDateTime lastUpdateDate;
+    @Column(name = "status_deleted")
+    private boolean statusDeleted;
 
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String username, String email, String password, String phone, int userLevel, int verified, byte[] avatar, Set<Pokes> pokes) {
+    public User(int id, String firstName, String lastName, String username, String email, String password, String phone,
+                int userLevel, int verified, byte[] avatar, Set<Pokes> pokes, boolean statusDeleted) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -80,6 +83,8 @@ public class User {
         this.profilePicture = avatar;
         this.phone = phone;
         this.pokes = pokes;
+        this.statusDeleted = statusDeleted;
+
         setUserLevel(userLevel);
     }
 
@@ -225,6 +230,14 @@ public class User {
 
     public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public boolean isStatusDeleted() {
+        return statusDeleted;
+    }
+
+    public void setStatusDeleted(boolean statusDeleted) {
+        this.statusDeleted = statusDeleted;
     }
 
     public boolean equals(Object o) {

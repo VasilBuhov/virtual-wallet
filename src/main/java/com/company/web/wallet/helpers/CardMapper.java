@@ -38,4 +38,12 @@ public class CardMapper {
         existingCard.setName(cardDto.getName());
         return existingCard;
     }
+    public CardDto cardToDto(Card card) {
+        CardDto cardDto = new CardDto();
+        cardDto.setCardNumber(card.getCardNumber());
+        cardDto.setName(card.getName());
+        cardDto.setCheckNumber(card.getCheckNumber());
+        cardDto.setExpirationDate(card.getExpirationDate());
+        return cardDto;
+    }
 }

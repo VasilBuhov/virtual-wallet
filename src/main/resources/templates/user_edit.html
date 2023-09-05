@@ -51,12 +51,6 @@
                             <a th:href="@{/users/delete-avatar}" class="btn btn-danger">Delete Profile Picture</a>
                         </div>
 
-                        <div>
-                            <form th:action="@{/users/{id}/changepassword(id=${user.id})}" method="get">
-                                <button type="submit">Change Password</button>
-                            </form>
-                        </div>
-
                         <div class="user-info-section">
                             <label th:text="#{user.username}">Username</label>
                             <br/>
@@ -84,11 +78,6 @@
                             <label th:text="#{user.phone_edit}">Phone</label>
                             <br/>
                             <input type="text" th:field="*{phone}">
-                            <br><br/>
-
-                            <label th:text="#{user.password}">Password</label>
-                            <br/>
-                            <input type="password" th:field="*{password}">
                             <br><br/>
 
                             <div th:if="${errorMessage}" class="alert alert-danger" role="alert">

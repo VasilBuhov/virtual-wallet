@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>The Wallet Project - Search results</title>
+    <title>The Wallet Project - Error 415</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -16,7 +16,6 @@
     <link rel="stylesheet" th:href="@{/fonts/flaticon/flaticon.css}"/>
     <link rel="stylesheet" th:href="@{/css/aos.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/cpanel.css}"/>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -28,39 +27,18 @@
 </div>
 
 <div th:replace="fragments/header :: header"></div>
-
-<div class="site-blocks-cover overlay"
-     th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
+<div class="site-blocks-cover overlay" th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
      data-aos="fade" id="home-section">
 
-    <div class="container" th:if="${session.currentUser != null}">
+    <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10 mt-lg-5 text-center">
-                <br /><br /><br />
-                <h2 th:text="#{user.search_by_name}" />
-                <ul class="user-list">
-                    <th:block th:each="user : ${usersByName}">
-                        <li class="user-item-search">
-                            <div class="user-name" th:text="${user.username}"></div>
-                            <div class="user-details-search" style="display: none;">
-                                <p><a th:href="@{/users/contacts/add/{user_id}(user_id=${user.id})}" class="profile-link">Add to contacts</a></p>
-                                <p><a th:href="@{/users/{user_id}(user_id=${user.id})}" class="profile-link">View Profile</a></p>                            </div>
-                        </li>
-                    </th:block>
-                </ul>
-                <br /><br /><br /><br />
-                <div class="text-center" th:align="center">
-                    <ul class="pagination">
-                        <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}">
-                            <a th:href="@{/search(username=${username}, page=${page})}" th:text="'Page ' + ${page + 1}" th:classappend="${page == usersByName.number} ? 'active'"></a>
-                        </li>
-                    </ul>
-                </div>
+                <h3 th:text="#{user.contact_list_empty}"/>
             </div>
+
         </div>
     </div>
 </div>
-
 
 <div th:replace="fragments/footer :: footer"></div>
 
@@ -76,6 +54,5 @@
 <script th:src="@{/js/jquery.sticky.js}"></script>
 <script th:src="@{/js/isotope.pkgd.min.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-<script th:src="@{/js/search-results.js}"></script>
 </body>
 </html>

@@ -128,11 +128,38 @@ public class UserController {
         }
     }
 
+    @GetMapping("/idVerification")
+    public String idVerification(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        //get idCard by Service
+        if (userService.getIdCard(authenticatedUser.getId()) != null) {
+            byte[] idCardData = userService.getIdCard(authenticatedUser.getId());
+            String idCardData64DB = Base64.getEncoder().encodeToString(idCardData);
+            model.addAttribute("idCardData64DB", idCardData64DB);
+        } else model.addAttribute("idCardData64DB", null);
+        //get selfie by Service
+        if (userService.getSelfie(authenticatedUser.getId()) != null) {
+            byte[] selfieData = userService.getSelfie(authenticatedUser.getId());
+            String selfieData64DB = Base64.getEncoder().encodeToString(selfieData);
+            model.addAttribute("selfieData64DB", selfieData64DB);
+        } else model.addAttribute("selfieData64DB", null);
+
+            try {
+                model.addAttribute("user", userMapper.toDto(authenticatedUser));
+                return "user_id_verification_upload";
+            } catch (EntityNotFoundException e) {
+                model.addAttribute("error", "User not found");
+                return "errors/404";
+            }
+    }
+
     @GetMapping("/password")
     public String showChangePasswordPage(Model model, HttpSession session) {
         try {
             authenticationHelper.tryGetUser(session);
-        } catch (AuthorizationException e){
+        } catch (AuthorizationException e) {
             model.addAttribute("error", e.getMessage());
             return "errors/401";
         }
@@ -209,6 +236,52 @@ public class UserController {
         return "user_request_funds";
     }
 
+    @GetMapping("/contacts")
+    public String showContacts(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        List<User> contacts = userService.getAllContacts(authenticatedUser.getId());
+        if (contacts.isEmpty()) return "user_no_contacts";
+        model.addAttribute("contacts", contacts);
+        return "user_contacts";
+    }
+
+    @GetMapping("/contacts/add/{id}")
+    public String addUserContact(@PathVariable int id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        try {
+            userService.addContact(authenticatedUser.getId(), id);
+            User targetUser = userService.getUserById(id);
+            model.addAttribute("targetUser", targetUser);
+            return "user_contact_add_success";
+        } catch (EntityDuplicateException e) {
+            model.addAttribute("error", e.getMessage());
+            return "user_contact_already_added";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        }
+    }
+
+    @GetMapping("/contacts/remove/{id}")
+    public String removeUserContact(@PathVariable int id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        try {
+            userService.removeContact(authenticatedUser.getId(), id);
+            User targetUser = userService.getUserById(id);
+            model.addAttribute("targetUser", targetUser);
+            return "user_contact_remove_success";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "user_contact_does_not_exist";
+        }
+    }
+
     @PostMapping("/profile")
     public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, @RequestParam(value = "profilePictureFile", required = false) MultipartFile profilePictureFile, BindingResult errors, Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
@@ -220,12 +293,8 @@ public class UserController {
                 user.setId(authenticatedUser.getId());
                 if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
                     user.setProfilePicture(profilePictureFile.getBytes());
-                    System.out.println("Picture h1t on upload");
-                    System.out.println("profilePictureFile: " + profilePictureFile);
                 } else {
-                    user.setProfilePicture(user.getProfilePicture());
-                    System.out.println("Picture considered empty");
-                    System.out.println("profilePictureFile: " + profilePictureFile);
+                    user.setProfilePicture(authenticatedUser.getProfilePicture());
                 }
                 user.setUsername(authenticatedUser.getUsername());
                 user.setPassword(authenticatedUser.getPassword());
@@ -258,6 +327,26 @@ public class UserController {
             model.addAttribute("usersPage", usersPage);
             int totalPages = usersPage.getTotalPages();
             model.addAttribute("totalPages", totalPages);
+
+            Page<User> usersUnverifiedPage = userService.getAllUnverifiedUsersPage(pageable);
+            model.addAttribute("usersUnverifiedPage", usersUnverifiedPage);
+            int totalUnverifiedPages = usersUnverifiedPage.getTotalPages();
+            model.addAttribute("totalUnverifiedPages", totalUnverifiedPages);
+
+            Page<User> usersBlockedPage = userService.getAllBlockedUsersPage(pageable);
+            model.addAttribute("usersBlockedPage", usersBlockedPage);
+            int usersBlockedPages = usersBlockedPage.getTotalPages();
+            model.addAttribute("usersBlockedPages", usersBlockedPages);
+
+            Page<User> usersAdminPage = userService.getAllAdminUsersPage(pageable);
+            model.addAttribute("usersAdminPage", usersAdminPage);
+            int usersAdminPages = usersAdminPage.getTotalPages();
+            model.addAttribute("usersAdminPages", usersAdminPages);
+
+            Page<User> usersDeletedPage = userService.getAllDeletedUsersPage(pageable);
+            model.addAttribute("usersDeletedPage", usersDeletedPage);
+            int usersDeletedPages = usersDeletedPage.getTotalPages();
+            model.addAttribute("usersDeletedPages", usersDeletedPages);
             return "admin_panel";
         } else {
             return "errors/401";

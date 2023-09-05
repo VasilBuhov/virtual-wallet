@@ -1,10 +1,12 @@
 package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.models.Contact;
 import com.company.web.wallet.models.User;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,16 +48,68 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Page<User> findAllUsers(Pageable pageable) {
         TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
-
         TypedQuery<Long> countQuery = entityManager.createQuery("SELECT COUNT(u) FROM User u", Long.class);
-
         List<User> users = query
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
-
         Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
 
+    @Override
+    public Page<User> findAllUnverifiedUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.verified = 0", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.verified = 0", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
+
+    @Override
+    public Page<User> findAllBlockedUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.userLevel = -1", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.userLevel = -1", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
+
+    @Override
+    public Page<User> findAllAdminUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.userLevel = 1", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.userLevel = 1", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
+
+    @Override
+    public Page<User> findAllDeletedUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.statusDeleted = true", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.statusDeleted = true", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
         return new PageImpl<>(users, pageable, total);
     }
 
@@ -153,7 +207,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAdmins() {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User u WHERE u.userLevel = 1", User.class);
             List<User> result = query.list();
             if (result.isEmpty())
@@ -164,7 +218,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getBlocked() {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User u WHERE u.userLevel = 0", User.class);
             List<User> result = query.list();
             if (result.isEmpty())
@@ -175,7 +229,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByIdUnverified(int id) {
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User where id = :id ", User.class);
             query.setParameter("id", id);
             User user = query.uniqueResult();
@@ -187,7 +241,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByUsernameUnverified(String username) {
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User where username = :username ", User.class);
             query.setParameter("username", username);
             User user = query.uniqueResult();
@@ -204,11 +258,43 @@ public class UserRepositoryImpl implements UserRepository {
             Query<User> query = session.createQuery("from User where verificationCode = :verificationCode", User.class);
             query.setParameter("verificationCode", verificationCode);
             List<User> result = query.list();
-            if (result.isEmpty()) {
-                throw new EntityNotFoundException("User", "verificationCode", verificationCode);
-            } else {
-                return result.get(0);
+            if (result.isEmpty()) throw new EntityNotFoundException("User", "verificationCode", verificationCode);
+            else return result.get(0);
+        }
+    }
+
+    @Override
+    public List<User> getAllContacts(int id) {
+            try (Session session = sessionFactory.openSession()) {
+                Query<User> query = session.createQuery("SELECT u FROM User u\n" +
+                        "JOIN Contact c ON c.contactTarget = u.id\n" +
+                        "WHERE c.contactOwner = :id", User.class);
+                query.setParameter("id", id);
+                return query.list();
             }
+    }
+
+    @Override
+    public byte[] getIdCard(int userId) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<byte[]> query = session.createQuery("SELECT pv.idCard FROM PhotoVerification pv\n" +
+                    "WHERE pv.userId = :userId", byte[].class);
+            query.setParameter("userId", userId);
+            List<byte[]> result = query.list();
+            if (!result.isEmpty()) return result.get(0);
+            else return null;
+        }
+    }
+
+    @Override
+    public byte[] getSelfie(int userId) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<byte[]> query = session.createQuery("SELECT pv.selfie FROM PhotoVerification pv\n" +
+                    "WHERE pv.userId = :userId", byte[].class);
+            query.setParameter("userId", userId);
+            List<byte[]> result = query.list();
+            if (!result.isEmpty()) return result.get(0);
+            else return null;
         }
     }
 
@@ -226,6 +312,50 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void addContact(int contactOwner, int contactTarget) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            Query<Long> countQuery = session.createQuery("SELECT COUNT(c) FROM Contact c WHERE c.contactOwner = :ownerId AND c.contactTarget = :targetId", Long.class);
+            countQuery.setParameter("ownerId", contactOwner);
+            countQuery.setParameter("targetId", contactTarget);
+
+            long contactCount = countQuery.getSingleResult();
+            if (contactCount > 0) return;
+            Contact newContact = new Contact();
+            newContact.setContactOwner(contactOwner);
+            newContact.setContactTarget(contactTarget);
+            session.save(newContact);
+            transaction.commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong(REPO add contact)");
+        }
+    }
+
+    @Override
+    public void removeContact(int contactOwner, int contactTarget) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            Query<Long> countQuery = session.createQuery("SELECT COUNT(c) FROM Contact c WHERE c.contactOwner = :ownerId AND c.contactTarget = :targetId", Long.class);
+            countQuery.setParameter("ownerId", contactOwner);
+            countQuery.setParameter("targetId", contactTarget);
+
+            long contactCount = countQuery.getSingleResult();
+            if (contactCount == 0) return;
+
+            Query<?> deleteQuery = session.createQuery("DELETE FROM Contact WHERE contactOwner = :ownerId AND contactTarget = :targetId");
+            deleteQuery.setParameter("ownerId", contactOwner);
+            deleteQuery.setParameter("targetId", contactTarget);
+            deleteQuery.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong(REPO delete contact)");
+        }
+    }
+
     public void update(User user) {
         try (Session session = sessionFactory.openSession()) {
             user.setLastUpdateDate(LocalDateTime.now());

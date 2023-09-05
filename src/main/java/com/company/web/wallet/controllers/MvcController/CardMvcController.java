@@ -17,9 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/cards")
@@ -58,7 +60,7 @@ public class CardMvcController {
             User user = authenticationHelper.tryGetUser(session);
             Card card = cardService.get(id, user);
             model.addAttribute("card", card);
-            return "card_details"; // Return the name of the view template for card details
+            return "card_details";
         } catch (AuthorizationException | BlockedUserException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -109,24 +111,23 @@ public class CardMvcController {
         }
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/{id}/update")
     public String showEditCardForm(@PathVariable int id, Model model, HttpSession session) {
         try {
-            User user = authenticationHelper.tryGetUser(session);
-            Card card = cardService.get(id, user);
-            model.addAttribute("card", card);
-            return "edit_card_form"; // Return the name of the view template for editing a card
-        } catch (AuthorizationException | BlockedUserException e) {
+            authenticationHelper.tryGetUser(session);
+        } catch (AuthenticationFailureException e) {
             logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException | EntityDeletedException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            return "redirect:/auth/login";
         }
+        User user = authenticationHelper.tryGetUser(session);
+        Card card = cardService.get(id, user);
+        CardDto cardDtoUpdate = cardMapper.cardToDto(card);
+        model.addAttribute("cardDtoUpdate", cardDtoUpdate);
+        return "card_update";
     }
 
-    @PostMapping("/{id}/edit")
-    public String editCard(@PathVariable int id, @Valid @ModelAttribute("cardDto") CardDto cardDto,
+    @PostMapping("/{id}/update")
+    public String editCard(@PathVariable int id, @Valid @ModelAttribute("cardDtoUpdate") CardDto cardDto,
                            BindingResult bindingResult,
                            Model model,
                            HttpSession session) {
@@ -134,7 +135,7 @@ public class CardMvcController {
             User user = authenticationHelper.tryGetUser(session);
 
             if (bindingResult.hasErrors()) {
-                return "edit_card_form";
+                return "card_update";
             }
 
             Card card = cardMapper.updateCardDto(id, cardDto, user);
@@ -142,7 +143,37 @@ public class CardMvcController {
             return "redirect:/cards";
         } catch (AuthorizationException | BlockedUserException e) {
             logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "access_denied";
+        } catch (EntityDuplicateException e) {
+            logger.error(e.getMessage());
+            bindingResult.rejectValue("cardNumber", "cardNumber", e.getMessage());
+            return "card_update";
+        } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
         }
+    }
+    @GetMapping("/delete/{cardId}")
+    public String deleteCard(@PathVariable int cardId, Model model, HttpSession session) {
+        User user;
+        try {
+            user = authenticationHelper.tryGetUser(session);
+        } catch (AuthenticationFailureException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            cardService.delete(cardId, user);
+            return "redirect:/cards";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+
+        } catch (UnauthorizedOperationException e) {
+            model.addAttribute("error", e.getMessage());
+            return "access_denied";
+        }
+
     }
 }

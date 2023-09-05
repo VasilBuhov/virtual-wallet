@@ -71,12 +71,36 @@ public class UserServiceImpl implements UserService {
     public Page<User> findByUsernameContaining(String username, Pageable pageable) {
         return userRepository.findByUsernameContaining(username, pageable);
     }
-
     @Override
     public Page<User> getAllUsersPage(Pageable pageable) {
         return userRepository.findAllUsers(pageable);
     }
 
+    @Override
+    public Page<User> getAllUnverifiedUsersPage(Pageable pageable) {
+        return userRepository.findAllUnverifiedUsers(pageable);
+    }
+
+    @Override
+    public Page<User> getAllBlockedUsersPage(Pageable pageable) {
+        return userRepository.findAllBlockedUsers(pageable);
+    }
+
+    @Override
+    public Page<User> getAllAdminUsersPage(Pageable pageable) {
+        return userRepository.findAllAdminUsers(pageable);
+    }
+
+    @Override
+    public Page<User> getAllDeletedUsersPage(Pageable pageable) {
+        return userRepository.findAllDeletedUsers(pageable);
+    }
+
+
+    @Override
+    public List<User> getAllContacts(int id) {
+        return userRepository.getAllContacts(id);
+    }
 
     @Override
     public void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
@@ -129,6 +153,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void addContact(int contactOwner, int contactTarget) {
+        userRepository.addContact(contactOwner, contactTarget);
+    }
+
+    @Override
+    public void removeContact(int contactOwner, int contactTarget) {
+        userRepository.removeContact(contactOwner, contactTarget);
+    }
+
+    @Override
     public void delete(User authenticatedUser, int id) throws EntityNotFoundException {
         User user = userRepository.getById(id);
         checkModifyPermissionsForDeleting(authenticatedUser, user);
@@ -138,6 +172,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByUsername(String username) {
         return userRepository.getByUsername(username);
+    }
+
+    @Override
+    public byte[] getIdCard(int id) {
+        return userRepository.getIdCard(id);
+    }
+
+    @Override
+    public byte[] getSelfie(int id) {
+        return userRepository.getSelfie(id);
     }
 
     @Override

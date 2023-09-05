@@ -94,6 +94,14 @@
                         </div>
                     </div>
 
+                    <div class="slide">
+                        <h2 class="text-uppercase" data-aos="fade-up" th:text="#{user.add_as_contact} + ' ' + ${user.getFirstName()}" />
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100" th:text="#{user.add_as_contact_msg}" />
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a th:href="@{/users/contacts/add/{user_id}(user_id=${user.id})}" target="_blank" class="btn  btn-primary mr-2 mb-2" th:text="#{user.add_as_contact_btn} + ' ' + ${user.getFirstName()}" />
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
