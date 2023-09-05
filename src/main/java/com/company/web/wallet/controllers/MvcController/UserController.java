@@ -209,6 +209,19 @@ public class UserController {
         return "user_request_funds";
     }
 
+    @GetMapping("/contacts")
+    public String showContacts(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        User authenticatedUser = userService.getByUsername(username);
+        if (username == null) {
+            return "redirect:/auth/login";
+        }
+
+        List<User> contacts = userService.getAllContacts(authenticatedUser.getId());
+        model.addAttribute("contacts", contacts);
+        return "user_contacts";
+    }
+
     @PostMapping("/profile")
     public String updateUserProfile(@Valid @ModelAttribute("user") UserDto userDto, @RequestParam(value = "profilePictureFile", required = false) MultipartFile profilePictureFile, BindingResult errors, Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
@@ -220,12 +233,8 @@ public class UserController {
                 user.setId(authenticatedUser.getId());
                 if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
                     user.setProfilePicture(profilePictureFile.getBytes());
-                    System.out.println("Picture h1t on upload");
-                    System.out.println("profilePictureFile: " + profilePictureFile);
                 } else {
-                    user.setProfilePicture(user.getProfilePicture());
-                    System.out.println("Picture considered empty");
-                    System.out.println("profilePictureFile: " + profilePictureFile);
+                    user.setProfilePicture(authenticatedUser.getProfilePicture());
                 }
                 user.setUsername(authenticatedUser.getUsername());
                 user.setPassword(authenticatedUser.getPassword());

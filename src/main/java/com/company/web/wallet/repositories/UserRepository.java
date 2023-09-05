@@ -41,6 +41,8 @@ public interface UserRepository {
 
     User getByVerificationCode(String username) throws EntityNotFoundException;
 
+    List<User> getAllContacts(int id);
+
     void create(User user);
 
     void update(User user);

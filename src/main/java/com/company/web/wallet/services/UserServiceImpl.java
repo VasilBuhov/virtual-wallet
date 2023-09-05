@@ -98,6 +98,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    public List<User> getAllContacts(int id) {
+        return userRepository.getAllContacts(id);
+    }
+
+    @Override
     public void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
 //        User existingUserByEmail = userRepository.getByEmail(user.getEmail());
 //        if (existingUserByEmail != null) {

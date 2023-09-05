@@ -265,6 +265,22 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<User> getAllContacts(int id) {
+            try (Session session = sessionFactory.openSession()) {
+                Query<User> query = session.createQuery("SELECT u FROM User u\n" +
+                        "JOIN Contact c ON c.contactTarget = u.id\n" +
+                        "WHERE c.contactOwner = :id", User.class);
+                query.setParameter("id", id);
+                List<User> result = query.list();
+                if (result.isEmpty()) {
+                    throw new EntityNotFoundException("User contacts for", "user with id", String.valueOf(id));
+                } else {
+                    return result;
+                }
+            }
+    }
+
+    @Override
     public void create(User user) {
         try (Session session = sessionFactory.openSession()) {
             user.setCreateDate(LocalDateTime.now());

@@ -80,11 +80,6 @@
                             <input type="text" th:field="*{phone}">
                             <br><br/>
 
-                            <label th:text="#{user.password}">Password</label>
-                            <br/>
-                            <input type="password" th:field="*{password}">
-                            <br><br/>
-
                             <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
                                 <p th:text="${errorMessage}"></p>
                             </div>

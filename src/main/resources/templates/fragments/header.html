@@ -35,6 +35,8 @@
                                 <li class="has-children" th:if="${session.currentUser != null}">
                                     <a href="_blank" class="nav-link" th:text="${session.currentUser}"/>
                                     <ul class="dropdown">
+                                        <li><a th:href="@{/users/contacts}" class="nav-link"
+                                               th:text="#{user.contact_list}"/></li>
                                         <li><a th:href="@{/users/profile}" class="nav-link"
                                                th:text="#{user.edit_profile}"/></li>
                                         <li><a th:href="@{/users/password}" class="nav-link"
