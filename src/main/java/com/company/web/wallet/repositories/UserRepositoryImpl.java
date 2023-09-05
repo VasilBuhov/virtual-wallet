@@ -291,6 +291,13 @@ public class UserRepositoryImpl implements UserRepository {
     public void addContact(int contactOwner, int contactTarget) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
+
+            Query<Long> countQuery = session.createQuery("SELECT COUNT(c) FROM Contact c WHERE c.contactOwner = :ownerId AND c.contactTarget = :targetId", Long.class);
+            countQuery.setParameter("ownerId", contactOwner);
+            countQuery.setParameter("targetId", contactTarget);
+
+            long contactCount = countQuery.getSingleResult();
+            if (contactCount > 0) return;
             Contact newContact = new Contact();
             newContact.setContactOwner(contactOwner);
             newContact.setContactTarget(contactTarget);
@@ -306,6 +313,14 @@ public class UserRepositoryImpl implements UserRepository {
     public void removeContact(int contactOwner, int contactTarget) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
+
+            Query<Long> countQuery = session.createQuery("SELECT COUNT(c) FROM Contact c WHERE c.contactOwner = :ownerId AND c.contactTarget = :targetId", Long.class);
+            countQuery.setParameter("ownerId", contactOwner);
+            countQuery.setParameter("targetId", contactTarget);
+
+            long contactCount = countQuery.getSingleResult();
+            if (contactCount == 0) return;
+
             Query<?> deleteQuery = session.createQuery("DELETE FROM Contact WHERE contactOwner = :ownerId AND contactTarget = :targetId");
             deleteQuery.setParameter("ownerId", contactOwner);
             deleteQuery.setParameter("targetId", contactTarget);

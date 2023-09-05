@@ -1,0 +1,24 @@
+#contactTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.username-cell {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.remove-cell {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.remove-link {
+    color: red;
+    text-decoration: none;
+}
+
+.remove-link:hover {
+    text-decoration: underline;
+}

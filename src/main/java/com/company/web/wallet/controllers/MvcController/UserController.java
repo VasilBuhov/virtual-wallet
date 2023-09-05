@@ -229,7 +229,10 @@ public class UserController {
             userService.addContact(authenticatedUser.getId(), id);
             User targetUser = userService.getUserById(id);
             model.addAttribute("targetUser", targetUser);
-            return "user_contact_add_sucess";
+            return "user_contact_add_success";
+        } catch (EntityDuplicateException e) {
+            model.addAttribute("error", e.getMessage());
+            return "user_contact_already_added";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "errors/404";
@@ -245,10 +248,10 @@ public class UserController {
             userService.removeContact(authenticatedUser.getId(), id);
             User targetUser = userService.getUserById(id);
             model.addAttribute("targetUser", targetUser);
-            return "user_contact_remove_sucess";
+            return "user_contact_remove_success";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "errors/404";
+            return "user_contact_does_not_exist";
         }
     }
 
