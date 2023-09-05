@@ -69,6 +69,47 @@ public class UserRepositoryImpl implements UserRepository {
         return new PageImpl<>(users, pageable, total);
     }
 
+    @Override
+    public Page<User> findAllBlockedUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.userLevel = -1", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.userLevel = -1", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
+
+    @Override
+    public Page<User> findAllAdminUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.userLevel = 1", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.userLevel = 1", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
+
+    @Override
+    public Page<User> findAllDeletedUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.statusDeleted = true", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.statusDeleted = true", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
 
     @PersistenceContext
     private EntityManager entityManager;

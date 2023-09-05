@@ -263,6 +263,21 @@ public class UserController {
             model.addAttribute("usersUnverifiedPage", usersUnverifiedPage);
             int totalUnverifiedPages = usersUnverifiedPage.getTotalPages();
             model.addAttribute("totalUnverifiedPages", totalUnverifiedPages);
+
+            Page<User> usersBlockedPage = userService.getAllBlockedUsersPage(pageable);
+            model.addAttribute("usersBlockedPage", usersBlockedPage);
+            int usersBlockedPages = usersBlockedPage.getTotalPages();
+            model.addAttribute("usersBlockedPages", usersBlockedPages);
+
+            Page<User> usersAdminPage = userService.getAllAdminUsersPage(pageable);
+            model.addAttribute("usersAdminPage", usersAdminPage);
+            int usersAdminPages = usersAdminPage.getTotalPages();
+            model.addAttribute("usersAdminPages", usersAdminPages);
+
+            Page<User> usersDeletedPage = userService.getAllDeletedUsersPage(pageable);
+            model.addAttribute("usersDeletedPage", usersDeletedPage);
+            int usersDeletedPages = usersDeletedPage.getTotalPages();
+            model.addAttribute("usersDeletedPages", usersDeletedPages);
             return "admin_panel";
         } else {
             return "errors/401";

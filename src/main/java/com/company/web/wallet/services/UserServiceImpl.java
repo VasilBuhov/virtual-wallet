@@ -81,6 +81,21 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllUnverifiedUsers(pageable);
     }
 
+    @Override
+    public Page<User> getAllBlockedUsersPage(Pageable pageable) {
+        return userRepository.findAllBlockedUsers(pageable);
+    }
+
+    @Override
+    public Page<User> getAllAdminUsersPage(Pageable pageable) {
+        return userRepository.findAllAdminUsers(pageable);
+    }
+
+    @Override
+    public Page<User> getAllDeletedUsersPage(Pageable pageable) {
+        return userRepository.findAllDeletedUsers(pageable);
+    }
+
 
     @Override
     public void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {

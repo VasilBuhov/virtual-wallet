@@ -15,6 +15,12 @@ public interface UserRepository {
 
     Page<User> findAllUnverifiedUsers(Pageable pageable);
 
+    Page<User> findAllBlockedUsers(Pageable pageable);
+
+    Page<User> findAllAdminUsers(Pageable pageable);
+
+    Page<User> findAllDeletedUsers(Pageable pageable);
+
     Page<User> findByUsernameContaining(String username, Pageable pageable);
 
     User getById(int id) throws EntityNotFoundException;

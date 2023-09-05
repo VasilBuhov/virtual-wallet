@@ -37,6 +37,12 @@ public interface UserService {
 
     Page<User> getAllUnverifiedUsersPage(Pageable pageable);
 
+    Page<User> getAllBlockedUsersPage(Pageable pageable);
+
+    Page<User> getAllAdminUsersPage(Pageable pageable);
+
+    Page<User> getAllDeletedUsersPage(Pageable pageable);
+
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;
     void delete(User authenticatedUser, int id) throws EntityNotFoundException;
