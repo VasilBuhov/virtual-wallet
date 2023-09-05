@@ -45,7 +45,11 @@ public interface UserRepository {
 
     void create(User user);
 
+    void addContact(int contactOwner, int contactTarget);
+
     void update(User user);
+
+    void removeContact(int contactOwner, int contactTarget);
 
     void delete(int id) throws EntityNotFoundException;
 

@@ -1,10 +1,12 @@
 package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.models.Contact;
 import com.company.web.wallet.models.User;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -256,11 +258,8 @@ public class UserRepositoryImpl implements UserRepository {
             Query<User> query = session.createQuery("from User where verificationCode = :verificationCode", User.class);
             query.setParameter("verificationCode", verificationCode);
             List<User> result = query.list();
-            if (result.isEmpty()) {
-                throw new EntityNotFoundException("User", "verificationCode", verificationCode);
-            } else {
-                return result.get(0);
-            }
+            if (result.isEmpty()) throw new EntityNotFoundException("User", "verificationCode", verificationCode);
+            else return result.get(0);
         }
     }
 
@@ -271,12 +270,7 @@ public class UserRepositoryImpl implements UserRepository {
                         "JOIN Contact c ON c.contactTarget = u.id\n" +
                         "WHERE c.contactOwner = :id", User.class);
                 query.setParameter("id", id);
-                List<User> result = query.list();
-                if (result.isEmpty()) {
-                    throw new EntityNotFoundException("User contacts for", "user with id", String.valueOf(id));
-                } else {
-                    return result;
-                }
+                return query.list();
             }
     }
 
@@ -294,6 +288,35 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void addContact(int contactOwner, int contactTarget) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Contact newContact = new Contact();
+            newContact.setContactOwner(contactOwner);
+            newContact.setContactTarget(contactTarget);
+            session.save(newContact);
+            transaction.commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong(REPO add contact)");
+        }
+    }
+
+    @Override
+    public void removeContact(int contactOwner, int contactTarget) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Query<?> deleteQuery = session.createQuery("DELETE FROM Contact WHERE contactOwner = :ownerId AND contactTarget = :targetId");
+            deleteQuery.setParameter("ownerId", contactOwner);
+            deleteQuery.setParameter("targetId", contactTarget);
+            deleteQuery.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong(REPO delete contact)");
+        }
+    }
+
     public void update(User user) {
         try (Session session = sessionFactory.openSession()) {
             user.setLastUpdateDate(LocalDateTime.now());

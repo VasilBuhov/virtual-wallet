@@ -153,6 +153,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void addContact(int contactOwner, int contactTarget) {
+        userRepository.addContact(contactOwner, contactTarget);
+    }
+
+    @Override
+    public void removeContact(int contactOwner, int contactTarget) {
+        userRepository.removeContact(contactOwner, contactTarget);
+    }
+
+    @Override
     public void delete(User authenticatedUser, int id) throws EntityNotFoundException {
         User user = userRepository.getById(id);
         checkModifyPermissionsForDeleting(authenticatedUser, user);

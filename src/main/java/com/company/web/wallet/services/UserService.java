@@ -47,6 +47,11 @@ public interface UserService {
 
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
     void update(User authenticatedUser, User user) throws EntityNotFoundException;
+
+    void addContact(int contactOwner, int contactTarget);
+
+    void removeContact(int contactOwner, int contactTarget);
+
     void delete(User authenticatedUser, int id) throws EntityNotFoundException;
 
     void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;

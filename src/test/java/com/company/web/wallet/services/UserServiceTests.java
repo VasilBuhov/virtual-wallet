@@ -249,7 +249,6 @@
 //        //Arrange
 //        User logged = createMockUser();
 //        User user = createMockUser();
-//        Status status = createMockActiveStatus();
 //
 //        Mockito.when(userService.getUserByEmail(Mockito.anyString()))
 //                .thenThrow(EntityNotFoundException.class);
@@ -257,11 +256,7 @@
 //        Mockito.when(userService.getByPhone(Mockito.anyString()))
 //                .thenThrow(EntityNotFoundException.class);
 //
-//        Mockito.when(statusService.getByType(Mockito.any()))
-//                .thenReturn(status);
-//
 //        logged.setEmail(user.getEmail());
-//        logged.setStatus(user.getStatus());
 //        logged.setLastUpdateDate(LocalDateTime.now());
 //
 //        //Act
@@ -278,7 +273,7 @@
 //
 //        //Act, Assert
 //        Assertions.assertThrows(UnauthorizedOperationException.class,
-//                () -> userService.delete(1, user));
+//                () -> userService.delete(user, 1));
 //    }
 //
 //    @Test
@@ -288,7 +283,7 @@
 //
 //        //Act, Assert
 //        Assertions.assertThrows(UnauthorizedOperationException.class,
-//                () -> userService.delete(3, user));
+//                () -> userService.delete(user, 3));
 //    }
 //
 //    @Test
@@ -297,11 +292,8 @@
 //        User user = createMockUser();
 //        user.setId(2);
 //
-//        Mockito.when(statusService.getByType(StatusType.Disabled))
-//                .thenReturn(new Status(StatusType.Disabled));
-//
 //        //Act
-//        userService.delete(2, user);
+//        userService.delete(user, 2);
 //
 //        // Assert
 //        Mockito.verify(mockRepository, Mockito.times(1))
@@ -322,47 +314,14 @@
 //    }
 //
 //    @Test
-//    public void makeAdmin_Should_Throw_When_UserIsAdmin() {
-//        //Arrange
-//        User user = createMockAdmin();
-//
-//        Mockito.when(mockRepository.getById(Mockito.anyInt()))
-//                .thenThrow(UnnecessaryOperationException.class);
-//
-//        //Act, Assert
-//        Assertions.assertThrows(UnnecessaryOperationException.class,
-//                () -> userService.makeAdmin(1, user));
-//    }
-//
-//    @Test
-//    public void makeAdmin_Should_Throw_When_UserIsAlreadyAdmin() {
-//        //Arrange
-//        User logged = createMockAdmin();
-//        User user = createMockAdmin();
-//        user.setId(2);
-//
-//        Mockito.when(mockRepository.getById(Mockito.anyInt()))
-//                .thenReturn(user);
-//
-//        //Act, Assert
-//        Assertions.assertThrows(UnnecessaryOperationException.class,
-//                () -> userService.makeAdmin(2, logged));
-//    }
-//
-//    @Test
 //    public void activate_Should_Update_When_LoggedIsAdmin() {
 //        //Arrange
 //        User user = createDisabledUser();
 //
-//        Status activeStatus = createMockActiveStatus();
-//
-//        Mockito.when(userService.getById(Mockito.anyInt()))
+//        Mockito.when(userService.getUserById(Mockito.anyInt()))
 //                .thenReturn(user);
-//        Mockito.when(statusService.getByType(StatusType.Active))
-//                .thenReturn(activeStatus);
-//
 //        //Act
-//        userService.activate(user);
+//        userService.verify(user);
 //
 //        // Assert
 //        Assertions.assertEquals(userService.getById(user.getId()).getStatus(), statusService.getByType(StatusType.Active));

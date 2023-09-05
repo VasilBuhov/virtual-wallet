@@ -132,7 +132,7 @@ public class UserController {
     public String showChangePasswordPage(Model model, HttpSession session) {
         try {
             authenticationHelper.tryGetUser(session);
-        } catch (AuthorizationException e){
+        } catch (AuthorizationException e) {
             model.addAttribute("error", e.getMessage());
             return "errors/401";
         }
@@ -212,14 +212,44 @@ public class UserController {
     @GetMapping("/contacts")
     public String showContacts(Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
         User authenticatedUser = userService.getByUsername(username);
-        if (username == null) {
-            return "redirect:/auth/login";
-        }
-
         List<User> contacts = userService.getAllContacts(authenticatedUser.getId());
+        if (contacts.isEmpty()) return "user_no_contacts";
         model.addAttribute("contacts", contacts);
         return "user_contacts";
+    }
+
+    @GetMapping("/contacts/add/{id}")
+    public String addUserContact(@PathVariable int id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        try {
+            userService.addContact(authenticatedUser.getId(), id);
+            User targetUser = userService.getUserById(id);
+            model.addAttribute("targetUser", targetUser);
+            return "user_contact_add_sucess";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        }
+    }
+
+    @GetMapping("/contacts/remove/{id}")
+    public String removeUserContact(@PathVariable int id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        try {
+            userService.removeContact(authenticatedUser.getId(), id);
+            User targetUser = userService.getUserById(id);
+            model.addAttribute("targetUser", targetUser);
+            return "user_contact_remove_sucess";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        }
     }
 
     @PostMapping("/profile")
