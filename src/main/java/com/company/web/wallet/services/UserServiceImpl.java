@@ -175,6 +175,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public byte[] getIdCard(int id) {
+        return userRepository.getIdCard(id);
+    }
+
+    @Override
+    public byte[] getSelfie(int id) {
+        return userRepository.getSelfie(id);
+    }
+
+    @Override
     public void checkModifyPermissionsForUpdating(User authenticatedUser, User user) {
         if (authenticatedUser.getId() != user.getId()) throw new AuthorizationException(MODIFY_USER_ERROR_MESSAGE);
     }

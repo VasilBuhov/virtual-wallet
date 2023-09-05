@@ -41,9 +41,24 @@
                                                th:text="#{user.edit_profile}"/></li>
                                         <li><a th:href="@{/users/password}" class="nav-link"
                                                th:text="#{user.change_password}"/></li>
-                                        <li th:if="${session.currentUserLevel == 1}">
-                                            <a th:href="@{/users/cpanel}" class="nav-link"
-                                               th:text="#{user.cpanel}"/></li>
+                                        <li><a th:if="${session.currentUserLevel == 0}" th:href="@{/users/idVerification}" class="nav-link"
+                                               th:text="#{user.id_verification}"/></li>
+
+<!--                                        <li th:if="${session.currentUserLevel == 1}">-->
+<!--                                            <a th:href="@{/users/cpanel}" class="nav-link"-->
+<!--                                               th:text="#{user.cpanel}"/></li>-->
+
+                                        <li class="has-children" th:if="${session.currentUserLevel == 1}">
+                                            <a th:href="@{/users/cpanel}" class="nav-link" th:text="#{user.cpanel}"/>
+                                            <ul class="dropdown">
+                                                <li th:if="${session.currentUserLevel == 1}">
+                                                    <a th:href="@{/users/cpanel}" class="nav-link"
+                                                       th:text="#{user.cpanel}"/></li>
+                                                <li th:if="${session.currentUserLevel == 1}">
+                                                    <a th:href="@{/users/vpanel}" class="nav-link"
+                                                       th:text="#{user.vpanel}"/></li>
+                                            </ul>
+                                        </li>
 
                                         <li><a th:href="@{/wallet}" class="nav-link"
                                                th:text="#{user.my_wallet}"/></li>

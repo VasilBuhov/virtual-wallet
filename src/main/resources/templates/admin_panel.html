@@ -195,12 +195,6 @@
                                               th:if="${session.currentUserLevel > 0}">
                                             <button class="action-button" type="submit" th:text="#{user.unblock}"/>
                                         </form>
-                                        <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
-                                              th:if="${session.currentUserLevel == 1}">
-                                            <button class="action-button" type="submit">Set as Admin</button>
-                                        </form>
-
-
                                     </div>
                                 </li>
                             </th:block>
@@ -285,7 +279,7 @@
                                     <div class="action-buttons">
                                         <form th:action="@{'/users/' + ${user.id} + '/delete'}" method="post"
                                               th:if="${session.currentUserLevel > 0}">
-                                            <button class="action-button" type="submit" th:text="#{user.delete}"/>
+                                            <button class="action-button" type="submit" th:text="#{user.undelete}"/>
                                         </form>
                                         <form th:action="@{'/users/' + ${user.id} + '/block'}" method="post"
                                               th:if="${session.currentUserLevel > 0}">
@@ -295,12 +289,6 @@
                                               th:if="${session.currentUserLevel > 0}">
                                             <button class="action-button" type="submit" th:text="#{user.unblock}"/>
                                         </form>
-                                        <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
-                                              th:if="${session.currentUserLevel > 1}">
-                                            <button class="action-button" type="submit">Set as Admin</button>
-                                        </form>
-
-
                                     </div>
                                 </li>
                             </th:block>

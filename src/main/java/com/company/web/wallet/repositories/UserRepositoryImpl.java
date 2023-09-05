@@ -275,6 +275,30 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public byte[] getIdCard(int userId) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<byte[]> query = session.createQuery("SELECT pv.idCard FROM PhotoVerification pv\n" +
+                    "WHERE pv.userId = :userId", byte[].class);
+            query.setParameter("userId", userId);
+            List<byte[]> result = query.list();
+            if (!result.isEmpty()) return result.get(0);
+            else return null;
+        }
+    }
+
+    @Override
+    public byte[] getSelfie(int userId) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<byte[]> query = session.createQuery("SELECT pv.selfie FROM PhotoVerification pv\n" +
+                    "WHERE pv.userId = :userId", byte[].class);
+            query.setParameter("userId", userId);
+            List<byte[]> result = query.list();
+            if (!result.isEmpty()) return result.get(0);
+            else return null;
+        }
+    }
+
+    @Override
     public void create(User user) {
         try (Session session = sessionFactory.openSession()) {
             user.setCreateDate(LocalDateTime.now());

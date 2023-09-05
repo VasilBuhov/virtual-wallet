@@ -67,6 +67,11 @@ public interface UserService {
 
 
     default void makeRegularUserAdmin(int id) {}
+
+    byte[] getIdCard(int id);
+
+    byte[] getSelfie(int id);
+
     void checkModifyPermissionsForUpdating(User authenticatedUser, User user);
     void checkModifyPermissionsForDeleting(User authenticatedUser, User user);
     void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException;

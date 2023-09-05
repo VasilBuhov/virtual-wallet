@@ -43,6 +43,10 @@ public interface UserRepository {
 
     List<User> getAllContacts(int id);
 
+    byte[] getIdCard(int id);
+
+    byte[] getSelfie(int id);
+
     void create(User user);
 
     void addContact(int contactOwner, int contactTarget);

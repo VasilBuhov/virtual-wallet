@@ -128,6 +128,33 @@ public class UserController {
         }
     }
 
+    @GetMapping("/idVerification")
+    public String idVerification(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        //get idCard by Service
+        if (userService.getIdCard(authenticatedUser.getId()) != null) {
+            byte[] idCardData = userService.getIdCard(authenticatedUser.getId());
+            String idCardData64DB = Base64.getEncoder().encodeToString(idCardData);
+            model.addAttribute("idCardData64DB", idCardData64DB);
+        } else model.addAttribute("idCardData64DB", null);
+        //get selfie by Service
+        if (userService.getSelfie(authenticatedUser.getId()) != null) {
+            byte[] selfieData = userService.getSelfie(authenticatedUser.getId());
+            String selfieData64DB = Base64.getEncoder().encodeToString(selfieData);
+            model.addAttribute("selfieData64DB", selfieData64DB);
+        } else model.addAttribute("selfieData64DB", null);
+
+            try {
+                model.addAttribute("user", userMapper.toDto(authenticatedUser));
+                return "user_id_verification_upload";
+            } catch (EntityNotFoundException e) {
+                model.addAttribute("error", "User not found");
+                return "errors/404";
+            }
+    }
+
     @GetMapping("/password")
     public String showChangePasswordPage(Model model, HttpSession session) {
         try {
