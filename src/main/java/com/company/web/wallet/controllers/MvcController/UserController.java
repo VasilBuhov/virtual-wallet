@@ -258,6 +258,11 @@ public class UserController {
             model.addAttribute("usersPage", usersPage);
             int totalPages = usersPage.getTotalPages();
             model.addAttribute("totalPages", totalPages);
+
+            Page<User> usersUnverifiedPage = userService.getAllUnverifiedUsersPage(pageable);
+            model.addAttribute("usersUnverifiedPage", usersUnverifiedPage);
+            int totalUnverifiedPages = usersUnverifiedPage.getTotalPages();
+            model.addAttribute("totalUnverifiedPages", totalUnverifiedPages);
             return "admin_panel";
         } else {
             return "errors/401";

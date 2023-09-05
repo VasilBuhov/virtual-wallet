@@ -37,6 +37,8 @@
                                     <ul class="dropdown">
                                         <li><a th:href="@{/users/profile}" class="nav-link"
                                                th:text="#{user.edit_profile}"/></li>
+                                        <li><a th:href="@{/users/password}" class="nav-link"
+                                               th:text="#{user.change_password}"/></li>
                                         <li th:if="${session.currentUserLevel == 1}">
                                             <a th:href="@{/users/cpanel}" class="nav-link"
                                                th:text="#{user.cpanel}"/></li>
@@ -47,7 +49,6 @@
                                                th:text="#{user.my_transactions}"/></li>
                                         <li><a th:href="@{/users/request}" class="nav-link"
                                                th:text="#{user.request_funds_menu}"/></li>
-
 
                                         <li th:if="${session.currentUser != null and session.pokes != null}" class="has-children">
                                             <a th:href="@{/users/pokes}" class="nav-link" th:text="#{user.has_pokes}" />

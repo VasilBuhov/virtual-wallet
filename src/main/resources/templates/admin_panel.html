@@ -35,52 +35,135 @@
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10 mt-lg-5 text-center">
-                <br /><br /><br />
-                <h2 th:text="#{user.management}" />
-                <ul class="user-list">
-                    <th:block th:each="user : ${usersPage}">
-                        <li class="user-item">
-                            <div class="user-name" th:text="${user.username}"></div>
-                            <div class="user-details" style="display: none;">
-                                <!-- Additional user information here -->
-                                <p><i th:text="#{user.email_details} + ' '" /><span th:text="${user.email}"></span></p>
-                                <p><i th:text="#{user.level_details} + ' '" /><span th:text="${user.userLevel}"></span></p>
-                                <p th:if="${user.phone != null}"><i th:text="#{user.phone_details} + ' '" /><span th:text="${user.phone}"></span></p>
-                                <!-- Add more details as needed -->
-                            </div>
-                            <div class="action-buttons">
-                                <form th:action="@{'/users/' + ${user.id} + '/delete'}" method="post"
-                                      th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit" th:text="#{user.delete}" />
-                                </form>
-                                <form th:action="@{'/users/' + ${user.id} + '/block'}" method="post"
-                                      th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit" th:text="#{user.block}" />
-                                </form>
-                                <form th:action="@{'/users/' + ${user.id} + '/unblock'}" method="post"
-                                      th:if="${session.currentUserLevel > 0}">
-                                    <button class="action-button" type="submit" th:text="#{user.unblock}" />
-                                </form>
-                                <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
-                                      th:if="${session.currentUserLevel > 1}">
-                                    <button class="action-button" type="submit">Set as Admin</button>
-                                </form>
+                <br/>
 
-
-                            </div>
-                        </li>
-                    </th:block>
+                <h3 th:text="#{user.management}"/>
+                <ul class="nav nav-tabs" id="userTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="allUsersTab" data-toggle="tab" href="#allUsers" role="tab"
+                           aria-controls="allUsers" aria-selected="true">
+                            All Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="unverifiedUsersTab" data-toggle="tab" href="#unverifiedUsers" role="tab"
+                           aria-controls="unverifiedUsers" aria-selected="false">
+                            Unverified Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="blockedUsersTab" data-toggle="tab" href="#blockedUsers" role="tab"
+                           aria-controls="blockedUsers" aria-selected="false">
+                            Blocked Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="adminUsersTab" data-toggle="tab" href="#adminUsers" role="tab"
+                           aria-controls="adminUsers" aria-selected="false">
+                            Admins
+                        </a>
+                    </li>
                 </ul>
-                <br />
-                <div class="text-center">
-                    <ul class="pagination">
-                        <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
-                            th:class="${page == usersPage.number ? 'active' : ''}">
-                            <a th:href="@{/cpanel(page=${page})}" th:text="'Page ' + ${page + 1}"></a>
-                        </li>
-                    </ul>
-                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="allUsers" role="tabpanel" aria-labelledby="allUsersTab">
+                        <ul class="user-list">
+                            <th:block th:each="user : ${usersPage}">
+                                <li class="user-item">
+                                    <div class="user-name" th:text="${user.username}"></div>
+                                    <div class="user-details" style="display: none;">
+                                        <!-- Additional user information here -->
+                                        <p><i th:text="#{user.email_details} + ' '"/><span
+                                                th:text="${user.email}"></span>
+                                        </p>
+                                        <p><i th:text="#{user.level_details} + ' '"/><span
+                                                th:text="${user.userLevel}"></span></p>
+                                        <p th:if="${user.phone != null}"><i th:text="#{user.phone_details} + ' '"/><span
+                                                th:text="${user.phone}"></span></p>
+                                        <!-- Add more details as needed -->
+                                    </div>
+                                    <div class="action-buttons">
+                                        <form th:action="@{'/users/' + ${user.id} + '/delete'}" method="post"
+                                              th:if="${session.currentUserLevel > 0}">
+                                            <button class="action-button" type="submit" th:text="#{user.delete}"/>
+                                        </form>
+                                        <form th:action="@{'/users/' + ${user.id} + '/block'}" method="post"
+                                              th:if="${session.currentUserLevel > 0}">
+                                            <button class="action-button" type="submit" th:text="#{user.block}"/>
+                                        </form>
+                                        <form th:action="@{'/users/' + ${user.id} + '/unblock'}" method="post"
+                                              th:if="${session.currentUserLevel > 0}">
+                                            <button class="action-button" type="submit" th:text="#{user.unblock}"/>
+                                        </form>
+                                        <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
+                                              th:if="${session.currentUserLevel > 1}">
+                                            <button class="action-button" type="submit">Set as Admin</button>
+                                        </form>
 
+
+                                    </div>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <br/>
+                        <div class="text-center">
+                            <ul class="pagination">
+                                <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
+                                    th:class="${page == usersPage.number ? 'active' : ''}">
+                                    <a th:href="@{/cpanel(page=${page})}" th:text="'Page ' + ${page + 1}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="unverifiedUsers" role="tabpanel" aria-labelledby="unverifiedUsers">
+                        <ul class="user-list">
+                            <th:block th:each="user : ${usersUnverifiedPage}">
+                                <li class="user-item">
+                                    <div class="user-name" th:text="${user.username}"></div>
+                                    <div class="user-details" style="display: none;">
+                                        <!-- Additional user information here -->
+                                        <p><i th:text="#{user.email_details} + ' '"/><span
+                                                th:text="${user.email}"></span>
+                                        </p>
+                                        <p><i th:text="#{user.level_details} + ' '"/><span
+                                                th:text="${user.userLevel}"></span></p>
+                                        <p th:if="${user.phone != null}"><i th:text="#{user.phone_details} + ' '"/><span
+                                                th:text="${user.phone}"></span></p>
+                                        <!-- Add more details as needed -->
+                                    </div>
+                                    <div class="action-buttons">
+                                        <form th:action="@{'/users/' + ${user.id} + '/delete'}" method="post"
+                                              th:if="${session.currentUserLevel > 0}">
+                                            <button class="action-button" type="submit" th:text="#{user.delete}"/>
+                                        </form>
+                                        <form th:action="@{'/users/' + ${user.id} + '/block'}" method="post"
+                                              th:if="${session.currentUserLevel > 0}">
+                                            <button class="action-button" type="submit" th:text="#{user.block}"/>
+                                        </form>
+                                        <form th:action="@{'/users/' + ${user.id} + '/unblock'}" method="post"
+                                              th:if="${session.currentUserLevel > 0}">
+                                            <button class="action-button" type="submit" th:text="#{user.unblock}"/>
+                                        </form>
+                                        <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
+                                              th:if="${session.currentUserLevel > 1}">
+                                            <button class="action-button" type="submit">Set as Admin</button>
+                                        </form>
+
+
+                                    </div>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <br/>
+                        <div class="text-center">
+                            <ul class="pagination">
+                                <li th:each="page : ${#numbers.sequence(0, totalUnverifiedPages - 1)}"
+                                    th:class="${page == usersUnverifiedPage.number ? 'active' : ''}">
+                                    <a th:href="@{/cpanel(page=${page})}" th:text="'Page ' + ${page + 1}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

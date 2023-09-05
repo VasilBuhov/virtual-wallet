@@ -46,18 +46,29 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Page<User> findAllUsers(Pageable pageable) {
         TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
-
         TypedQuery<Long> countQuery = entityManager.createQuery("SELECT COUNT(u) FROM User u", Long.class);
-
         List<User> users = query
                 .setFirstResult((int) pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
-
         Long total = countQuery.getSingleResult();
-
         return new PageImpl<>(users, pageable, total);
     }
+
+    @Override
+    public Page<User> findAllUnverifiedUsers(Pageable pageable) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.verified = 0", User.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.verified = 0", Long.class);
+        List<User> users = query
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        Long total = countQuery.getSingleResult();
+        return new PageImpl<>(users, pageable, total);
+    }
+
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -153,7 +164,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAdmins() {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User u WHERE u.userLevel = 1", User.class);
             List<User> result = query.list();
             if (result.isEmpty())
@@ -164,7 +175,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getBlocked() {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User u WHERE u.userLevel = 0", User.class);
             List<User> result = query.list();
             if (result.isEmpty())
@@ -175,7 +186,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByIdUnverified(int id) {
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User where id = :id ", User.class);
             query.setParameter("id", id);
             User user = query.uniqueResult();
@@ -187,7 +198,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByUsernameUnverified(String username) {
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User where username = :username ", User.class);
             query.setParameter("username", username);
             User user = query.uniqueResult();
