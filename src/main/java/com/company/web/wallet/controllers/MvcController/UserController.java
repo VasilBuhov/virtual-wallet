@@ -375,6 +375,30 @@ public class UserController {
         }
     }
 
+    @PostMapping("/approve/{id}")
+    public String approveIdVerification(
+            @PathVariable int id,
+            @RequestParam(name = "approveSelfie", required = false) boolean approveSelfie,
+            @RequestParam(name = "approveIDCard", required = false) boolean approveIDCard,
+            Model model, HttpSession session) throws MessagingException, UnsupportedEncodingException {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        User targetUser = userService.getUserById(id);
+        model.addAttribute("targetUser", targetUser);
+
+        if (!approveIDCard || !approveSelfie) {
+            userService.sendIdDisapprovalMail(targetUser);
+//            userService.deleteIdPhotos(targetUser);
+            model.addAttribute("DisapprovalMessage", "Approval of " + targetUser.getUsername() +"<br/> was denied!");
+            return "user_id_approval_denied";
+        }
+        userService.markUserApproved(authenticatedUser, targetUser);
+        userService.sendIdApprovalMail(targetUser);
+        model.addAttribute("ApprovalMessage", "Succesfully approved the ID of " + targetUser.getUsername() +"<br/> with selfie and ID!");
+//        userService
+        return "user_id_approval_success";
+    }
 
     @GetMapping("/vpanel/{id}")
     public String showAdminVerificationPanel(@PathVariable int id, Model model, HttpSession session) {
@@ -483,10 +507,10 @@ public class UserController {
     }
 
     @GetMapping("/invite")
-    public String showInvitationPage(Model model, HttpSession httpSession){
-        try{
+    public String showInvitationPage(Model model, HttpSession httpSession) {
+        try {
             authenticationHelper.tryGetUser(httpSession);
-        }catch (AuthorizationException e){
+        } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         }
 
@@ -498,7 +522,7 @@ public class UserController {
     public String createInvitation(@ModelAttribute("invitation") InvitationDto invitationDto,
                                    BindingResult bindingResult,
                                    Model model,
-                                   HttpSession session){
+                                   HttpSession session) {
 
         String username = (String) session.getAttribute("currentUser");
         if (username == null) return "redirect:/auth/login";
@@ -509,12 +533,12 @@ public class UserController {
 
         try {
             invitationService.getInvitationsCount(authenticatedUser);
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             hasSentInvitations = false;
         }
 
         try {
-            if (hasSentInvitations && invitationService.getInvitationsCount(authenticatedUser) >=5){
+            if (hasSentInvitations && invitationService.getInvitationsCount(authenticatedUser) >= 5) {
                 throw new UnauthorizedOperationException("You have already reached your limit for invitations.");
             }
             Invitation invitation = new Invitation();
@@ -524,7 +548,7 @@ public class UserController {
             invitationService.sendInvitation(invitation.getInviter(), targetEmail);
             invitationService.create(invitation);
             return "user_invitation_sent";
-        }catch (UnauthorizedOperationException | EntityDuplicateException e){
+        } catch (UnauthorizedOperationException | EntityDuplicateException e) {
             model.addAttribute("error", e.getMessage());
             return "errors/404";
         } catch (MessagingException | UnsupportedEncodingException e) {

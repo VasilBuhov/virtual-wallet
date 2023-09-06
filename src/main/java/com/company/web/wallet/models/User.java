@@ -68,11 +68,14 @@ public class User {
     @Column(name = "status_deleted")
     private boolean statusDeleted;
 
+    @Column(name = "photo_verification")
+    private boolean photoVerification;
+
     public User() {
     }
 
     public User(int id, String firstName, String lastName, String username, String email, String password, String phone,
-                int userLevel, int verified, byte[] avatar, Set<Pokes> pokes, boolean statusDeleted) {
+                int userLevel, int verified, byte[] avatar, Set<Pokes> pokes, boolean statusDeleted, boolean photoVerification) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -84,6 +87,7 @@ public class User {
         this.phone = phone;
         this.pokes = pokes;
         this.statusDeleted = statusDeleted;
+        this.photoVerification = photoVerification;
 
         setUserLevel(userLevel);
     }
@@ -238,6 +242,14 @@ public class User {
 
     public void setStatusDeleted(boolean statusDeleted) {
         this.statusDeleted = statusDeleted;
+    }
+
+    public boolean isPhotoVerified() {
+        return photoVerification;
+    }
+
+    public void setPhotoVerification(boolean photoVerification) {
+        this.photoVerification = photoVerification;
     }
 
     public boolean equals(Object o) {

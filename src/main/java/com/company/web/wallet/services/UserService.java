@@ -62,6 +62,12 @@ public interface UserService {
 
     void sendContactEmail(ContactForm contactForm) throws MessagingException, UnsupportedEncodingException;
 
+    void markUserApproved(User authenticatedUser, User user);
+
+    void sendIdApprovalMail(User approvedUser) throws MessagingException, UnsupportedEncodingException;
+
+    void sendIdDisapprovalMail(User approvedUser) throws MessagingException, UnsupportedEncodingException;
+
     boolean verify(String verificationCode);
 
     void removeAsAdmin(User authenticatedUser, User user) throws EntityNotFoundException;

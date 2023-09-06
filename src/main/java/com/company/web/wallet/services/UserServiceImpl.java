@@ -283,6 +283,49 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void markUserApproved(User authenticatedUser, User user) {
+        checkModifyPermissionsForUpdating(authenticatedUser);
+        user.setPhotoVerification(true);
+        user.setLastUpdateDate(LocalDateTime.now());
+        userRepository.update(user);
+    }
+
+    @Override
+    public void sendIdApprovalMail(User approvedUser) throws MessagingException, UnsupportedEncodingException {
+        String fromAddress = "wallet.project.a48@badmin.org";
+        String senderName = "The Wallet App";
+        String subject = "Your ID has been verified on the Wallet App!";
+        String content = "Dear [[FirstName]],<br>"
+                + "Your identity has been verified, based on the uploaded files.<br>"
+                + "You can now perform your transactions on the Wallet App!<br>";
+        mailSender(fromAddress, senderName, subject, content, approvedUser);
+    }
+
+    @Override
+    public void sendIdDisapprovalMail(User approvedUser) throws MessagingException, UnsupportedEncodingException {
+        String fromAddress = "wallet.project.a48@badmin.org";
+        String senderName = "The Wallet App";
+        String subject = "Your ID has NOT been verified on the Wallet App!";
+        String content = "Dear [[FirstName]],<br>"
+                + "Your identity check was NOT approved, based on the uploaded files.<br>"
+                + "Please go and upload new photos, as requested<br>";
+        mailSender(fromAddress, senderName, subject, content, approvedUser);
+    }
+
+    public void mailSender(String fromAddress, String senderName, String subject, String content, User approvedUser) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(approvedUser.getEmail());
+        helper.setSubject(subject);
+
+        content = content.replace("[[FirstName]]", approvedUser.getFirstName());
+        helper.setText(content, true);
+        mailSender.send(message);
+    }
+
+    @Override
     public boolean verify(String verificationCode) {
         User user = userRepository.getByVerificationCode(verificationCode);
         if (user == null || user.isEnabled()) {

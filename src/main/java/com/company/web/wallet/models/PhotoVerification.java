@@ -12,10 +12,6 @@ public class PhotoVerification {
     private int id;
     @Column(name = "user_id")
     private int userId;
-    @Column(name = "approved_id_card")
-    private boolean approvedIdCard;
-    @Column(name = "approved_selfie")
-    private boolean approvedSelfie;
 
     @Lob
     @Column(name = "id_card")
@@ -28,11 +24,9 @@ public class PhotoVerification {
     public PhotoVerification() {
     }
 
-    public PhotoVerification(int id, int userId, boolean approvedIdCard, boolean approvedSelfie, byte[] idCard, byte[] selfie) {
+    public PhotoVerification(int id, int userId, byte[] idCard, byte[] selfie) {
         this.id = id;
         this.userId = userId;
-        this.approvedIdCard = approvedIdCard;
-        this.approvedSelfie = approvedSelfie;
         this.idCard = idCard;
         this.selfie = selfie;
     }
@@ -53,23 +47,7 @@ public class PhotoVerification {
         this.userId = userId;
     }
 
-    public boolean isApprovedIdCard() {
-        return approvedIdCard;
-    }
-
-    public void setApprovedIdCard(boolean approvedIdCard) {
-        this.approvedIdCard = approvedIdCard;
-    }
-
-    public boolean isApprovedSelfie() {
-        return approvedSelfie;
-    }
-
-    public void setApprovedSelfie(boolean approvedSelfie) {
-        this.approvedSelfie = approvedSelfie;
-    }
-
-    public byte[] getIdCard() {
+   public byte[] getIdCard() {
         return idCard;
     }
 
