@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
@@ -182,6 +184,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public byte[] getSelfie(int id) {
         return userRepository.getSelfie(id);
+    }
+
+    @Override
+    public void uploadIdCardAndSelfie(int userId, MultipartFile idCardFile, MultipartFile selfieFile) {
+        userRepository.uploadIdCardAndSelfie(userId, idCardFile, selfieFile);
     }
 
     @Override

@@ -146,14 +146,15 @@ public class UserController {
             model.addAttribute("selfieData64DB", selfieData64DB);
         } else model.addAttribute("selfieData64DB", null);
 
-            try {
-                model.addAttribute("user", userMapper.toDto(authenticatedUser));
-                return "user_id_verification_upload";
-            } catch (EntityNotFoundException e) {
-                model.addAttribute("error", "User not found");
-                return "errors/404";
-            }
+        try {
+            model.addAttribute("user", userMapper.toDto(authenticatedUser));
+            return "user_id_verification_upload";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "User not found");
+            return "errors/404";
+        }
     }
+
 
     @GetMapping("/password")
     public String showChangePasswordPage(Model model, HttpSession session) {
@@ -315,6 +316,22 @@ public class UserController {
         } else {
             return "redirect:/auth/login";
         }
+    }
+
+    @PostMapping("/idVerification")
+    public String handleIdVerification(@RequestParam("idCard") MultipartFile idCardFile,
+                                       @RequestParam("selfie") MultipartFile selfieFile,
+                                       HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        boolean nothingToUpload = true;
+        if ((idCardFile != null && !idCardFile.isEmpty()) || (selfieFile != null && !selfieFile.isEmpty())) {
+            userService.uploadIdCardAndSelfie(authenticatedUser.getId(), idCardFile, selfieFile);
+            nothingToUpload = false;
+        }
+        if (nothingToUpload) return "user_nothing_to_upload";
+        return "user_upload_id_success"; // Redirect to a success page
     }
 
     @GetMapping("/cpanel")
