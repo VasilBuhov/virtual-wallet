@@ -68,6 +68,8 @@ public class WalletServiceImpl implements WalletService {
     public void create(Wallet wallet) {
         double latestInterestRate = interestRateService.getLatestInterestRate();
         wallet.setInterestRate(latestInterestRate);
+        wallet.getOwner().getWallets().add(wallet);
+        userRepository.update(wallet.getOwner());
         walletRepository.create(wallet);
     }
 
@@ -113,7 +115,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public void delete(int id, User user) {
         checkModifyPermissions(id, user);
-//        user.getWallets().remove(walletRepository.get(id));
+        user.getWallets().remove(walletRepository.get(id));
         userRepository.update(user);
         walletRepository.delete(id);
     }
