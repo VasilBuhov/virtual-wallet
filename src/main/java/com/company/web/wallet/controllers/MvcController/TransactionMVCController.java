@@ -1,6 +1,8 @@
 package com.company.web.wallet.controllers.MvcController;
 
+import com.company.web.wallet.exceptions.AuthorizationException;
 import com.company.web.wallet.exceptions.ZeroAmountTransactionException;
+import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.TransactionMapper;
 import com.company.web.wallet.helpers.UserSenderMapper;
 import com.company.web.wallet.models.DTO.TransactionDto;
@@ -17,14 +19,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.ListResourceBundle;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,22 +36,38 @@ public class TransactionMVCController {
     private final UserService userService;
     private final UserSenderMapper userSenderMapper;
     private final WalletService walletService;
+    private final AuthenticationHelper authenticationHelper;
 
     @Autowired
-    public TransactionMVCController(TransactionService transactionService, TransactionMapper transactionMapper, UserService userService, UserSenderMapper userSenderMapper, WalletService walletService) {
+    public TransactionMVCController(TransactionService transactionService, TransactionMapper transactionMapper, UserService userService, UserSenderMapper userSenderMapper, WalletService walletService, AuthenticationHelper authenticationHelper) {
         this.transactionService = transactionService;
         this.transactionMapper = transactionMapper;
         this.userService = userService;
         this.userSenderMapper = userSenderMapper;
         this.walletService = walletService;
+        this.authenticationHelper = authenticationHelper;
     }
 
     @GetMapping()
-    public String showTransactions(Model model) {
-        List<Transaction> transactions = transactionService.getAllTransactions();
-        List<TransactionDto> transactionDtos = transactionMapper.toDtoList(transactions);
-        model.addAttribute("transactionsDto", transactionDtos);
-        return "transaction_list"; // Return the name of the view template
+    public String showTransactions(Model model,HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) {
+            return "redirect:/auth/login";
+        }
+        try {
+            if (!authenticationHelper.isAdmin(session)) {
+                throw new AuthorizationException("Unauthorized");
+            }
+            User authenticatedUser = authenticationHelper.tryGetUser(session);
+
+            List<Transaction> transactions = transactionService.
+                    getAllTransactions(authenticatedUser, authenticatedUser.getId());
+            List<TransactionDto> transactionDtos = transactionMapper.toDtoList(transactions);
+            model.addAttribute("transactionsDto", transactionDtos);
+            return "transaction_list"; // Return the name of the view template
+        } catch(AuthorizationException e ) {
+            return "unauthorized_view";
+        }
     }
 
     @PostMapping()

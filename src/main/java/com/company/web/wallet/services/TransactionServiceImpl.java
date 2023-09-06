@@ -71,7 +71,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getAllTransactions() {
+    public List<Transaction> getAllTransactions(User authenticatedUser, int id) {
+//        checkAccessPermissions(authenticatedUser, id);
         return transactionRepository.getAllTransactions();
     }
 

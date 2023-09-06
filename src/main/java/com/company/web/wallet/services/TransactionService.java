@@ -17,7 +17,9 @@ public interface TransactionService {
             String sortBy,
             String sortDirection);
 
-    List<Transaction> getAllTransactions();
+//    List<Transaction> getAllTransactions();
+
+    List<Transaction> getAllTransactions(User authenticatedUser, int id);
 
     Transaction getTransactionById(Long id);
 
