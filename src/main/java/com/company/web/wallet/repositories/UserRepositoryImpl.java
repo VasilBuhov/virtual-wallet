@@ -2,6 +2,7 @@ package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Contact;
+import com.company.web.wallet.models.PhotoVerification;
 import com.company.web.wallet.models.User;
 
 import org.hibernate.Session;
@@ -20,11 +21,13 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -295,6 +298,39 @@ public class UserRepositoryImpl implements UserRepository {
             List<byte[]> result = query.list();
             if (!result.isEmpty()) return result.get(0);
             else return null;
+        }
+    }
+    @Override
+    public void uploadIdCardAndSelfie(int userId, MultipartFile idCardFile, MultipartFile selfieFile) {
+        try (Session session = sessionFactory.openSession()) {
+            Long count = (Long) session.createQuery("SELECT COUNT(*) FROM PhotoVerification WHERE userId = :userId")
+                    .setParameter("userId", userId)
+                    .uniqueResult();
+            if (count != null) return;
+            PhotoVerification photoVerification = session.get(PhotoVerification.class, userId);
+
+            if (photoVerification == null) {
+                photoVerification = new PhotoVerification();
+                photoVerification.setUserId(userId);
+            }
+
+            try {
+                if (idCardFile != null) {
+                    photoVerification.setIdCard(idCardFile.getBytes());
+                }
+
+                if (selfieFile != null) {
+                    photoVerification.setSelfie(selfieFile.getBytes());
+                }
+
+                session.saveOrUpdate(photoVerification);
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+                throw new UnknownError("Error uploading photo");
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong(REPO photo upload)");
         }
     }
 

@@ -10,6 +10,7 @@ import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -71,6 +72,8 @@ public interface UserService {
     byte[] getIdCard(int id);
 
     byte[] getSelfie(int id);
+
+    void uploadIdCardAndSelfie(int userId, MultipartFile idCardFile, MultipartFile selfieFile);
 
     void checkModifyPermissionsForUpdating(User authenticatedUser, User user);
     void checkModifyPermissionsForDeleting(User authenticatedUser, User user);

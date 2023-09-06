@@ -4,6 +4,7 @@ import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -47,6 +48,8 @@ public interface UserRepository {
 
     byte[] getSelfie(int id);
 
+    void uploadIdCardAndSelfie(int userId, MultipartFile idCardFile, MultipartFile selfieFile);
+
     void create(User user);
 
     void addContact(int contactOwner, int contactTarget);
@@ -58,4 +61,5 @@ public interface UserRepository {
     void delete(int id) throws EntityNotFoundException;
 
     User findByEmailOrUsername(String emailOrUsername, String emailOrUsername1);
+
 }

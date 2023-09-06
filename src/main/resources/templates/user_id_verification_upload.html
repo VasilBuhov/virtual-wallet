@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>The Wallet Project - verification upload</title>
+    <title>The Wallet Project - Verification upload</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" th:href="@{/fonts/flaticon/flaticon.css}"/>
     <link rel="stylesheet" th:href="@{/css/aos.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/verification.css}"/>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -27,33 +28,36 @@
 </div>
 
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-10 mt-lg-5 text-center">
+<div class="site-blocks-cover overlay" th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
+     data-aos="fade" id="home-section">
 
-            <div class="form-container">
-                <br/><br/><br/><br/>
-                <h2>ID Verification</h2>
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-10 mt-lg-5 text-center">
 
-                <form th:action="@{/uploadPhotos}" method="post" enctype="multipart/form-data" id="uploadForm">
-                    <div class="upload-container">
-                        <label for="idCard">Upload ID Card Photo:</label>
-                        <input type="file" id="idCard" name="idCard" accept="image/*"
-                               onchange="previewImage(this, 'idCardPreview')">
-                        <img id="idCardPreview" src="#" alt="ID Card Preview">
-                    </div>
-                    <div class="upload-container">
-                        <label for="selfie">Upload Selfie Photo:</label>
-                        <input type="file" id="selfie" name="selfie" accept="image/*"
-                               onchange="previewImage(this, 'selfiePreview')">
-                        <img id="selfiePreview" src="#" alt="Selfie Preview">
-                    </div>
-                    <button type="submit">Upload Photos</button>
-                </form>
+                <br/><br/><br/><h2 th:text="#{user.id_verification_title}"/>
+                <p><h4 th:text="#{user.id_verification_msg}"/>
+                <div class="form-container">
+                    <form th:action="@{/users/idVerification}" method="post" enctype="multipart/form-data" id="uploadForm">
+                        <div class="upload-container">
+                            <img id="idCardPreview" th:src="@{/images/upload_question_mark.png}" alt="ID Card Preview">
+                            <label for="idCard">Upload ID Card Photo:</label>
+                            <input type="file" id="idCard" name="idCard" accept="image/*" onchange="previewImage(this, 'idCardPreview')">
+                        </div>
+                        <div class="upload-container">
+                            <img id="selfiePreview" th:src="@{/images/upload_question_mark.png}" alt="Selfie Preview">
+                            <label for="selfie">Upload Selfie Photo:</label>
+                            <input type="file" id="selfie" name="selfie" accept="image/*" onchange="previewImage(this, 'selfiePreview')">
+                        </div><br/>
+                        <button type="submit">Upload Photos</button>
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
+
 <div th:replace="fragments/footer :: footer"></div>
 
 <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
