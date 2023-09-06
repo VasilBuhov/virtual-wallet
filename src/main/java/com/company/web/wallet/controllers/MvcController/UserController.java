@@ -4,9 +4,12 @@ import com.company.web.wallet.exceptions.*;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
+import com.company.web.wallet.models.DTO.InvitationDto;
 import com.company.web.wallet.models.DTO.UserPasswordDto;
+import com.company.web.wallet.models.Invitation;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.DTO.UserDto;
+import com.company.web.wallet.services.InvitationService;
 import com.company.web.wallet.services.UserService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
@@ -36,11 +39,13 @@ public class UserController {
     private final AuthenticationHelper authenticationHelper;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final InvitationService invitationService;
 
-    public UserController(AuthenticationHelper authenticationHelper, UserService userService, UserMapper userMapper) {
+    public UserController(AuthenticationHelper authenticationHelper, UserService userService, UserMapper userMapper, InvitationService invitationService) {
         this.authenticationHelper = authenticationHelper;
         this.userService = userService;
         this.userMapper = userMapper;
+        this.invitationService = invitationService;
     }
 
     @PostMapping("/process_register")
@@ -474,6 +479,56 @@ public class UserController {
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "errors/401";
+        }
+    }
+
+    @GetMapping("/invite")
+    public String showInvitationPage(Model model, HttpSession httpSession){
+        try{
+            authenticationHelper.tryGetUser(httpSession);
+        }catch (AuthorizationException e){
+            return "redirect:/auth/login";
+        }
+
+        model.addAttribute("invitationDto", new InvitationDto());
+        return "user_send_invitation";
+    }
+
+    @PostMapping("/invite")
+    public String createInvitation(@ModelAttribute("invitation") InvitationDto invitationDto,
+                                   BindingResult bindingResult,
+                                   Model model,
+                                   HttpSession session){
+
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+        boolean hasSentInvitations = true;
+
+        if (bindingResult.hasErrors()) return "redirect:/users/invite";
+
+        try {
+            invitationService.getInvitationsCount(authenticatedUser);
+        }catch (EntityNotFoundException e){
+            hasSentInvitations = false;
+        }
+
+        try {
+            if (hasSentInvitations && invitationService.getInvitationsCount(authenticatedUser) >=5){
+                throw new UnauthorizedOperationException("You have already reached your limit for invitations.");
+            }
+            Invitation invitation = new Invitation();
+            invitation.setInviter(authenticatedUser);
+            String targetEmail = invitationDto.getEmail();
+            invitation.setEmail(targetEmail);
+            invitationService.sendInvitation(invitation.getInviter(), targetEmail);
+            invitationService.create(invitation);
+            return "user_invitation_sent";
+        }catch (UnauthorizedOperationException | EntityDuplicateException e){
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 
