@@ -364,7 +364,31 @@ public class UserController {
             model.addAttribute("usersDeletedPage", usersDeletedPage);
             int usersDeletedPages = usersDeletedPage.getTotalPages();
             model.addAttribute("usersDeletedPages", usersDeletedPages);
-            return "admin_panel";
+            return "admin_control_panel";
+        } else {
+            return "errors/401";
+        }
+    }
+
+
+    @GetMapping("/vpanel/{id}")
+    public String showAdminVerificationPanel(@PathVariable int id, Model model, HttpSession session) {
+        if (authenticationHelper.isAdmin(session)) {
+            User targetUser = userService.getUserById(id);
+            byte[] idCard = userService.getIdCard(id);
+            if (idCard != null) {
+                String base64DBidCard = Base64.getEncoder().encodeToString(idCard);
+                model.addAttribute("base64idCard", base64DBidCard);
+            } else
+                model.addAttribute("base64DBidCard", null);
+            byte[] selfie = userService.getSelfie(id);
+            if (selfie != null) {
+                String base64DbSelfie = Base64.getEncoder().encodeToString(selfie);
+                model.addAttribute("base64selfie", base64DbSelfie);
+            } else
+                model.addAttribute("base64selfie", null);
+            model.addAttribute("targetUser", targetUser);
+            return "admin_verification_panel";
         } else {
             return "errors/401";
         }

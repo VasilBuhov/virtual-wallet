@@ -88,3 +88,57 @@ h2 {
     display: flex;
     flex-direction: column;
 }
+
+.image-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; /* Adjust the spacing as needed */
+}
+
+.image-section {
+    text-align: center;
+}
+
+.avatar-image,
+.id-image {
+    max-width: 150px; /* Adjust the image width as needed */
+    height: auto;
+    margin-bottom: 10px; /* Adjust the spacing between the image and checkbox */
+}
+
+#imageModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#enlargedImage {
+    display: block;
+    margin: auto;
+    max-width: 800px; /* Max width for the enlarged image */
+    width: auto;
+    max-height: 80%; /* Max height for the enlarged image */
+    cursor: pointer;
+}
+
+#enlargedImage:hover {
+    opacity: 0.8;
+}
+
+#enlargedImage:after {
+    content: "Close";
+    color: white;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
