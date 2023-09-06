@@ -54,22 +54,17 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public List<Wallet> getAll(User user) {
-        List<Wallet> result = walletRepository.getAll();
-        List<Wallet> matchingWallets = result.stream()
-                .filter(wallet -> wallet.getOwner().equals(user))
-                .collect(Collectors.toList());
-        if (matchingWallets.isEmpty()) {
+        List<Wallet> result = walletRepository.getAllForUser(user);
+        if (result.isEmpty()) {
             throw new EntityNotFoundException("Wallets", "owner", user.getUsername());
         }
-        return matchingWallets;
+        return result;
     }
 
     @Override
     public void create(Wallet wallet) {
         double latestInterestRate = interestRateService.getLatestInterestRate();
         wallet.setInterestRate(latestInterestRate);
-        wallet.getOwner().getWallets().add(wallet);
-        userRepository.update(wallet.getOwner());
         walletRepository.create(wallet);
     }
 

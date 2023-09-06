@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>The Wallet Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}"/>
+    <link rel="stylesheet" th:href="@{/fonts/flaticon/flaticon.css}"/>
+    <link rel="stylesheet" th:href="@{/css/aos.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<!--Insert code here-->
+
+<div class="site-blocks-cover overlay" th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
+     data-aos="fade" id="home-section">
+
+    <!--    Start inserting code here to keep background image-->
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-10 mt-lg-5 text-center">
+                <!--    Start inserting code here to keep background image and centering -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title" style="color: white">YOUR WALLETS</h4>
+                            </div>
+                            <div class="card-body" style="justify-content: center">
+                                <div class="verify-content col-xxl-12" th:each="wallet: ${wallets}">
+                                    <div class="d-flex align-items-center">
+                                        <div class="primary-number">
+                                            <h5 class="mb-0"
+                                                th:text="${'Wallet #' + wallet.getNumberOfWallet()}">Wallet #1</h5>
+                                            <a th:text="${'Current balance: ' + wallet.getBalance().doubleValue() + 'USD'}">Current balance: 100000</a>
+                                            <br>
+                                            <a th:text="${'Overdraft: ' + (wallet.getOverdraftEnabled() == 1 ? 'Enabled' : 'Disabled')}">Overdraft: Disabled</a>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 mt-4">
+                                        <small class="btn btn-secondary" href="#"
+                                           th:href="@{/wallets/delete/{id} (id=${wallet.getId()})}">Delete</small>
+
+                                        <small class="btn btn-primary" href="#"
+                                           th:href="@{/wallets/{id}/update(id=${wallet.getId()})}">Update</small>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="mt-5 text-center" style="justify-content: center">
+                                    <a class="btn btn-primary" href="#" th:href="@{/wallets/new}">Create New
+                                        Wallet</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--End code insertion-->
+
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.sticky.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -5,6 +5,7 @@ import com.company.web.wallet.models.DTO.UserDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -35,6 +36,8 @@ public class UserMapper {
         user.setPhone(userDto.getPhone());
         user.setPokes(userDto.getPokes());
         user.setProfilePicture(userDto.getAvatar());
+        user.setWallets(new HashSet<>());
+        user.setCards(new HashSet<>());
         return user;
     }
 

@@ -157,13 +157,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addWallet(Wallet wallet, User user) {
-//        user.getWallets().add(wallet);
+        user.getWallets().add(wallet);
         userRepository.update(user);
     }
 
     @Override
     public void addCard(Card card, User user) {
-//        user.getCards().add(card);
+        user.getCards().add(card);
         userRepository.update(user);
     }
 
