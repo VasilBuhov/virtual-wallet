@@ -405,6 +405,34 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void addAsAdmin(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            user.setLastUpdateDate(LocalDateTime.now());
+            user.setUserLevel(1);
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong(REPO add as admin)");
+        }
+    }
+
+    @Override
+    public void removeAsAdmin(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            user.setLastUpdateDate(LocalDateTime.now());
+            user.setUserLevel(0);
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new UnknownError("Something went wrong(REPO remove as admin)");
+        }
+    }
+
+    @Override
     public void delete(int id) throws EntityNotFoundException {
         try (Session session = sessionFactory.openSession()) {
             User user = session.get(User.class, id);

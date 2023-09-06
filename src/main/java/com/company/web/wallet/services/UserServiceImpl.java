@@ -131,10 +131,23 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    public void addAsAdmin(User authenticatedUser, User user) throws EntityNotFoundException {
+        checkModifyPermissionsForUpdating(authenticatedUser, user);
+        userRepository.addAsAdmin(user);
+    }
+
+    @Override
+    public void removeAsAdmin(User authenticatedUser, User user) throws EntityNotFoundException {
+        checkModifyPermissionsForUpdating(authenticatedUser, user);
+        userRepository.removeAsAdmin(user);
+    }
+
+    @Override
     public void update(User authenticatedUser, User user) throws EntityNotFoundException {
         checkModifyPermissionsForUpdating(authenticatedUser, user);
         userRepository.update(user);
     }
+
     @Override
     public void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException {
         User user = userRepository.getById(id);

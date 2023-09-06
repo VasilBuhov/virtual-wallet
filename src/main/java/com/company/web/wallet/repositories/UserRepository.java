@@ -58,6 +58,10 @@ public interface UserRepository {
 
     void removeContact(int contactOwner, int contactTarget);
 
+    void addAsAdmin(User user);
+
+    void removeAsAdmin(User user);
+
     void delete(int id) throws EntityNotFoundException;
 
     User findByEmailOrUsername(String emailOrUsername, String emailOrUsername1);

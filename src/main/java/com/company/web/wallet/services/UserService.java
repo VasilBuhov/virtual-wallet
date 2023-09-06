@@ -47,6 +47,9 @@ public interface UserService {
     List<User> getAllContacts(int id);
 
     void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
+
+    void addAsAdmin(User authenticatedUser, User user) throws EntityNotFoundException;
+
     void update(User authenticatedUser, User user) throws EntityNotFoundException;
 
     void addContact(int contactOwner, int contactTarget);
@@ -60,6 +63,8 @@ public interface UserService {
     void sendContactEmail(ContactForm contactForm) throws MessagingException, UnsupportedEncodingException;
 
     boolean verify(String verificationCode);
+
+    void removeAsAdmin(User authenticatedUser, User user) throws EntityNotFoundException;
 
     void deleteUser(User authenticatedUser, int id) throws EntityNotFoundException;
 

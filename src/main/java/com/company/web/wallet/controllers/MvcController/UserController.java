@@ -331,7 +331,7 @@ public class UserController {
             nothingToUpload = false;
         }
         if (nothingToUpload) return "user_nothing_to_upload";
-        return "user_upload_id_success"; // Redirect to a success page
+        return "user_upload_id_success";
     }
 
     @GetMapping("/cpanel")
@@ -406,6 +406,50 @@ public class UserController {
             }
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not logged in");
+        }
+    }
+
+    @GetMapping("/{id}/addAdmin")
+    public String makeAdmin(@PathVariable int id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+
+        try {
+            User targetUser = userService.getUserById(id);
+            if (authenticatedUser.getUserLevel() != 1) {
+                throw new UnauthorizedOperationException("Unauthorized operation!");
+            }
+            userService.addAsAdmin(authenticatedUser, targetUser);
+            return "user_admin_promote_success";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        } catch (UnauthorizedOperationException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/401";
+        }
+    }
+
+    @GetMapping("/{id}/removeAdmin")
+    public String removeAdmin(@PathVariable int id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("currentUser");
+        if (username == null) return "redirect:/auth/login";
+        User authenticatedUser = userService.getByUsername(username);
+
+        try {
+            User targetUser = userService.getUserById(id);
+            if (authenticatedUser.getUserLevel() != 1) {
+                throw new UnauthorizedOperationException("Unauthorized operation!");
+            }
+            userService.removeAsAdmin(authenticatedUser, targetUser);
+            return "user_admin_demote_success";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        } catch (UnauthorizedOperationException e) {
+            model.addAttribute("error", e.getMessage());
+            return "errors/401";
         }
     }
 

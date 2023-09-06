@@ -100,7 +100,7 @@
                                               th:if="${session.currentUserLevel > 0}">
                                             <button class="action-button" type="submit" th:text="#{user.unblock}"/>
                                         </form>
-                                        <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
+                                        <form th:action="@{'/users/' + ${user.id} + '/addAdmin'}" method="post"
                                               th:if="${session.currentUserLevel == 1}">
                                             <button class="action-button" type="submit">Set as Admin</button>
                                         </form>
@@ -239,7 +239,7 @@
                                               th:if="${session.currentUserLevel > 0}">
                                             <button class="action-button" type="submit" th:text="#{user.unblock}"/>
                                         </form>
-                                        <form th:action="@{'/users/' + ${user.id} + '/admin'}" method="post"
+                                        <form th:action="@{'/users/' + ${user.id} + '/removeAdmin'}" method="post"
                                               th:if="${session.currentUserLevel == 1}">
                                             <button class="action-button" type="submit">Remove as Admin</button>
                                         </form>
