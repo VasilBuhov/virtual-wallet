@@ -17,11 +17,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/cards")
@@ -48,22 +46,6 @@ public class CardMvcController {
         } catch (AuthorizationException | BlockedUserException | AuthenticationFailureException e) {
             logger.error(e.getMessage());
             return "redirect:/auth/login";
-        } catch (EntityNotFoundException | EntityDeletedException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-    @GetMapping("/{id}")
-    public String showCard(@PathVariable int id, Model model, HttpSession session) {
-        try {
-            User user = authenticationHelper.tryGetUser(session);
-            Card card = cardService.get(id, user);
-            model.addAttribute("card", card);
-            return "card_details";
-        } catch (AuthorizationException | BlockedUserException e) {
-            logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException | EntityDeletedException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -155,6 +137,7 @@ public class CardMvcController {
             return "errors/404";
         }
     }
+
     @GetMapping("/delete/{cardId}")
     public String deleteCard(@PathVariable int cardId, Model model, HttpSession session) {
         User user;
@@ -174,6 +157,5 @@ public class CardMvcController {
             model.addAttribute("error", e.getMessage());
             return "access_denied";
         }
-
     }
 }
