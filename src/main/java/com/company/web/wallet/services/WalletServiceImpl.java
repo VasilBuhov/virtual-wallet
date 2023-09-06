@@ -1,9 +1,6 @@
 package com.company.web.wallet.services;
 
-import com.company.web.wallet.exceptions.AuthorizationException;
-import com.company.web.wallet.exceptions.EntityDeletedException;
-import com.company.web.wallet.exceptions.EntityNotFoundException;
-import com.company.web.wallet.exceptions.OperationNotSupportedException;
+import com.company.web.wallet.exceptions.*;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
 import com.company.web.wallet.repositories.UserRepository;
@@ -104,6 +101,9 @@ public class WalletServiceImpl implements WalletService {
     public void removeFromBalance(int id, User user, BigDecimal amount) {
         checkModifyPermissions(id, user);
         Wallet wallet = walletRepository.get(id);
+        if(wallet.getBalance().subtract(amount).compareTo(BigDecimal.ZERO) < 0){
+            throw new NotEnoughMoneyInWalletException("Not enough money in wallet");
+        }
         if (wallet.isOverdraftEnabled() == 0 && (wallet.getBalance().subtract(amount).compareTo(BigDecimal.ZERO) < 0)) {
             throw new OperationNotSupportedException();
         } else {

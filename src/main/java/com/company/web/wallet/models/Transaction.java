@@ -41,7 +41,7 @@ public class Transaction {
     private String transactionDescription;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wallet_id", nullable = false)
     private Wallet wallet;
 

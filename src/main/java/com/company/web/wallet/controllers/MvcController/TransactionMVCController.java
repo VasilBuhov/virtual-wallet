@@ -1,6 +1,7 @@
 package com.company.web.wallet.controllers.MvcController;
 
 import com.company.web.wallet.exceptions.AuthorizationException;
+import com.company.web.wallet.exceptions.NotEnoughMoneyInWalletException;
 import com.company.web.wallet.exceptions.ZeroAmountTransactionException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.TransactionMapper;
@@ -49,23 +50,39 @@ public class TransactionMVCController {
     }
 
     @GetMapping()
-    public String showTransactions(Model model,HttpSession session) {
+    public String showTransactionsForAdmin(Model model, HttpSession session,
+                            @RequestParam(required = false, defaultValue = "0") int page,
+                            @RequestParam(required = false, defaultValue = "10") int pageSize) {
         String username = (String) session.getAttribute("currentUser");
         if (username == null) {
             return "redirect:/auth/login";
         }
+
         try {
             if (!authenticationHelper.isAdmin(session)) {
                 throw new AuthorizationException("Unauthorized");
             }
             User authenticatedUser = authenticationHelper.tryGetUser(session);
+            List<Transaction> transactions = transactionService.getAllTransactions(authenticatedUser, authenticatedUser.getId());
 
-            List<Transaction> transactions = transactionService.
-                    getAllTransactions(authenticatedUser, authenticatedUser.getId());
-            List<TransactionDto> transactionDtos = transactionMapper.toDtoList(transactions);
+            int offset = page * pageSize;
+            int totalTransactions = transactions.size();
+            int totalPages = (int) Math.ceil((double) totalTransactions / pageSize);
+
+            List<Transaction> pagedTransactions = transactions.stream()
+                    .skip(offset)
+                    .limit(pageSize)
+                    .collect(Collectors.toList());
+
+            List<TransactionDto> transactionDtos = transactionMapper.toDtoList(pagedTransactions);
+
             model.addAttribute("transactionsDto", transactionDtos);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("totalPages", totalPages);
+
             return "transaction_list"; // Return the name of the view template
-        } catch(AuthorizationException e ) {
+        } catch (AuthorizationException e) {
             return "unauthorized_view";
         }
     }
@@ -114,17 +131,18 @@ public class TransactionMVCController {
                 transactionDto.setSender(senderDto);
                 Wallet selectedWallet = walletService.get(transactionDto.getWalletId(), authenticatedUser);
                 if (selectedWallet == null || !selectedWallet.getOwner().equals(authenticatedUser)) {
-                    return "redirect:/transactions";
+                    return "redirect:/";
                 }
                 transactionDto.setWallet(selectedWallet);
                 Transaction transaction = transactionMapper.fromDto(transactionDto);
                 transactionService.createTransaction(transaction);
-                return "redirect:/transactions";
+                return "successful_transaction";
 
-            } catch (ZeroAmountTransactionException e) {
+            } catch (NotEnoughMoneyInWalletException e){
                 model.addAttribute("errorMessage", e.getMessage());
-                return "error_view_for_zero_amount"; // Redirect to a custom error view
-            } catch (Exception e) {
+                return "not_enough_money_in_wallet";
+            }
+            catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {

@@ -1,6 +1,7 @@
 package com.company.web.wallet.services;
 
 import com.company.web.wallet.exceptions.AuthorizationException;
+import com.company.web.wallet.exceptions.NotEnoughMoneyInWalletException;
 import com.company.web.wallet.helpers.TransactionType;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
@@ -126,14 +127,15 @@ public class TransactionServiceImpl implements TransactionService {
             User recipient = userRepository.getByUsername(transaction.getRecipient().getUsername());
             transaction.setSender(sender);
             transaction.setRecipient(recipient);
+            int walletIdForSender = transaction.getWallet().getId();
             walletService.addToBalance(walletService.getWalletIdForUser(transaction.getRecipient()),
                     transaction.getRecipient(), transaction.getAmount());
-            walletService.removeFromBalance(walletService.getWalletIdForUser(userRepository.getByUsername(transaction.getSender().getUsername())),
+            walletService.removeFromBalance(walletIdForSender,
                     transaction.getSender(),
                     transaction.getAmount());
             transactionRepository.createTransaction(transaction);
         } catch (RuntimeException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new NotEnoughMoneyInWalletException("You don't have enough money in wallet to perform this tranaction");
         }
 
     }
