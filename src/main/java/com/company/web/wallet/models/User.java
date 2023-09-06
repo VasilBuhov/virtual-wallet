@@ -71,11 +71,15 @@ public class User {
     @Column(name = "photo_verification")
     private boolean photoVerification;
 
+    @Column(name = "TFA")
+    private boolean TFA;
+
     public User() {
     }
 
     public User(int id, String firstName, String lastName, String username, String email, String password, String phone,
-                int userLevel, int verified, byte[] avatar, Set<Pokes> pokes, boolean statusDeleted, boolean photoVerification) {
+                int userLevel, int verified, byte[] avatar, Set<Pokes> pokes, boolean statusDeleted, boolean photoVerification,
+                boolean TFA) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -88,6 +92,7 @@ public class User {
         this.pokes = pokes;
         this.statusDeleted = statusDeleted;
         this.photoVerification = photoVerification;
+        this.TFA = TFA;
 
         setUserLevel(userLevel);
     }
@@ -250,6 +255,14 @@ public class User {
 
     public void setPhotoVerification(boolean photoVerification) {
         this.photoVerification = photoVerification;
+    }
+
+    public boolean getTFA() {
+        return TFA;
+    }
+
+    public void setTFA(boolean TFA) {
+        this.TFA = TFA;
     }
 
     public boolean equals(Object o) {

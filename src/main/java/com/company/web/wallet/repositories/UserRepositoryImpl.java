@@ -338,6 +338,9 @@ public class UserRepositoryImpl implements UserRepository {
     public void create(User user) {
         try (Session session = sessionFactory.openSession()) {
             user.setCreateDate(LocalDateTime.now());
+            user.setVerified(0);
+            user.setPhotoVerification(false);
+            user.setTFA(false);
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();

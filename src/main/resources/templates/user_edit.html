@@ -80,6 +80,19 @@
                             <input type="text" th:field="*{phone}">
                             <br><br/>
 
+                            <!-- Enable 2FA Checkbox -->
+                            <label for="enable2FA">Enable 2FA</label>
+                            <input type="checkbox" id="enable2FA" name="enable2FA" th:field="*{TFA}" th:checked="${TFA}">
+                            <br><br>
+
+                            <!-- 2FA Method Dropdown -->
+                            <label for="twofaMethod">Select 2FA Method</label>
+                            <select id="twofaMethod" name="twofaMethod" >
+                                <option th:value="email">Email</option>
+                                <option th:value="sms" disabled>SMS</option>
+                            </select>
+                            <br><br/>
+
                             <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
                                 <p th:text="${errorMessage}"></p>
                             </div>

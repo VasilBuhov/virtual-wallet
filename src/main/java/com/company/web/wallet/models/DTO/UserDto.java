@@ -35,6 +35,8 @@ public class UserDto {
 
     private Set<Pokes> pokes;
 
+    private boolean TFA;
+
     public String getPassword() {
         return password;
     }
@@ -105,5 +107,13 @@ public class UserDto {
 
     public void setPokes(Set<Pokes> pokes) {
         this.pokes = pokes;
+    }
+
+    public boolean getTFA() {
+        return TFA;
+    }
+
+    public void setTFA(boolean TFA) {
+        this.TFA = TFA;
     }
 }

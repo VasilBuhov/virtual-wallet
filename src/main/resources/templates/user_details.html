@@ -64,6 +64,12 @@
                             <div th:if="${user.getEmail() != null}">
                                 <p><strong th:text="#{user.email} + ': '" /> <span th:text="${user.getEmail()}" class="user-info"></span></p>
                             </div>
+                            <div th:if="${user.getCreateDate() != null}">
+                                <p><strong th:text="#{user.created_on} + ': '" /> <span th:text="${user.getCreateDate()}" class="user-info"></span></p>
+                            </div>
+                            <div th:if="${user.getLastUpdateDate() != null}">
+                                <p><strong th:text="#{user.last_update_on} + ': '" /> <span th:text="${user.getLastUpdateDate()}" class="user-info"></span></p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -23,6 +23,7 @@ public class UserMapper {
         userDto.setPassword(user.getPassword());
         userDto.setPhone(user.getPhone());
         userDto.setPokes(user.getPokes());
+        userDto.setTFA(user.getTFA());
         return userDto;
     }
 
@@ -36,6 +37,7 @@ public class UserMapper {
         user.setPhone(userDto.getPhone());
         user.setPokes(userDto.getPokes());
         user.setProfilePicture(userDto.getAvatar());
+        user.setTFA(userDto.getTFA());
         user.setWallets(new HashSet<>());
         user.setCards(new HashSet<>());
         return user;
@@ -49,7 +51,7 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
         userDto.setAvatar(user.getProfilePicture());
         userDto.setUserLevel(user.getUserLevel());
-        user.setPokes(userDto.getPokes());
+        userDto.setPokes(user.getPokes());
         userDto.setPhone(user.getPhone());
         return userDto;
     }
