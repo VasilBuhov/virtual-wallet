@@ -1,6 +1,9 @@
 package com.company.web.wallet.models.DTO;
 
+import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.Pokes;
+import com.company.web.wallet.models.SavingsWallet;
+import com.company.web.wallet.models.Wallet;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -36,6 +39,12 @@ public class UserDto {
     private Set<Pokes> pokes;
 
     private boolean TFA;
+    private Set<Card> cards;
+    private Set<Wallet> wallets;
+    private Set<SavingsWallet> savingsWallets;
+
+    public UserDto() {
+    }
 
     public String getPassword() {
         return password;
@@ -115,5 +124,33 @@ public class UserDto {
 
     public void setTFA(boolean TFA) {
         this.TFA = TFA;
+    }
+
+    public boolean isTFA() {
+        return TFA;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+    public Set<Wallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(Set<Wallet> wallets) {
+        this.wallets = wallets;
+    }
+
+    public Set<SavingsWallet> getSavingsWallets() {
+        return savingsWallets;
+    }
+
+    public void setSavingsWallets(Set<SavingsWallet> savingsWallets) {
+        this.savingsWallets = savingsWallets;
     }
 }

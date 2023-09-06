@@ -78,7 +78,6 @@ public class CardRestController {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             Card card = cardMapper.createCardDto(cardDto, user);
             cardService.create(card);
-            userService.addCard(card, user);
             return card;
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());

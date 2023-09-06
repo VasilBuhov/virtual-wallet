@@ -51,7 +51,7 @@ public class CardMvcController {
             return "redirect:/auth/login";
         } catch (EntityNotFoundException | EntityDeletedException e) {
             logger.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            return "redirect:/cards/new";
         }
     }
 
@@ -80,8 +80,6 @@ public class CardMvcController {
 
             Card card = cardMapper.createCardDto(cardDto, user);
             cardService.create(card);
-            userService.addCard(card, user);
-
             return "redirect:/cards";
         } catch (AuthenticationFailureException | AuthorizationException e) {
             model.addAttribute("error", e.getMessage());
@@ -89,7 +87,7 @@ public class CardMvcController {
         } catch (EntityNotFoundException e) {
             logger.error(e.getMessage());
             model.addAttribute("error", e.getMessage());
-            return "errors/404";
+            return "errors/415";
         } catch (EntityDuplicateException e) {
             logger.error(e.getMessage());
             bindingResult.rejectValue("cardNumber", "cardNumber", e.getMessage());

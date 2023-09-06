@@ -48,11 +48,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "cardHolder", fetch = FetchType.EAGER)
     private Set<Card> cards;
-    @Transient
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Wallet> wallets;
-    @Transient
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<SavingsWallet> savingsWallets;

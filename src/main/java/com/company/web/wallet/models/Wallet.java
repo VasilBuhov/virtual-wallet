@@ -28,8 +28,6 @@ public class Wallet {
     private Set<Transaction> transactions;
     @Column(name = "overdraft_enabled")
     private int overdraftEnabled;
-    @Transient
-    private Currency currency;
     @Column(name = "status_deleted")
     private int statusDeleted;
 
@@ -41,12 +39,11 @@ public class Wallet {
     public Wallet() {
     }
 
-    public Wallet(int id, User owner, BigDecimal balance, Currency currency, int numberOfWallet) {
+    public Wallet(int id, User owner, BigDecimal balance, int numberOfWallet) {
         this.id = id;
         this.owner = owner;
         this.balance = balance;
         this.overdraftEnabled = 0;
-        this.currency = currency;
         this.transactions = new HashSet<>();
         this.statusDeleted = 0;
         this.numberOfWallet = numberOfWallet;
@@ -102,14 +99,6 @@ public class Wallet {
 
     public int getOverdraftEnabled() {
         return overdraftEnabled;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
     }
 
     public double getInterestRate() {

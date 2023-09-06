@@ -10,7 +10,6 @@ import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.WalletMapper;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
-import com.company.web.wallet.services.UserService;
 import com.company.web.wallet.services.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,21 +22,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/wallets")
 public class WalletMvcController {
     private final WalletService walletService;
-    private final UserService userService;
     private final AuthenticationHelper authenticationHelper;
     private final WalletMapper walletMapper;
     private final Logger logger = LoggerFactory.getLogger(CardMvcController.class);
 
     @Autowired
-    public WalletMvcController(WalletService walletService, UserService userService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper) {
+    public WalletMvcController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper) {
         this.walletService = walletService;
-        this.userService = userService;
         this.authenticationHelper = authenticationHelper;
         this.walletMapper = walletMapper;
     }
@@ -72,7 +70,6 @@ public class WalletMvcController {
             User user = authenticationHelper.tryGetUser(session);
             Wallet wallet = walletMapper.createWalletDto(user);
             walletService.create(wallet);
-            userService.addWallet(wallet, user);
             return "redirect:/wallets";
         } catch (AuthenticationFailureException | AuthorizationException e) {
             logger.error(e.getMessage());
@@ -84,6 +81,50 @@ public class WalletMvcController {
             return "errors/404";
         }
     }
+//    @GetMapping("/{id}/update")
+//    public String showEditWalletForm(@PathVariable int id, Model model, HttpSession session) {
+//        try {
+//            authenticationHelper.tryGetUser(session);
+//        } catch (AuthenticationFailureException e) {
+//            logger.error(e.getMessage());
+//            return "redirect:/auth/login";
+//        }
+//        User user = authenticationHelper.tryGetUser(session);
+//        Wallet wallet = walletService.get(id, user);
+//        WalletDtoIn walletDtoUpdate = walletMapper.updateOverdraftDto(id, user);
+//        model.addAttribute("cardDtoUpdate", cardDtoUpdate);
+//        return "card_update";
+//    }
+//
+//    @PostMapping("/{id}/update")
+//    public String editCard(@PathVariable int id, @Valid @ModelAttribute("cardDtoUpdate") CardDto cardDto,
+//                           BindingResult bindingResult,
+//                           Model model,
+//                           HttpSession session) {
+//        try {
+//            User user = authenticationHelper.tryGetUser(session);
+//
+//            if (bindingResult.hasErrors()) {
+//                return "card_update";
+//            }
+//
+//            Card card = cardMapper.updateCardDto(id, cardDto, user);
+//            cardService.update(id, card, user);
+//            return "redirect:/cards";
+//        } catch (AuthorizationException | BlockedUserException e) {
+//            logger.error(e.getMessage());
+//            model.addAttribute("error", e.getMessage());
+//            return "access_denied";
+//        } catch (EntityDuplicateException e) {
+//            logger.error(e.getMessage());
+//            bindingResult.rejectValue("cardNumber", "cardNumber", e.getMessage());
+//            return "card_update";
+//        } catch (EntityNotFoundException e) {
+//            logger.error(e.getMessage());
+//            model.addAttribute("error", e.getMessage());
+//            return "errors/404";
+//        }
+//    }
     @GetMapping("/delete/{id}")
     public String deleteCard(@PathVariable int id, Model model, HttpSession session) {
         User user;

@@ -37,13 +37,9 @@ public class CardRepositoryImpl implements CardRepository {
     @Override
     public Card get(String cardNumber) {
         Session session = sessionFactory.openSession();
-        Card card = session.createQuery("FROM Card WHERE cardNumber = :cardNumber AND statusDeleted = 0", Card.class)
+        return session.createQuery("FROM Card WHERE cardNumber = :cardNumber AND statusDeleted = 0", Card.class)
                 .setParameter("cardNumber", cardNumber)
                 .uniqueResult();
-        if (card == null) {
-            throw new EntityNotFoundException();
-        }
-        return card;
     }
 
     @Override

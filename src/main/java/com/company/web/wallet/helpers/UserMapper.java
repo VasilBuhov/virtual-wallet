@@ -24,6 +24,9 @@ public class UserMapper {
         userDto.setPhone(user.getPhone());
         userDto.setPokes(user.getPokes());
         userDto.setTFA(user.getTFA());
+        userDto.setCards(user.getCards());
+        userDto.setWallets(user.getWallets());
+        userDto.setSavingsWallets(user.getSavingsWallets());
         return userDto;
     }
 
@@ -38,8 +41,9 @@ public class UserMapper {
         user.setPokes(userDto.getPokes());
         user.setProfilePicture(userDto.getAvatar());
         user.setTFA(userDto.getTFA());
-        user.setWallets(new HashSet<>());
-        user.setCards(new HashSet<>());
+        user.setWallets(userDto.getWallets());
+        user.setCards(userDto.getCards());
+        user.setSavingsWallets(userDto.getSavingsWallets());
         return user;
     }
 
@@ -53,6 +57,9 @@ public class UserMapper {
         userDto.setUserLevel(user.getUserLevel());
         userDto.setPokes(user.getPokes());
         userDto.setPhone(user.getPhone());
+        userDto.setWallets(user.getWallets());
+        userDto.setCards(user.getCards());
+        userDto.setSavingsWallets(user.getSavingsWallets());
         return userDto;
     }
 
