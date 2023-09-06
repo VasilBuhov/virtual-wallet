@@ -28,7 +28,11 @@ public class WalletMapper {
         wallet.setBalance(BigDecimal.ZERO);
         wallet.setOverdraftEnabled(0);
         wallet.setTransactions(new HashSet<>());
-        wallet.setNumberOfWallet(user.getWallets().size() + 1);
+        if (user.getWallets().equals(null)) {
+            wallet.setNumberOfWallet(1);
+        } else {
+            wallet.setNumberOfWallet(user.getWallets().size() + 1);
+        }
         return wallet;
     }
 

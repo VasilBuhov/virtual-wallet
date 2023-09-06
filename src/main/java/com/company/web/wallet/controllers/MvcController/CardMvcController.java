@@ -7,6 +7,7 @@ import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.DTO.CardDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.CardService;
+import com.company.web.wallet.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,15 @@ import java.util.List;
 @RequestMapping("/cards")
 public class CardMvcController {
     private final CardService cardService;
+    private final UserService userService;
     private final AuthenticationHelper authenticationHelper;
     private final CardMapper cardMapper;
     private final Logger logger = LoggerFactory.getLogger(CardMvcController.class);
 
     @Autowired
-    public CardMvcController(CardService cardService, AuthenticationHelper authenticationHelper, CardMapper cardMapper) {
+    public CardMvcController(CardService cardService, UserService userService, AuthenticationHelper authenticationHelper, CardMapper cardMapper) {
         this.cardService = cardService;
+        this.userService = userService;
         this.authenticationHelper = authenticationHelper;
         this.cardMapper = cardMapper;
     }
@@ -77,6 +80,7 @@ public class CardMvcController {
 
             Card card = cardMapper.createCardDto(cardDto, user);
             cardService.create(card);
+            userService.addCard(card, user);
 
             return "redirect:/cards";
         } catch (AuthenticationFailureException | AuthorizationException e) {

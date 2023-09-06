@@ -77,6 +77,15 @@ public class WalletRepositoryImpl implements WalletRepository {
     }
 
     @Override
+    public List<Wallet> getAllForUser(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Wallet WHERE owner = :user AND statusDeleted = 0", Wallet.class)
+                    .setParameter("user", user)
+                    .list();
+        }
+    }
+
+    @Override
     public void create(Wallet wallet) {
         try (Session session = sessionFactory.openSession()) {
             session.save(wallet);

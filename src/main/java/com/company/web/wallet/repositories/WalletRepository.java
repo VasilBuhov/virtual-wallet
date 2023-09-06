@@ -14,6 +14,7 @@ public interface WalletRepository {
     Wallet get(String owner) throws EntityNotFoundException, EntityDeletedException;
 
     List<Wallet> getAll();
+    List<Wallet> getAllForUser(User user);
 
     void create(Wallet wallet);
 

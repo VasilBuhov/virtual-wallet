@@ -8,6 +8,7 @@ import com.company.web.wallet.models.DTO.CardDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.CardService;
 //import com.company.web.wallet.services.CurrenciesServiceImpl;
+import com.company.web.wallet.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,16 @@ import java.util.List;
 @RequestMapping("/api/cards")
 public class CardRestController {
     private final CardService cardService;
+    private final UserService userService;
     private final AuthenticationHelper authenticationHelper;
     private final CardMapper cardMapper;
     private final Logger logger = LoggerFactory.getLogger(CardRestController.class);
 
 
     @Autowired
-    public CardRestController(CardService cardService, AuthenticationHelper authenticationHelper, CardMapper cardMapper) {
+    public CardRestController(CardService cardService, UserService userService, AuthenticationHelper authenticationHelper, CardMapper cardMapper) {
         this.cardService = cardService;
+        this.userService = userService;
         this.authenticationHelper = authenticationHelper;
         this.cardMapper = cardMapper;
     }
@@ -75,6 +78,7 @@ public class CardRestController {
             User user = authenticationHelper.tryGetUser(httpHeaders);
             Card card = cardMapper.createCardDto(cardDto, user);
             cardService.create(card);
+            userService.addCard(card, user);
             return card;
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
