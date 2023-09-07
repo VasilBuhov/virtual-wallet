@@ -46,16 +46,15 @@ public class User {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
     @JsonIgnore
-    @OneToMany(mappedBy = "cardHolder", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cardHolder", fetch = FetchType.LAZY)
     private Set<Card> cards;
     @JsonIgnore
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private Set<Wallet> wallets;
     @JsonIgnore
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private Set<SavingsWallet> savingsWallets;
-
-    @OneToMany(mappedBy = "pokedUser", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pokedUser", fetch = FetchType.LAZY)
     private Set<Pokes> pokes;
     private boolean enabled;
 

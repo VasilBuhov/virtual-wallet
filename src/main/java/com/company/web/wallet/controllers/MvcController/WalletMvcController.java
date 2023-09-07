@@ -81,50 +81,32 @@ public class WalletMvcController {
             return "errors/404";
         }
     }
-//    @GetMapping("/{id}/update")
-//    public String showEditWalletForm(@PathVariable int id, Model model, HttpSession session) {
-//        try {
-//            authenticationHelper.tryGetUser(session);
-//        } catch (AuthenticationFailureException e) {
-//            logger.error(e.getMessage());
-//            return "redirect:/auth/login";
-//        }
-//        User user = authenticationHelper.tryGetUser(session);
-//        Wallet wallet = walletService.get(id, user);
-//        WalletDtoIn walletDtoUpdate = walletMapper.updateOverdraftDto(id, user);
-//        model.addAttribute("cardDtoUpdate", cardDtoUpdate);
-//        return "card_update";
-//    }
-//
-//    @PostMapping("/{id}/update")
-//    public String editCard(@PathVariable int id, @Valid @ModelAttribute("cardDtoUpdate") CardDto cardDto,
-//                           BindingResult bindingResult,
-//                           Model model,
-//                           HttpSession session) {
-//        try {
-//            User user = authenticationHelper.tryGetUser(session);
-//
-//            if (bindingResult.hasErrors()) {
-//                return "card_update";
-//            }
-//
-//            Card card = cardMapper.updateCardDto(id, cardDto, user);
-//            cardService.update(id, card, user);
-//            return "redirect:/cards";
-//        } catch (AuthorizationException | BlockedUserException e) {
-//            logger.error(e.getMessage());
-//            model.addAttribute("error", e.getMessage());
-//            return "access_denied";
-//        } catch (EntityDuplicateException e) {
-//            logger.error(e.getMessage());
-//            bindingResult.rejectValue("cardNumber", "cardNumber", e.getMessage());
-//            return "card_update";
-//        } catch (EntityNotFoundException e) {
-//            logger.error(e.getMessage());
-//            model.addAttribute("error", e.getMessage());
-//            return "errors/404";
-//        }
-//    }
+    @GetMapping("/{id}/overdraft")
+    public String showEditWalletForm(@PathVariable int id, Model model, HttpSession session) {
+        try {
+            authenticationHelper.tryGetUser(session);
+            return enableOverdraft(id, model, session);
+        } catch (AuthenticationFailureException e) {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @PostMapping("/{id}/overdraft")
+    public String enableOverdraft(@PathVariable int id, Model model, HttpSession session) {
+        try {
+            User user = authenticationHelper.tryGetUser(session);
+            walletService.updateOverdraft(id, user);
+            return "redirect:/wallets";
+        } catch (AuthenticationFailureException | AuthorizationException e) {
+            logger.error(e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "access_denied";
+        } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        }
+    }
     @GetMapping("/delete/{id}")
     public String deleteCard(@PathVariable int id, Model model, HttpSession session) {
         User user;

@@ -114,9 +114,9 @@ public class WalletRestController {
     public WalletDtoOut updateOverdraft(@PathVariable int id, @RequestHeader HttpHeaders httpheaders) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
-            Wallet wallet = walletMapper.updateOverdraftDto(id, user);
-            walletService.updateOverdraft(id, user, wallet);
-            return walletMapper.walletDtoOut(wallet);
+            walletService.updateOverdraft(id, user);
+            Wallet updatedWallet = walletService.get(id, user);
+            return walletMapper.walletDtoOut(updatedWallet);
         } catch (AuthorizationException e) {
             logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());

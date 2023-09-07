@@ -66,9 +66,15 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void updateOverdraft(int id, User user, Wallet wallet) {
+    public void updateOverdraft(int id, User user) {
         checkModifyPermissions(id, user);
-        walletRepository.update(wallet);
+        Wallet walletToBeUpdated = walletRepository.get(id);
+        if (walletToBeUpdated.getOverdraftEnabled() == 0) {
+            walletToBeUpdated.setOverdraftEnabled(1);
+        } else {
+            walletToBeUpdated.setOverdraftEnabled(0);
+        }
+        walletRepository.update(walletToBeUpdated);
     }
 
     @Scheduled(cron = "0 0 0 1 * ?")

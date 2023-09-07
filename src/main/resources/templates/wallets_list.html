@@ -50,18 +50,20 @@
                                         <div class="primary-number">
                                             <h5 class="mb-0"
                                                 th:text="${'Wallet #' + wallet.getNumberOfWallet()}">Wallet #1</h5>
-                                            <a th:text="${'Current balance: ' + wallet.getBalance().doubleValue() + 'USD'}">Current balance: 100000</a>
+                                            <a th:text="${'Current balance: ' + wallet.getBalance().doubleValue() + 'USD'}">Current
+                                                balance: 100000</a>
                                             <br>
-                                            <a th:text="${'Overdraft: ' + (wallet.getOverdraftEnabled() == 1 ? 'Enabled' : 'Disabled')}">Overdraft: Disabled</a>
+                                            <a th:text="${'Overdraft: ' + (wallet.getOverdraftEnabled() == 1 ? 'Enabled' : 'Disabled')}">Overdraft:
+                                                Disabled</a>
                                             <br>
                                         </div>
                                     </div>
                                     <div class="col-xl-4 mt-4">
-                                        <small class="btn btn-secondary" href="#"
-                                           th:href="@{/wallets/delete/{id} (id=${wallet.getId()})}">Delete</small>
-
-                                        <small class="btn btn-primary" href="#"
-                                           th:href="@{/wallets/{id}/update(id=${wallet.getId()})}">Update</small>
+                                        <a class="btn btn-secondary"
+                                           th:href="@{/wallets/delete/{id}(id=${wallet.getId()})}">Delete</a>
+                                        <a class="btn btn-primary"
+                                           th:href="@{/wallets/{id}/overdraft(id=${wallet.getId()})}">Change
+                                            Overdraft</a>
                                     </div>
                                 </div>
                                 <br>
