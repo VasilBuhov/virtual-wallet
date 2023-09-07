@@ -114,7 +114,11 @@
           <div class="form-group">
             <label for="wallet" class="white-text">Choose Wallet:</label>
             <select id="wallet" name="wallet" th:field="*{walletId}" required>
-              <option th:each="wallet : ${wallets}" th:value="${wallet.id}" th:text="${wallet.id}"></option>
+
+              <option th:each="wallet : ${wallets}" th:value="${wallet.id}">
+                <span th:text="${wallet.id}"></span>
+                <span th:text="' - Balance: ' + ${wallet.getBalance() + ' BGN'}"></span>
+              </option>
             </select>
           </div>
 

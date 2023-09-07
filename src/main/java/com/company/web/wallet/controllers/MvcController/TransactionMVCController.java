@@ -116,6 +116,7 @@ public class TransactionMVCController {
         List<User> users = userService.getAll();
         User authenticatedUser = userService.getByUsername(username);
         List<Wallet> userWallets = walletService.getAll(authenticatedUser);
+
         model.addAttribute("users", users);
         model.addAttribute("wallets", userWallets);
         TransactionDto transactionDto = new TransactionDto();
@@ -145,7 +146,7 @@ public class TransactionMVCController {
 
             } catch (NotEnoughMoneyInWalletException e){
                 model.addAttribute("errorMessage", e.getMessage());
-                return "not_enough_money_in_wallet";
+                return "transactions_not_enough_money_in_wallet";
             }
             catch (Exception e) {
                 throw new RuntimeException(e);
