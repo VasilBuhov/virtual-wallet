@@ -98,7 +98,7 @@ public class UserController {
         }
         try {
             User newUser = userMapper.fromDto(userDto);
-            userService.create(newUser, "localhost");
+            userService.create(newUser, "wallet.badmin.org");
             if (!invitationService.checkByEmail(newUser.getEmail())) return "redirect:/";
             //TODO: add amount to both inviter and invitee accounts
             return "user_reg_by_invitation";

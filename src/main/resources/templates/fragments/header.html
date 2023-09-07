@@ -41,12 +41,13 @@
                                                th:text="#{user.edit_profile}"/></li>
                                         <li><a th:href="@{/users/password}" class="nav-link"
                                                th:text="#{user.change_password}"/></li>
-                                        <li><a th:if="${session.currentUserLevel == 0}" th:href="@{/users/idVerification}" class="nav-link"
+                                        <li><a th:if="${session.currentUserLevel == 0}"
+                                               th:href="@{/users/idVerification}" class="nav-link"
                                                th:text="#{user.id_verification}"/></li>
 
-<!--                                        <li th:if="${session.currentUserLevel == 1}">-->
-<!--                                            <a th:href="@{/users/cpanel}" class="nav-link"-->
-<!--                                               th:text="#{user.cpanel}"/></li>-->
+                                        <!--                                        <li th:if="${session.currentUserLevel == 1}">-->
+                                        <!--                                            <a th:href="@{/users/cpanel}" class="nav-link"-->
+                                        <!--                                               th:text="#{user.cpanel}"/></li>-->
 
                                         <li class="has-children" th:if="${session.currentUserLevel == 1}">
                                             <a th:href="@{/users/cpanel}" class="nav-link" th:text="#{user.cpanel}"/>
@@ -66,15 +67,19 @@
                                                th:text="#{user.my_cards}"/></li>
                                         <li><a th:href="@{/transactions/your_transactions}" class="nav-link"
                                                th:text="#{user.my_transactions}"/></li>
+                                        <li><a th:href="@{/transactions/create}" class="nav-link"
+                                               th:text="#{user.create_transaction}"/></li>
                                         <li><a th:href="@{/users/request}" class="nav-link"
                                                th:text="#{user.request_funds_menu}"/></li>
 
-                                        <li th:if="${session.currentUser != null and session.pokes != null}" class="has-children">
-                                            <a th:href="@{/users/pokes}" class="nav-link" th:text="#{user.has_pokes}" />
+                                        <li th:if="${session.currentUser != null and session.pokes != null}"
+                                            class="has-children">
+                                            <a th:href="@{/users/pokes}" class="nav-link" th:text="#{user.has_pokes}"/>
 
                                             <ul class="dropdown">
                                                 <li th:each="poke : ${session.pokes}">
-                                                    <a href="#" th:text="${'Poke from ' + poke.getPokingUser().getUsername()}" />
+                                                    <a href="#"
+                                                       th:text="${'Poke from ' + poke.getPokingUser().getUsername()}"/>
                                                 </li>
                                             </ul>
                                         </li>
@@ -108,7 +113,7 @@
                                             <a th:href="@{/faq}" class="nav-link">Team</a>
                                         </li>
 
-<!--                                        <li><a href="#gallery-section" class="nav-link">Gallery</a></li>-->
+                                        <!--                                        <li><a href="#gallery-section" class="nav-link">Gallery</a></li>-->
 
                                         <li th:if="${#httpServletRequest.requestURI == '/'}">
                                             <a href="#services-section" class="nav-link">Services</a>
@@ -123,14 +128,14 @@
                                         <li th:unless="${#httpServletRequest.requestURI == '/'}">
                                             <a th:href="@{/testimonials}" class="nav-link">Testimonials</a>
                                         </li>
-<!--                                        <li class="has-children">-->
-<!--                                            <a href="#">More Links</a>-->
-<!--                                            <ul class="dropdown">-->
-<!--                                                <li><a href="#">Menu One</a></li>-->
-<!--                                                <li><a href="#">Menu Two</a></li>-->
-<!--                                                <li><a href="#">Menu Three</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </li>-->
+                                        <!--                                        <li class="has-children">-->
+                                        <!--                                            <a href="#">More Links</a>-->
+                                        <!--                                            <ul class="dropdown">-->
+                                        <!--                                                <li><a href="#">Menu One</a></li>-->
+                                        <!--                                                <li><a href="#">Menu Two</a></li>-->
+                                        <!--                                                <li><a href="#">Menu Three</a></li>-->
+                                        <!--                                            </ul>-->
+                                        <!--                                        </li>-->
                                     </ul>
                                 </li>
 
@@ -141,17 +146,20 @@
                                     <a th:href="@{/contact}" class="nav-link">Contact</a>
                                 </li>
 
-                                <li class="social"><a href="https://www.facebook.com/profile.php?id=61550930370143" class="nav-link"><span
+                                <li class="social"><a href="https://www.facebook.com/profile.php?id=61550930370143"
+                                                      class="nav-link"><span
                                         class="icon-facebook"></span></a></li>
                                 <li class="social"><a href="https://twitter.com/Wallet_tellaW" class="nav-link"><span
                                         class="icon-twitter"></span></a></li>
-                                <li class="social"><a href="https://www.linkedin.com/in/wallet-tellaw-78246828b/" class="nav-link"><span
+                                <li class="social"><a href="https://www.linkedin.com/in/wallet-tellaw-78246828b/"
+                                                      class="nav-link"><span
                                         class="icon-linkedin"></span></a></li>
                                 <li th:if="${session.currentUser != null}">
                                     <form th:action="@{/search/}" role="search" method="get">
                                         <div class="input-group add-on">
                                             <input class="form-control form-control222"
-                                                   th:placeholder="#{user.search_placeholder}" id="username" name="username"
+                                                   th:placeholder="#{user.search_placeholder}" id="username"
+                                                   name="username"
                                                    type="text">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-default btn-default2913" type="submit">
