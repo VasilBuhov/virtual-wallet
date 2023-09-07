@@ -14,6 +14,7 @@ public interface CardService {
     Card get(int id, User user) throws EntityDeletedException, AuthorizationException, EntityNotFoundException;
 
     List<Card> getAll(User user) throws EntityNotFoundException;
+    Card get(String cardNumber, User user) throws EntityNotFoundException;
 
     void create(Card card) throws EntityDuplicateException, EntityNotFoundException;
 

@@ -33,7 +33,7 @@
                                 </li>
 
                                 <li class="has-children" th:if="${session.currentUser != null}">
-                                    <a href="_blank" class="nav-link" th:text="${session.currentUser}"/>
+                                    <a href="#" class="nav-link" th:text="${session.currentUser}"/>
                                     <ul class="dropdown">
                                         <li><a th:href="@{/users/contacts}" class="nav-link"
                                                th:text="#{user.contact_list}"/></li>
@@ -108,7 +108,7 @@
                                             <a th:href="@{/faq}" class="nav-link">Team</a>
                                         </li>
 
-                                        <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
+<!--                                        <li><a href="#gallery-section" class="nav-link">Gallery</a></li>-->
 
                                         <li th:if="${#httpServletRequest.requestURI == '/'}">
                                             <a href="#services-section" class="nav-link">Services</a>

@@ -25,6 +25,11 @@ public class InvitationServiceImpl implements InvitationService {
     }
 
     @Override
+    public boolean checkByEmail(String email){
+        return invitationRepository.checkByEmail(email);
+    }
+
+    @Override
     public Invitation getByEmail(String email) {
         return invitationRepository.getByEmail(email);
     }

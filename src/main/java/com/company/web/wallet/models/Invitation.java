@@ -1,6 +1,7 @@
 package com.company.web.wallet.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,7 @@ public class Invitation {
     @JoinColumn(name = "inviter_id")
     private User inviter;
 
+    @Email
     @Column(name = "email")
     private String email;
 

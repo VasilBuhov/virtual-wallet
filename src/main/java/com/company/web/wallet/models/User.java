@@ -46,13 +46,13 @@ public class User {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
     @JsonIgnore
-    @OneToMany(mappedBy = "cardHolder", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cardHolder", fetch = FetchType.EAGER)
     private Set<Card> cards;
     @JsonIgnore
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Wallet> wallets;
     @JsonIgnore
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<SavingsWallet> savingsWallets;
     @OneToMany(mappedBy = "pokedUser", fetch = FetchType.EAGER)
     private Set<Pokes> pokes;

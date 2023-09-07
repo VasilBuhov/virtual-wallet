@@ -4,7 +4,6 @@ import com.company.web.wallet.exceptions.*;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.helpers.GetSiteURLHelper;
 import com.company.web.wallet.helpers.UserMapper;
-import com.company.web.wallet.models.DTO.InvitationDto;
 import com.company.web.wallet.models.DTO.UserPasswordDto;
 import com.company.web.wallet.models.Invitation;
 import com.company.web.wallet.models.User;
@@ -100,7 +99,9 @@ public class UserController {
         try {
             User newUser = userMapper.fromDto(userDto);
             userService.create(newUser, "localhost");
-            return "redirect:/";
+            if (!invitationService.checkByEmail(newUser.getEmail())) return "redirect:/";
+            //TODO: add amount to both inviter and invitee accounts
+            return "user_reg_by_invitation";
         } catch (EntityDuplicateException e) {
             model.addAttribute("alreadyExists", e.getMessage());
         } catch (MessagingException | UnsupportedEncodingException e) {
@@ -515,19 +516,13 @@ public class UserController {
     }
 
     @GetMapping("/invite")
-    public String showInvitationPage(Model model, HttpSession httpSession) {
-        try {
-            authenticationHelper.tryGetUser(httpSession);
-        } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
-        }
-
-        model.addAttribute("invitationDto", new InvitationDto());
+    public String showInvitationPage(Model model) {
+        model.addAttribute("invitation", new Invitation());
         return "user_send_invitation";
     }
 
     @PostMapping("/invite")
-    public String createInvitation(@ModelAttribute("invitation") InvitationDto invitationDto,
+    public String createInvitation(@ModelAttribute("invitation") Invitation invitation,
                                    BindingResult bindingResult,
                                    Model model,
                                    HttpSession session) {
@@ -549,12 +544,12 @@ public class UserController {
             if (hasSentInvitations && invitationService.getInvitationsCount(authenticatedUser) >= 5) {
                 throw new UnauthorizedOperationException("You have already reached your limit for invitations.");
             }
-            Invitation invitation = new Invitation();
-            invitation.setInviter(authenticatedUser);
-            String targetEmail = invitationDto.getEmail();
-            invitation.setEmail(targetEmail);
-            invitationService.sendInvitation(invitation.getInviter(), targetEmail);
-            invitationService.create(invitation);
+            Invitation invitationToRecord = new Invitation();
+            invitationToRecord.setInviter(authenticatedUser);
+            String targetEmail = invitationToRecord.getEmail();
+            invitationToRecord.setEmail(targetEmail);
+            invitationService.sendInvitation(authenticatedUser, targetEmail);
+            invitationService.create(invitationToRecord);
             return "user_invitation_sent";
         } catch (UnauthorizedOperationException | EntityDuplicateException e) {
             model.addAttribute("error", e.getMessage());

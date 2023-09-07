@@ -86,6 +86,18 @@
                         </div>
                     </div>
 
+                    <div class="slide" th:unless="${user.isPhotoVerified}">
+                        <h1 class="text-uppercase" data-aos="fade-up">Invite a friend</h1>
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Extend an invitation to a friend
+                            and unlock a world of benefits! When your friend joins us, both of you will receive a bonus
+                            in your accounts. It's a simple way to enhance your experience together and make your
+                            journey with us even more exciting. So, seize this opportunity to invite a friend and enjoy
+                            the rewards that come with it.</p>
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a th:href="@{/users/invite}" class="btn btn-primary mr-2 mb-2">Invite friend</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -673,61 +685,6 @@
 
     </div>
 </section>
-
-
-<section class="site-section" id="login-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-12 text-center" data-aos="fade">
-                <h2 class="section-title mb-3">Our Blog</h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="">
-                <div class="h-entry">
-                    <a th:href="@{/single.html}">
-                        <img th:src="@{/images/img_1.jpg}" alt="Image" class="img-fluid">
-                    </a>
-                    <h2 class="font-size-regular"><a href="#">Banking is good for business? Why?</a></h2>
-                    <div class="meta mb-4">Ham Brook <span class="mx-2">&bullet;</span> Jan 18, 2019<span
-                            class="mx-2">&bullet;</span> <a href="#">News</a></div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores
-                        sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
-                    <p><a href="#">Continue Reading...</a></p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="h-entry">
-                    <a th:href="@{/single.html}">
-                        <img th:src="@{/images/img_4.jpg}" alt="Image" class="img-fluid">
-                    </a>
-                    <h2 class="font-size-regular"><a href="#">Banking is good for business? Why?</a></h2>
-                    <div class="meta mb-4">James Phelps <span class="mx-2">&bullet;</span> Jan 18, 2019<span
-                            class="mx-2">&bullet;</span> <a href="#">News</a></div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores
-                        sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
-                    <p><a href="#">Continue Reading...</a></p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="h-entry">
-                    <a th:href="@{/single.html}">
-                        <img th:src="@{/images/img_3.jpg}" alt="Image" class="img-fluid">
-                    </a>
-                    <h2 class="font-size-regular"><a href="#">Banking is good for business? Why?</a></h2>
-                    <div class="meta mb-4">James Phelps <span class="mx-2">&bullet;</span> Jan 18, 2019<span
-                            class="mx-2">&bullet;</span> <a href="#">News</a></div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores
-                        sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
-                    <p><a href="#">Continue Reading...</a></p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
 
 <section class="site-section bg-light" id="contact-section" data-aos="fade">
     <div class="container">
