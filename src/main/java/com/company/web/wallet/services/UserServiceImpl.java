@@ -219,7 +219,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException {
-        throw new AuthorizationException("Only admin can block a user.");
+        if (authenticatedUser.getUserLevel() != 1)
+        throw new AuthorizationException("Only admin can update a user.");
     }
 
     @Override

@@ -394,7 +394,7 @@ public class UserController {
         }
         userService.markUserApproved(authenticatedUser, targetUser);
         userService.sendIdApprovalMail(targetUser);
-        model.addAttribute("ApprovalMessage", "Succesfully approved the ID of " + targetUser.getUsername() +"<br/> with selfie and ID!");
+        model.addAttribute("ApprovalMessage", "Successfully approved the ID of " + targetUser.getUsername() +"<br/> with selfie and ID!");
 //        userService
         return "user_id_approval_success";
     }

@@ -39,7 +39,7 @@
                 <h3 th:text="#{user.id_verification}"/>
                 <div class="user-images justify-content-center">
                     <div class="user-profile">
-                        <form th:action="@{'/approve/' + ${targetUser.id}}" method="post" class="image-form">
+                        <form th:action="@{'/users/approve/' + ${targetUser.id}}" method="post" class="image-form">
                             <table class="image-table">
                                 <tr>
                                     <td class="image-section">

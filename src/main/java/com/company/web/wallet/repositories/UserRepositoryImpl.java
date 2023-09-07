@@ -307,26 +307,30 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void uploadIdCardAndSelfie(int userId, MultipartFile idCardFile, MultipartFile selfieFile) {
         try (Session session = sessionFactory.openSession()) {
-            Long count = (Long) session.createQuery("SELECT COUNT(*) FROM PhotoVerification WHERE userId = :userId")
-                    .setParameter("userId", userId)
-                    .uniqueResult();
-            if (count != null) return;
-
-
+            Transaction transaction = session.beginTransaction();
             try {
+                Long count = (Long) session.createQuery("SELECT COUNT(*) FROM PhotoVerification WHERE userId = :userId")
+                        .setParameter("userId", userId)
+                        .uniqueResult();
+                if (count != 0) {
+                    transaction.rollback();
+                    return;
+                }
+
                 PhotoVerification photoVerification = new PhotoVerification();
                 photoVerification.setUserId(userId);
                 photoVerification.setIdCard(idCardFile.getBytes());
                 photoVerification.setSelfie(selfieFile.getBytes());
-                session.saveOrUpdate(photoVerification);
-                session.getTransaction().commit();
+                session.save(photoVerification);
+                transaction.commit();
             } catch (IOException e) {
                 logger.error(e.getMessage());
+                transaction.rollback();
                 throw new UnknownError("Error uploading photo");
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong(REPO photo upload)");
+            throw new UnknownError("Something went wrong (REPO photo upload)");
         }
     }
 
