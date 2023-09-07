@@ -7,19 +7,28 @@ import com.company.web.wallet.exceptions.EntityDeletedException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.exceptions.UnauthorizedOperationException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
+import com.company.web.wallet.helpers.TopUpHelper;
 import com.company.web.wallet.helpers.WalletMapper;
+import com.company.web.wallet.models.Card;
+import com.company.web.wallet.models.DTO.CardTopUpDto;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.models.Wallet;
+import com.company.web.wallet.services.CardService;
 import com.company.web.wallet.services.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -29,14 +38,18 @@ import java.util.List;
 @RequestMapping("/wallets")
 public class WalletMvcController {
     private final WalletService walletService;
+    private final CardService cardService;
     private final AuthenticationHelper authenticationHelper;
+    private final TopUpHelper topUpHelper;
     private final WalletMapper walletMapper;
     private final Logger logger = LoggerFactory.getLogger(CardMvcController.class);
 
     @Autowired
-    public WalletMvcController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper) {
+    public WalletMvcController(WalletService walletService, CardService cardService, AuthenticationHelper authenticationHelper, TopUpHelper topUpHelper, WalletMapper walletMapper) {
         this.walletService = walletService;
+        this.cardService = cardService;
         this.authenticationHelper = authenticationHelper;
+        this.topUpHelper = topUpHelper;
         this.walletMapper = walletMapper;
     }
     @GetMapping
@@ -96,6 +109,45 @@ public class WalletMvcController {
         try {
             User user = authenticationHelper.tryGetUser(session);
             walletService.updateOverdraft(id, user);
+            return "redirect:/wallets";
+        } catch (AuthenticationFailureException | AuthorizationException e) {
+            logger.error(e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "access_denied";
+        } catch (EntityNotFoundException e) {
+            logger.error(e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "errors/404";
+        }
+    }
+    @GetMapping("/top-up/{id}")
+    public String showTopUpForm(@PathVariable int id, Model model, HttpSession session) {
+        try {
+            User user = authenticationHelper.tryGetUser(session);
+            Wallet walletToBeToppedUp = walletService.get(id, user);
+            model.addAttribute("CardTopUpDto", new CardTopUpDto());
+            model.addAttribute("wallet", walletToBeToppedUp);
+            return "wallet_top_up";
+        } catch (AuthenticationFailureException e) {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @PostMapping("/top-up/")
+    public String topUp(@Valid @ModelAttribute("CardTopUpDto") CardTopUpDto cardTopUpDto,
+                        @RequestParam("walletId") int walletId,
+                        Model model,
+                        HttpSession session) {
+
+        try {
+            User user = authenticationHelper.tryGetUser(session);
+//            Card cardForTopUp = cardService.get(cardTopUpDto.getCardNumber(), user);
+            try {
+                topUpHelper.tryTopUp();
+            } catch (HttpClientErrorException e) {
+                return "redirect:/wallet_top_up";
+            }
+            walletService.addToBalance(walletId, user, cardTopUpDto.getAmount());
             return "redirect:/wallets";
         } catch (AuthenticationFailureException | AuthorizationException e) {
             logger.error(e.getMessage());

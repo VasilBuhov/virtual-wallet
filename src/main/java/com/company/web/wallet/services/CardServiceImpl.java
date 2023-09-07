@@ -56,6 +56,16 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    public Card get(String cardNumber, User user) throws EntityNotFoundException {
+        Card card = repository.get(cardNumber);
+        if (card != null && card.getCardHolder().equals(user)) {
+            return card;
+        } else {
+            throw new EntityNotFoundException("Card", "card number", String.valueOf(cardNumber));
+        }
+    }
+
+    @Override
     public void create(Card card) {
         if (CardExpiration.isExpired(card.getExpirationDate())) {
             throw new EntityNotFoundException(CARD_HAS_EXPIRED);

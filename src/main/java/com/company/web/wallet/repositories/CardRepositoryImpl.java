@@ -4,6 +4,7 @@ import com.company.web.wallet.controllers.RestController.CardRestController;
 import com.company.web.wallet.exceptions.EntityDeletedException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
+import com.company.web.wallet.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -36,12 +37,12 @@ public class CardRepositoryImpl implements CardRepository {
 
     @Override
     public Card get(String cardNumber) {
-        Session session = sessionFactory.openSession();
-        return session.createQuery("FROM Card WHERE cardNumber = :cardNumber AND statusDeleted = 0", Card.class)
-                .setParameter("cardNumber", cardNumber)
-                .uniqueResult();
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Card WHERE cardNumber = :cardNumber AND statusDeleted = 0", Card.class)
+                    .setParameter("cardNumber", cardNumber)
+                    .uniqueResult();
+        }
     }
-
     @Override
     public List<Card> getAll() {
         try (Session session = sessionFactory.openSession()) {

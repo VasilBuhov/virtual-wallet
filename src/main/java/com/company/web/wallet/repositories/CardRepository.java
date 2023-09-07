@@ -2,6 +2,7 @@ package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
+import com.company.web.wallet.models.User;
 
 import java.util.List;
 

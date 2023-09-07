@@ -170,7 +170,7 @@ public class WalletServiceImplTests {
 
         when(walletRepository.get(anyInt())).thenReturn(mockWallet);
 
-        walletService.updateOverdraft(1, mockUser, mockWallet);
+        walletService.updateOverdraft(1, mockUser);
 
         verify(walletRepository, times(1)).update(mockWallet);
     }

@@ -5,6 +5,7 @@ import com.company.web.wallet.exceptions.BlockedUserException;
 import com.company.web.wallet.exceptions.EntityDeletedException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
+import com.company.web.wallet.helpers.TopUpHelper;
 import com.company.web.wallet.helpers.WalletMapper;
 import com.company.web.wallet.helpers.WithdrawMapper;
 import com.company.web.wallet.models.DTO.CardTopUpDto;
@@ -44,15 +45,17 @@ public class WalletRestController {
     private final WalletService walletService;
     private final AuthenticationHelper authenticationHelper;
     private final WalletMapper walletMapper;
+    private final TopUpHelper topUpHelper;
     private final UserService userService;
     private final WithdrawMapper withdrawMapper;
     private final Logger logger = LoggerFactory.getLogger(WalletRestController.class);
 
     @Autowired
-    public WalletRestController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper, UserService userService, WithdrawMapper withdrawMapper) {
+    public WalletRestController(WalletService walletService, AuthenticationHelper authenticationHelper, WalletMapper walletMapper, TopUpHelper topUpHelper, UserService userService, WithdrawMapper withdrawMapper) {
         this.walletService = walletService;
         this.authenticationHelper = authenticationHelper;
         this.walletMapper = walletMapper;
+        this.topUpHelper = topUpHelper;
         this.userService = userService;
         this.withdrawMapper = withdrawMapper;
     }
@@ -133,16 +136,8 @@ public class WalletRestController {
     public WalletDtoOut topUp(@PathVariable int id, @RequestHeader HttpHeaders httpheaders, @Valid @RequestBody CardTopUpDto cardTopUpDto) throws ResponseStatusException {
         try {
             User user = authenticationHelper.tryGetUser(httpheaders);
-
-            RestTemplate restTemplate = new RestTemplate();
-
             try {
-                 restTemplate.exchange(
-                        "http://localhost:5000/api/cards",
-                        HttpMethod.POST,
-                        null,
-                        Void.class
-                );
+                 topUpHelper.tryTopUp();
             } catch (HttpClientErrorException e) {
                 throw new ResponseStatusException(e.getStatusCode(), "Unable to deposit money at the moment. Please try again later.");
             }
