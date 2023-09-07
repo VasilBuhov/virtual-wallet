@@ -66,4 +66,8 @@ public interface UserRepository {
 
     User findByEmailOrUsername(String emailOrUsername, String emailOrUsername1);
 
+    void save2FA(int userId, int code);
+
+    // get2FA
+    String get2FA(int userId);
 }

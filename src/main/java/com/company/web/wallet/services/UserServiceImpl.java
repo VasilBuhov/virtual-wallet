@@ -23,6 +23,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -312,6 +313,19 @@ public class UserServiceImpl implements UserService {
         mailSender(fromAddress, senderName, subject, content, approvedUser);
     }
 
+    @Override
+    public void send2FAMail(User approvedUser, int code) throws MessagingException, UnsupportedEncodingException {
+        String fromAddress = "wallet.project.a48@badmin.org";
+        String senderName = "The Wallet App";
+        String subject = "Login 2FA code";
+        String content = "Dear [[FirstName]],<br>"
+                + "Here is your 2FA code for login. It will be active for the next 10 minutes:"
+                + "<br><br><br> [[2FACode]]";
+
+        content = content.replace("[[2FACode]]", String.valueOf(code));
+        mailSender(fromAddress, senderName, subject, content, approvedUser);
+    }
+
     public void mailSender(String fromAddress, String senderName, String subject, String content, User approvedUser) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -343,6 +357,22 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userPasswordDto.getNewPassword());
         user.setLastUpdateDate(LocalDateTime.now());
         userRepository.update(user);
+    }
+
+    @Override
+    public void generateRandom2FA(int userId){
+        Random random = new Random();
+        int code = random.nextInt(900000) + 100000;
+        userRepository.save2FA(userId, code);
+    }
+
+    @Override
+    public String get2FA(int userId){
+        return userRepository.get2FA(userId);
+    }
+    @Override
+    public boolean check2FA(String tfaProvided, User candidateUser){
+        return tfaProvided.equals(get2FA(candidateUser.getId()));
     }
 
 }
