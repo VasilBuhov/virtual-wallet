@@ -1,6 +1,7 @@
 package com.company.web.wallet.controllers.MvcController;
 
 import com.company.web.wallet.models.ContactForm;
+import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +27,7 @@ public class HomeController {
     }
 
     @GetMapping
-    public String showHomePage(Model model) {
+    public String showHomePage(Model model, HttpSession session) {
 
         model.addAttribute("contactForm", new ContactForm());
         List<String> imageFilenames = Arrays.asList(
@@ -42,7 +44,9 @@ public class HomeController {
                 "team_copywriter.jpg", "team_creative_director.jpg",
                 "team_art_director.jpg", "team_account_executive.jpg");
         model.addAttribute("imageFilenames", imageFilenames);
-
+        if (session.getAttribute("currentUser") != null){
+        User user = userService.getByUsername(session.getAttribute("currentUser").toString());
+        model.addAttribute("user", user);}
         return "index";
     }
 
@@ -102,5 +106,12 @@ public class HomeController {
     public String submitContactForm(@ModelAttribute("contactForm") ContactForm contactForm) throws MessagingException, UnsupportedEncodingException {
         userService.sendContactEmail(contactForm);
         return "user_contact_success";
+    }
+
+    @GetMapping("/forgotten")
+    public String forgotPasswordForm(@ModelAttribute("contactForm") ContactForm contactForm) throws MessagingException, UnsupportedEncodingException {
+        throw new UnsupportedOperationException("Not implemented yet");
+//        userService.sendContactEmail(contactForm);
+//        return "user_contact_success";
     }
 }

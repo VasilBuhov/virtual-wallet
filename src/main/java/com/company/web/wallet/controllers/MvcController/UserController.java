@@ -394,7 +394,7 @@ public class UserController {
         }
         userService.markUserApproved(authenticatedUser, targetUser);
         userService.sendIdApprovalMail(targetUser);
-        model.addAttribute("ApprovalMessage", "Succesfully approved the ID of " + targetUser.getUsername() +"<br/> with selfie and ID!");
+        model.addAttribute("ApprovalMessage", "Successfully approved the ID of " + targetUser.getUsername() +"<br/> with selfie and ID!");
 //        userService
         return "user_id_approval_success";
     }
@@ -402,6 +402,15 @@ public class UserController {
     @GetMapping("/vpanel/{id}")
     public String showAdminVerificationPanel(@PathVariable int id, Model model, HttpSession session) {
         if (authenticationHelper.isAdmin(session)) {
+            if (id == 0) {
+                //return list of users that are not photo verified, but are awaiting
+                List <User> users = userService.getAllPhotoUnverified();
+                if (users.isEmpty()) model.addAttribute("list", false);
+                else model.addAttribute("list", true);
+                model.addAttribute("users", users);
+                return "user_photo_verification_list";
+            }
+
             User targetUser = userService.getUserById(id);
             byte[] idCard = userService.getIdCard(id);
             if (idCard != null) {

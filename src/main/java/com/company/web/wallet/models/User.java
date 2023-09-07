@@ -54,7 +54,7 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private Set<SavingsWallet> savingsWallets;
-    @OneToMany(mappedBy = "pokedUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pokedUser", fetch = FetchType.EAGER)
     private Set<Pokes> pokes;
     private boolean enabled;
 

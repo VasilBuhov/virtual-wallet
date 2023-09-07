@@ -1,6 +1,7 @@
 package com.company.web.wallet.repositories;
 
 import com.company.web.wallet.exceptions.EntityNotFoundException;
+import com.company.web.wallet.models.AuthenticationPool;
 import com.company.web.wallet.models.Contact;
 import com.company.web.wallet.models.PhotoVerification;
 import com.company.web.wallet.models.User;
@@ -23,6 +24,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -268,13 +271,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAllContacts(int id) {
-            try (Session session = sessionFactory.openSession()) {
-                Query<User> query = session.createQuery("SELECT u FROM User u\n" +
-                        "JOIN Contact c ON c.contactTarget = u.id\n" +
-                        "WHERE c.contactOwner = :id", User.class);
-                query.setParameter("id", id);
-                return query.list();
-            }
+        try (Session session = sessionFactory.openSession()) {
+            Query<User> query = session.createQuery("SELECT u FROM User u\n" +
+                    "JOIN Contact c ON c.contactTarget = u.id\n" +
+                    "WHERE c.contactOwner = :id", User.class);
+            query.setParameter("id", id);
+            return query.list();
+        }
     }
 
     @Override
@@ -300,37 +303,34 @@ public class UserRepositoryImpl implements UserRepository {
             else return null;
         }
     }
+
     @Override
     public void uploadIdCardAndSelfie(int userId, MultipartFile idCardFile, MultipartFile selfieFile) {
         try (Session session = sessionFactory.openSession()) {
-            Long count = (Long) session.createQuery("SELECT COUNT(*) FROM PhotoVerification WHERE userId = :userId")
-                    .setParameter("userId", userId)
-                    .uniqueResult();
-            if (count != null) return;
-            PhotoVerification photoVerification = session.get(PhotoVerification.class, userId);
-
-            if (photoVerification == null) {
-                photoVerification = new PhotoVerification();
-                photoVerification.setUserId(userId);
-            }
-
+            Transaction transaction = session.beginTransaction();
             try {
-                if (idCardFile != null) {
-                    photoVerification.setIdCard(idCardFile.getBytes());
+                Long count = (Long) session.createQuery("SELECT COUNT(*) FROM PhotoVerification WHERE userId = :userId")
+                        .setParameter("userId", userId)
+                        .uniqueResult();
+                if (count != 0) {
+                    transaction.rollback();
+                    return;
                 }
 
-                if (selfieFile != null) {
-                    photoVerification.setSelfie(selfieFile.getBytes());
-                }
-
-                session.saveOrUpdate(photoVerification);
+                PhotoVerification photoVerification = new PhotoVerification();
+                photoVerification.setUserId(userId);
+                photoVerification.setIdCard(idCardFile.getBytes());
+                photoVerification.setSelfie(selfieFile.getBytes());
+                session.save(photoVerification);
+                transaction.commit();
             } catch (IOException e) {
                 logger.error(e.getMessage());
+                transaction.rollback();
                 throw new UnknownError("Error uploading photo");
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new UnknownError("Something went wrong(REPO photo upload)");
+            throw new UnknownError("Something went wrong (REPO photo upload)");
         }
     }
 
@@ -464,4 +464,67 @@ public class UserRepositoryImpl implements UserRepository {
             return query.uniqueResult();
         }
     }
+
+    @Override
+    public void save2FA(int userId, int code) {
+        try (Session session = sessionFactory.openSession()) {
+            AuthenticationPool authenticationPool = new AuthenticationPool();
+            authenticationPool.setUserId(userId);
+            authenticationPool.setCode(code);
+            authenticationPool.setExpiration(LocalDateTime.now());
+
+            session.beginTransaction();
+            session.save(authenticationPool);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException("Something went wrong (REPO add 2fa)", e);
+        }
+    }
+
+    @Override
+    public String get2FA(int userId) {
+        try (Session session = sessionFactory.openSession()) {
+            List<AuthenticationPool> resultList = session.createQuery(
+                            "FROM AuthenticationPool WHERE userId = :userId ORDER BY expiration DESC", AuthenticationPool.class)
+                    .setParameter("userId", userId)
+                    .setMaxResults(1)
+                    .getResultList();
+
+            if (!resultList.isEmpty()) {
+                AuthenticationPool authenticationPool = resultList.get(0);
+                LocalDateTime expiration = authenticationPool.getExpiration();
+                LocalDateTime now = LocalDateTime.now();
+
+                long minutesDifference = ChronoUnit.MINUTES.between(expiration, now);
+
+                if (minutesDifference > 10) return "000001";
+                else return String.valueOf(authenticationPool.getCode());
+            } else {
+                return "000000";
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException("Something went wrong (REPO get 2fa)", e);
+        }
+    }
+
+    @Override
+    public List<User> getAllPhotoUnverified() {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT pv.userId FROM PhotoVerification pv";
+            Query<Integer> photoVerificationQuery = session.createQuery(hql, Integer.class);
+            List<Integer> userIds = photoVerificationQuery.getResultList();
+
+            List<User> users = new ArrayList<>();
+            for (Integer userId : userIds) {
+                User user = getById(userId);
+                if (user != null) {
+                    users.add(user);
+                }
+            }
+            return users;
+        }
+    }
+
 }

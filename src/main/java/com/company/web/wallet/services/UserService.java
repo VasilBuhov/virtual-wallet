@@ -68,6 +68,10 @@ public interface UserService {
 
     void sendIdDisapprovalMail(User approvedUser) throws MessagingException, UnsupportedEncodingException;
 
+    void send2FAMail(User approvedUser, int code) throws MessagingException, UnsupportedEncodingException;
+
+    void sendForgottenPassword(User targetUser) throws MessagingException, UnsupportedEncodingException;
+
     boolean verify(String verificationCode);
 
     void removeAsAdmin(User authenticatedUser, User user) throws EntityNotFoundException;
@@ -92,4 +96,12 @@ public interface UserService {
     void blockOrUnblock(int userId, boolean block) throws EntityNotFoundException;
 
     void changePassword(User user, UserPasswordDto userPasswordDto);
+
+    void generateRandom2FA(int userId);
+
+    String get2FA(int userId);
+
+    boolean check2FA(String tfaProvided, User candidateUser);
+
+    List<User> getAllPhotoUnverified();
 }
