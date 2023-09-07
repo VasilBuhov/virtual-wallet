@@ -34,7 +34,65 @@
      data-aos="fade" id="home-section">
 
 
-    <div class="container">
+    <div class="container" th:if="${session.currentUser != null}">
+        <div class="row align-items-center justify-content-center">
+
+
+            <div class="col-md-10 mt-lg-5 text-center">
+                <div class="single-text owl-carousel">
+                    <div class="slide">
+                        <h1 class="text-uppercase" data-aos="fade-up">Go to your wallet</h1>
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Take control of your financial
+                            journey by navigating to your wallet today. Once there, you'll find a world of possibilities
+                            waiting for you. Your wallet is your gateway to seamless management of your assets, so don't
+                            hesitate to click the link and begin
+                            your financial exploration now.</p>
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a th:href="@{/wallets}" class="btn btn-primary mr-2 mb-2">Open your wallet</a>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <h1 class="text-uppercase" data-aos="fade-up">Transaction history</h1>
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Access your transaction history to
+                            review your financial activities at a glance. Stay informed about your spending, income, and
+                            transfers by clicking the link below. It's your key to financial insights—start exploring
+                            now!</p>
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a th:href="@{/transactions}" class="btn btn-primary mr-2 mb-2">Go to transaction
+                                history</a>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <h1 class="text-uppercase" data-aos="fade-up">Check your cards</h1>
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Stay on top of your card accounts
+                            effortlessly. By selecting 'Check your cards,' you can quickly access your card details,
+                            balances, and recent transactions. It's your go-to spot for managing your cards with ease.
+                            Click the link to review your card information now.</p>
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a th:href="@{/cards}" class="btn btn-primary mr-2 mb-2">View your cards</a>
+                        </div>
+                    </div>
+                    <div class="slide" th:unless="${user.isPhotoVerified}">
+                        <h1 class="text-uppercase" data-aos="fade-up">Verify your identity</h1>
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Enhance your security and verify
+                            your identity with ease. Our cutting-edge technology allows you to perform secure identity
+                            verification through a simple selfie and ID card submission. It's a quick and hassle-free
+                            process that ensures your accounts and transactions are protected. Verify your identity
+                            today for added peace of mind.</p>
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <a th:href="@{/users/idVerification}" class="btn btn-primary mr-2 mb-2">Verify identity</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container" th:unless="${session.currentUser != null}">
         <div class="row align-items-center justify-content-center">
 
 
@@ -46,7 +104,7 @@
                             solutions with us. Our expertise and dedication set us apart, ensuring your financial needs
                             are met seamlessly. Trust the best for your banking success.</p>
                         <div data-aos="fade-up" data-aos-delay="100">
-                            <a href="#" target="_blank" class="btn  btn-primary mr-2 mb-2">Get In Touch</a>
+                            <a th:href="@{/users/new}" class="btn btn-primary mr-2 mb-2">Register now</a>
                         </div>
                     </div>
 
@@ -55,7 +113,7 @@
                         <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Unlock your financial potential
                             with our expert financing solutions. Tailored for your success.</p>
                         <div data-aos="fade-up" data-aos-delay="100">
-                            <a href="#" target="_blank" class="btn  btn-primary mr-2 mb-2">Get In Touch</a>
+                            <a th:href="@{/users/new}" class="btn btn-primary mr-2 mb-2">Register now</a>
                         </div>
                     </div>
 
@@ -64,7 +122,7 @@
                         <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Maximize your savings with our
                             interest-bearing accounts. Deposit confidently and watch your savings grow.</p>
                         <div data-aos="fade-up" data-aos-delay="100">
-                            <a href="#" target="_blank" class="btn  btn-primary mr-2 mb-2">Get In Touch</a>
+                            <a th:href="@{/users/new}" class="btn btn-primary mr-2 mb-2">Register now</a>
                         </div>
                     </div>
 
@@ -188,112 +246,6 @@
         </div>
     </div>
 </section>
-
-
-<section class="site-section" id="gallery-section" data-aos="fade">
-
-
-    <div class="container">
-
-        <div class="row mb-3">
-            <div class="col-12 text-center">
-                <h2 class="section-title mb-3">Gallery</h2>
-            </div>
-        </div>
-
-
-        <div id="posts" class="row no-gutter">
-            <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_1.jpg}" class="item-wrap fancybox">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_1.jpg}" alt="img1">
-                </a>
-            </div>
-            <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_2.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_2.jpg}" alt="some">
-                </a>
-            </div>
-
-            <div class="item brand col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_3.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_3.jpg}" alt="fluid">
-                </a>
-            </div>
-
-            <div class="item design col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-
-                <a th:src="@{/images/img_4.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_4.jpg}" alt="fluid">
-                </a>
-
-            </div>
-
-            <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_5.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_5.jpg}" alt="image">
-                </a>
-            </div>
-
-            <div class="item brand col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_1.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_1.jpg}" alt="img1">
-                </a>
-            </div>
-
-            <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_2.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_2.jpg}" alt="img2">
-                </a>
-            </div>
-
-            <div class="item design col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_3.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_3.jpg}" alt="img3">
-                </a>
-            </div>
-
-            <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_4.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_4.jpg}" alt="img4">
-                </a>
-            </div>
-
-            <div class="item design col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_5.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_5.jpg}" alt="img5">
-                </a>
-            </div>
-
-            <div class="item brand col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_1.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_1.jpg}" alt="img1">
-                </a>
-            </div>
-
-            <div class="item design col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                <a th:href="@{/images/img_2.jpg}" class="item-wrap fancybox" data-fancybox="gallery2">
-                    <span class="icon-search2"></span>
-                    <img class="img-fluid" th:src="@{/images/img_2.jpg}" alt="img2">
-                </a>
-            </div>
-
-
-        </div>
-    </div>
-
-</section>
-
 
 <section class="site-section">
     <div class="container">
