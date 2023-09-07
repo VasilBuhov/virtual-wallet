@@ -327,6 +327,21 @@ public class UserServiceImpl implements UserService {
         mailSender(fromAddress, senderName, subject, content, approvedUser);
     }
 
+    @Override
+    public void sendForgottenPassword(User targetUser) throws MessagingException, UnsupportedEncodingException {
+        String fromAddress = "wallet.project.a48@badmin.org";
+        String senderName = "The Wallet App";
+        String subject = "Login 2FA code";
+        String content = "Dear [[FirstName]],<br>"
+                + "You`ve requested to recieve your password. As we do not store them in<br>"
+                + "hashes, we can provide it in plain text, which is super nice anti-security<br>"
+                + "feature. You will find your passrod below:"
+                + "<br><br><br> [[password]]";
+
+        content = content.replace("[[password]]", targetUser.getPassword());
+        mailSender(fromAddress, senderName, subject, content, targetUser);
+    }
+
     public void mailSender(String fromAddress, String senderName, String subject, String content, User approvedUser) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

@@ -5,6 +5,7 @@ import com.company.web.wallet.exceptions.BlockedUserException;
 import com.company.web.wallet.helpers.AuthenticationHelper;
 import com.company.web.wallet.models.DTO.UserLogin2FADto;
 import com.company.web.wallet.models.DTO.UserLoginDto;
+import com.company.web.wallet.models.ForgottenPassword;
 import com.company.web.wallet.models.Pokes;
 import com.company.web.wallet.models.User;
 import com.company.web.wallet.services.UserService;
@@ -49,7 +50,7 @@ public class AuthenticationController {
 
     @PostMapping("/2FA")
     public String handle2FALogin(@Valid @ModelAttribute("login_2FA") UserLogin2FADto login_2FA, BindingResult bindingResult,
-                              HttpSession session) {
+                                 HttpSession session) {
         if (bindingResult.hasErrors()) return "user_login_2FA";
         User tfaUser = userService.getByUsername(session.getAttribute("candidateName").toString());
         if (!userService.check2FA(login_2FA.getTfaCode(), tfaUser)) {
@@ -67,6 +68,24 @@ public class AuthenticationController {
     public String handleLogout(HttpSession session) {
         session.removeAttribute("currentUser");
         return "redirect:/";
+    }
+
+    @GetMapping("/forgotten")
+    public String handleForgottenPassword(Model model) {
+        model.addAttribute("forgottenPassword", new ForgottenPassword());
+        return "user_forgotten_password";
+    }
+
+    @PostMapping("/forgotten")
+    public String handleForgottenPassword(@Valid @ModelAttribute("email") ForgottenPassword forgottenPassword,
+                                          BindingResult bindingResult,
+                                          HttpSession session) throws MessagingException, UnsupportedEncodingException {
+        if (bindingResult.hasErrors()) return "user_forgotten_password";
+        User resetUser = userService.getByUsername(forgottenPassword.getUsername());
+        if (resetUser.getEmail().equals(forgottenPassword.getEmail())) {
+            userService.sendForgottenPassword(resetUser);
+        }
+        return "user_password_reset";
     }
 
     @PostMapping("/login")

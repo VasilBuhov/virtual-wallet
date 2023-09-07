@@ -70,6 +70,8 @@ public interface UserService {
 
     void send2FAMail(User approvedUser, int code) throws MessagingException, UnsupportedEncodingException;
 
+    void sendForgottenPassword(User targetUser) throws MessagingException, UnsupportedEncodingException;
+
     boolean verify(String verificationCode);
 
     void removeAsAdmin(User authenticatedUser, User user) throws EntityNotFoundException;

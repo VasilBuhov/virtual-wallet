@@ -405,7 +405,7 @@ public class UserController {
             if (id == 0) {
                 //return list of users that are not photo verified, but are awaiting
                 List <User> users = userService.getAllPhotoUnverified();
-                if (users.isEmpty() || users == null) model.addAttribute("list", false);
+                if (users.isEmpty()) model.addAttribute("list", false);
                 else model.addAttribute("list", true);
                 model.addAttribute("users", users);
                 return "user_photo_verification_list";
