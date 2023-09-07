@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -36,6 +37,10 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 
+    @Override
+    public List<Transaction> getTransactions(String username, LocalDateTime startDate, LocalDateTime endDate, TransactionType direction, String sortBy, String sortDirection) {
+        return null;
+    }
 
     @Override
     public List<Transaction> getTransactions(
@@ -44,8 +49,10 @@ public class TransactionServiceImpl implements TransactionService {
             LocalDateTime endDate,
             TransactionType direction,
             String sortBy,
-            String sortDirection) {
+            String sortDirection,
+            String filterBy) {
         List<Transaction> transactions;
+
         if (username != null) {
             User user = userRepository.getByUsername(username);
             if (direction != null) {
@@ -53,23 +60,57 @@ public class TransactionServiceImpl implements TransactionService {
             } else {
                 transactions = transactionRepository.getTransactionsByUser(user);
             }
-        } else if (startDate!=null && endDate!=null) {
+        } else if (startDate != null && endDate != null) {
             transactions = transactionRepository.getTransactionsByDateRange(startDate, endDate);
         } else if (direction != null) {
             transactions = transactionRepository.getTransactionsByDirection(direction);
         } else {
             transactions = transactionRepository.getAllTransactions();
         }
+
+        // Sorting based on sortBy and sortDirection
         if ("timestamp".equals(sortBy)) {
             transactions.sort(Comparator.comparing(Transaction::getTimestamp));
         } else if ("amount".equals(sortBy)) {
             transactions.sort(Comparator.comparing(Transaction::getAmount));
         }
+
+        // Reverse the list if sortDirection is "desc"
         if ("desc".equals(sortDirection)) {
             Collections.reverse(transactions);
         }
+
+//        // Apply additional filtering based on filterBy (filter by date)
+        if ("date".equals(filterBy)) {
+            transactions = transactions.stream()
+                    .filter(transaction -> {
+                        LocalDateTime transactionTimestamp = transaction.getTimestamp();
+                        // Modify the date range as needed
+                        return transactionTimestamp.isAfter(startDate) && transactionTimestamp.isBefore(endDate);
+                    })
+                    .collect(Collectors.toList());
+        }
+        if ("received".equals(filterBy)) {
+            transactions = transactions.stream()
+                    .filter(transaction -> {
+                        // Modify the username comparison as needed
+                        return transaction.getRecipient().getUsername().equals(username);
+                    })
+                    .collect(Collectors.toList());
+        }
+        if ("sent".equals(filterBy)) {
+            transactions = transactions.stream()
+                    .filter(transaction -> {
+                        // Modify the username comparison as needed
+                        return transaction.getSender().getUsername().equals(username);
+                    })
+                    .collect(Collectors.toList());
+        }
+
         return transactions;
     }
+
+
 
     @Override
     public List<Transaction> getAllTransactions(User authenticatedUser, int id) {

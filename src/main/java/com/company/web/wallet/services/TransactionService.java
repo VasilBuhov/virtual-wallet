@@ -20,7 +20,14 @@ public interface TransactionService {
             String sortDirection);
 
 
-
+    List<Transaction> getTransactions(
+            String username,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            TransactionType direction,
+            String sortBy,
+            String sortDirection,
+            String filterBy);
 
     List<Transaction> getAllTransactions(User authenticatedUser, int id);
 

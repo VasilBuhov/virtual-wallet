@@ -44,14 +44,6 @@
         <!-- Filter Form -->
         <form th:action="@{/transactions/your_transactions}" method="post">
 
-          <div class="form-group">
-            <label for="startDate" class="white-text">Start Date:</label>
-            <input type="date" id="startDate" name="startDate" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="endDate" class="white-text">End Date:</label>
-            <input type="date" id="endDate" name="endDate" class="form-control">
-          </div>
 
           <div class="form-group" >
             <label for="sortBy" class="white-text" >Sort By:</label>
@@ -61,6 +53,7 @@
               <!-- Add more options if needed -->
             </select>
           </div>
+
           <div class="form-group" >
             <label for="sortDirection" class="white-text">Sort Direction:</label>
             <select id="sortDirection" name="sortDirection" class="form-control">
@@ -69,10 +62,30 @@
             </select>
           </div>
           <div class="form-group">
-            <button type="submit">Sort Transactions</button>
+            <label for="startDate" class="white-text">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" class="form-control">
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary">Filter Transactions</button>
+            <label for="endDate" class="white-text">End Date:</label>
+            <input type="date" id="endDate" name="endDate" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="filterBy" class="white-text">Filter By:</label>
+            <select id="filterBy" name="filterBy" class="form-control">
+              <option value="date">Date</option>
+              <option value="received">Received</option>
+              <option value="sent">Sent</option>
+
+              <!-- Add more filter options if needed -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Sort Transactions</button>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" >Filter Transactions</button>
           </div>
         </form>
         <!-- End Filter Form -->

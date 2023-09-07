@@ -162,13 +162,14 @@ public class TransactionMVCController {
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int pageSize,
             @RequestParam(value = "startDate", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate endDate,
-
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam(required = false) TransactionType direction,
             @RequestParam(name = "sortBy", required = false) String sortBy,
-            @RequestParam(name = "sortDirection", required = false) String sortDirection) {
+            @RequestParam(name = "sortDirection", required = false) String sortDirection,
+            @RequestParam(name = "filterBy", required = false) String filterBy
+            ) {
 
         String currentUserUsername = (String) session.getAttribute("currentUser");
         if (currentUserUsername == null) {
@@ -183,7 +184,8 @@ public class TransactionMVCController {
         }
         User currentUser = userService.getByUsername(currentUserUsername);
 
-        List<Transaction> filteredTransactions = transactionService.getTransactions(currentUserUsername, startTime, endTime, direction, sortBy, sortDirection);
+        List<Transaction> filteredTransactions = transactionService.getTransactions(currentUserUsername,
+                startTime, endTime, direction, sortBy, sortDirection,filterBy);
 
         int totalTransactions = filteredTransactions.size();
         int totalPages = (int) Math.ceil((double) totalTransactions / pageSize);
@@ -200,23 +202,21 @@ public class TransactionMVCController {
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("startDate",startDate);
-        model.addAttribute("endDate",endDate);
-
         return "current_user_transactions";
     }
 
     @PostMapping("/your_transactions")
     public String filterTransactions(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int pageSize,
             @RequestParam(value = "startDate", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate endDate,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam(required = false) TransactionType direction,
             @RequestParam(name = "sortBy", required = false) String sortBy,
             @RequestParam(name = "sortDirection", required = false) String sortDirection,
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int pageSize,
+            @RequestParam(name = "filterBy", required = false) String filterBy,
             Model model,
             HttpSession session) {
 
@@ -241,7 +241,8 @@ public class TransactionMVCController {
                 endTime,
                 direction,
                 sortBy,
-                sortDirection);
+                sortDirection,
+                filterBy);
 
 
         int totalTransactions = filteredTransactions.size();
@@ -260,8 +261,7 @@ public class TransactionMVCController {
             model.addAttribute("currentPage", page);
             model.addAttribute("pageSize", pageSize);
             model.addAttribute("totalPages", totalPages);
-            model.addAttribute("startDate",startDate);
-            model.addAttribute("endDate",startDate);
+
         return "current_user_transactions";
     }
 
