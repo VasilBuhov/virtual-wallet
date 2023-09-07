@@ -100,4 +100,6 @@ public interface UserService {
     String get2FA(int userId);
 
     boolean check2FA(String tfaProvided, User candidateUser);
+
+    List<User> getAllPhotoUnverified();
 }

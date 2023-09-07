@@ -107,4 +107,11 @@ public class HomeController {
         userService.sendContactEmail(contactForm);
         return "user_contact_success";
     }
+
+    @GetMapping("/forgotten")
+    public String forgotPasswordForm(@ModelAttribute("contactForm") ContactForm contactForm) throws MessagingException, UnsupportedEncodingException {
+        throw new UnsupportedOperationException("Not implemented yet");
+//        userService.sendContactEmail(contactForm);
+//        return "user_contact_success";
+    }
 }

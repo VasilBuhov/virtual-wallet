@@ -25,6 +25,7 @@ import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -270,13 +271,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAllContacts(int id) {
-            try (Session session = sessionFactory.openSession()) {
-                Query<User> query = session.createQuery("SELECT u FROM User u\n" +
-                        "JOIN Contact c ON c.contactTarget = u.id\n" +
-                        "WHERE c.contactOwner = :id", User.class);
-                query.setParameter("id", id);
-                return query.list();
-            }
+        try (Session session = sessionFactory.openSession()) {
+            Query<User> query = session.createQuery("SELECT u FROM User u\n" +
+                    "JOIN Contact c ON c.contactTarget = u.id\n" +
+                    "WHERE c.contactOwner = :id", User.class);
+            query.setParameter("id", id);
+            return query.list();
+        }
     }
 
     @Override
@@ -302,6 +303,7 @@ public class UserRepositoryImpl implements UserRepository {
             else return null;
         }
     }
+
     @Override
     public void uploadIdCardAndSelfie(int userId, MultipartFile idCardFile, MultipartFile selfieFile) {
         try (Session session = sessionFactory.openSession()) {
@@ -309,23 +311,15 @@ public class UserRepositoryImpl implements UserRepository {
                     .setParameter("userId", userId)
                     .uniqueResult();
             if (count != null) return;
-            PhotoVerification photoVerification = session.get(PhotoVerification.class, userId);
 
-            if (photoVerification == null) {
-                photoVerification = new PhotoVerification();
-                photoVerification.setUserId(userId);
-            }
 
             try {
-                if (idCardFile != null) {
-                    photoVerification.setIdCard(idCardFile.getBytes());
-                }
-
-                if (selfieFile != null) {
-                    photoVerification.setSelfie(selfieFile.getBytes());
-                }
-
+                PhotoVerification photoVerification = new PhotoVerification();
+                photoVerification.setUserId(userId);
+                photoVerification.setIdCard(idCardFile.getBytes());
+                photoVerification.setSelfie(selfieFile.getBytes());
                 session.saveOrUpdate(photoVerification);
+                session.getTransaction().commit();
             } catch (IOException e) {
                 logger.error(e.getMessage());
                 throw new UnknownError("Error uploading photo");
@@ -468,7 +462,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void save2FA(int userId, int code)  {
+    public void save2FA(int userId, int code) {
         try (Session session = sessionFactory.openSession()) {
             AuthenticationPool authenticationPool = new AuthenticationPool();
             authenticationPool.setUserId(userId);
@@ -510,4 +504,23 @@ public class UserRepositoryImpl implements UserRepository {
             throw new RuntimeException("Something went wrong (REPO get 2fa)", e);
         }
     }
+
+    @Override
+    public List<User> getAllPhotoUnverified() {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT pv.userId FROM PhotoVerification pv";
+            Query<Integer> photoVerificationQuery = session.createQuery(hql, Integer.class);
+            List<Integer> userIds = photoVerificationQuery.getResultList();
+
+            List<User> users = new ArrayList<>();
+            for (Integer userId : userIds) {
+                User user = getById(userId);
+                if (user != null) {
+                    users.add(user);
+                }
+            }
+            return users;
+        }
+    }
+
 }

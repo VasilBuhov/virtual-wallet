@@ -402,6 +402,15 @@ public class UserController {
     @GetMapping("/vpanel/{id}")
     public String showAdminVerificationPanel(@PathVariable int id, Model model, HttpSession session) {
         if (authenticationHelper.isAdmin(session)) {
+            if (id == 0) {
+                //return list of users that are not photo verified, but are awaiting
+                List <User> users = userService.getAllPhotoUnverified();
+                if (users.isEmpty() || users == null) model.addAttribute("list", false);
+                else model.addAttribute("list", true);
+                model.addAttribute("users", users);
+                return "user_photo_verification_list";
+            }
+
             User targetUser = userService.getUserById(id);
             byte[] idCard = userService.getIdCard(id);
             if (idCard != null) {

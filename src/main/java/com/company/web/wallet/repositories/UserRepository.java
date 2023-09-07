@@ -70,4 +70,6 @@ public interface UserRepository {
 
     // get2FA
     String get2FA(int userId);
+
+    List<User> getAllPhotoUnverified();
 }

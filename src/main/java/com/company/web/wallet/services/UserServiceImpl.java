@@ -370,9 +370,15 @@ public class UserServiceImpl implements UserService {
     public String get2FA(int userId){
         return userRepository.get2FA(userId);
     }
+
     @Override
     public boolean check2FA(String tfaProvided, User candidateUser){
         return tfaProvided.equals(get2FA(candidateUser.getId()));
+    }
+
+    @Override
+    public List<User> getAllPhotoUnverified(){
+        return userRepository.getAllPhotoUnverified();
     }
 
 }
