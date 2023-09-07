@@ -40,6 +40,7 @@ public class Transaction {
     @Column(name = "transaction_description", nullable = false)
     private String transactionDescription;
 
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wallet_id", nullable = false)

@@ -25,8 +25,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -122,7 +125,9 @@ public class TransactionMVCController {
     }
 
     @PostMapping("/create")
-    public String createTransaction(@ModelAttribute("transaction") @Valid TransactionDto transactionDto, Model model, HttpSession session) {
+    public String createTransaction(@ModelAttribute("transaction")
+                                        @Valid TransactionDto transactionDto,
+                                    Model model, HttpSession session) {
         String username = (String) session.getAttribute("currentUser");
         if (username != null) {
             try {
@@ -155,58 +160,30 @@ public class TransactionMVCController {
             Model model,
             HttpSession session,
             @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int pageSize) {
-        String username = (String) session.getAttribute("currentUser");
-        if (username == null) {
-            return "redirect:/auth/login";
-        }
-        User currentUser = userService.getByUsername(username);
+            @RequestParam(required = false, defaultValue = "10") int pageSize,
+            @RequestParam(value = "startDate", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
+            @RequestParam(value = "endDate", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate endDate,
 
-        List<Transaction> transactionsByUser = transactionService.getTransactionsByUser(currentUser);
-        int offset = page * pageSize;
-        int totalTransactions = transactionsByUser.size();
-        int totalPages = (int) Math.ceil((double) totalTransactions / pageSize);
-
-        List<Transaction> pagedTransactions = transactionsByUser.stream()
-                .skip(offset)
-                .limit(pageSize)
-                .collect(Collectors.toList());
-
-        List<TransactionDto> transactionDtos = transactionMapper.toDtoList(pagedTransactions, currentUser);
-
-        model.addAttribute("transactionsDto", transactionDtos);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("totalPages", totalPages);
-
-        return "current_user_transactions";
-    }
-
-    @PostMapping("/your_transactions")
-    public String filterTransactions(
-            @RequestParam(name = "startDate", required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime startDate,
-            @RequestParam(name = "endDate", required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime endDate,
             @RequestParam(required = false) TransactionType direction,
             @RequestParam(name = "sortBy", required = false) String sortBy,
-            @RequestParam(name = "sortDirection", required = false) String sortDirection,
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int pageSize,
-            Model model,
-            HttpSession session) {
+            @RequestParam(name = "sortDirection", required = false) String sortDirection) {
 
-        String username = (String) session.getAttribute("currentUser");
-
-        if (username == null) {
-
+        String currentUserUsername = (String) session.getAttribute("currentUser");
+        if (currentUserUsername == null) {
             return "redirect:/auth/login";
         }
+        LocalDateTime startTime = LocalDateTime.MIN;;
+        LocalDateTime endTime = LocalDateTime.MAX;;
+        if (startDate != null && endDate != null) {
+            startTime = LocalDateTime.of(startDate, LocalTime.MIN);
+            endTime = LocalDateTime.of(endDate, LocalTime.of(23, 59, 59, 999_999_999));
 
-        User currentUser = userService.getByUsername(username);
+        }
+        User currentUser = userService.getByUsername(currentUserUsername);
 
-        List<Transaction> filteredTransactions =
-                transactionService.getTransactions(username, startDate, endDate, direction, sortBy, sortDirection);
+        List<Transaction> filteredTransactions = transactionService.getTransactions(currentUserUsername, startTime, endTime, direction, sortBy, sortDirection);
 
         int totalTransactions = filteredTransactions.size();
         int totalPages = (int) Math.ceil((double) totalTransactions / pageSize);
@@ -223,8 +200,70 @@ public class TransactionMVCController {
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("startDate",startDate);
+        model.addAttribute("endDate",endDate);
 
         return "current_user_transactions";
     }
+
+    @PostMapping("/your_transactions")
+    public String filterTransactions(
+            @RequestParam(value = "startDate", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
+            @RequestParam(value = "endDate", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate endDate,
+            @RequestParam(required = false) TransactionType direction,
+            @RequestParam(name = "sortBy", required = false) String sortBy,
+            @RequestParam(name = "sortDirection", required = false) String sortDirection,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int pageSize,
+            Model model,
+            HttpSession session) {
+
+        String currentUserUsername = (String) session.getAttribute("currentUser");
+        System.out.println(currentUserUsername);
+        User currentUser = userService.getByUsername(currentUserUsername);
+        if (currentUserUsername == null) {
+            return "redirect:/auth/login";
+        }
+        List<Transaction> filteredTransactions;
+        LocalDateTime startTime = LocalDateTime.MIN;;
+        LocalDateTime endTime = LocalDateTime.MAX;;
+        System.out.println(endTime);
+        if (startDate != null && endDate != null) {
+            startTime = LocalDateTime.of(startDate, LocalTime.MIN);
+            endTime = LocalDateTime.of(endDate, LocalTime.of(23, 59, 59, 999_999_999));
+        }
+        System.out.println(startTime);
+        System.out.println(endTime);
+        filteredTransactions = transactionService.getTransactions(currentUser.getUsername(),
+                startTime,
+                endTime,
+                direction,
+                sortBy,
+                sortDirection);
+
+
+        int totalTransactions = filteredTransactions.size();
+            int totalPages = (int) Math.ceil((double) totalTransactions / pageSize);
+            int offset = page * pageSize;
+
+            List<Transaction> pagedFilteredTransactions = filteredTransactions.stream()
+                    .skip(offset)
+                    .limit(pageSize)
+                    .collect(Collectors.toList());
+
+            List<TransactionDto> filteredTransactionDtos = transactionMapper.toDtoList(pagedFilteredTransactions,currentUser);
+
+
+            model.addAttribute("transactionsDto", filteredTransactionDtos);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("startDate",startDate);
+            model.addAttribute("endDate",startDate);
+        return "current_user_transactions";
+    }
+
 }
 

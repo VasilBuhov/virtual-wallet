@@ -12,18 +12,13 @@ import org.springframework.data.repository.query.Param;
 import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface TransactionRepository {
 
     List<Transaction> getAllTransactions();
 
-//    List<Transaction> getTransactions(
-//            String username,
-//            LocalDateTime startDate,
-//            LocalDateTime endDate,
-//            TransactionType direction,
-//            String sortBy,
-//            String sortDirection);
+
 
     Transaction getTransactionById(Long id) throws EntityNotFoundException;
 

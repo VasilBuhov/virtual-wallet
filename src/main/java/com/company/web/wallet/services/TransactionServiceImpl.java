@@ -53,7 +53,7 @@ public class TransactionServiceImpl implements TransactionService {
             } else {
                 transactions = transactionRepository.getTransactionsByUser(user);
             }
-        } else if (startDate != null && endDate != null) {
+        } else if (startDate!=null && endDate!=null) {
             transactions = transactionRepository.getTransactionsByDateRange(startDate, endDate);
         } else if (direction != null) {
             transactions = transactionRepository.getTransactionsByDirection(direction);

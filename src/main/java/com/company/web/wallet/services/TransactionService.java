@@ -1,11 +1,13 @@
 package com.company.web.wallet.services;
 
 import com.company.web.wallet.helpers.TransactionType;
+import com.company.web.wallet.models.DTO.TransactionDto;
 import com.company.web.wallet.models.Transaction;
 import com.company.web.wallet.models.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface TransactionService {
 
@@ -17,7 +19,8 @@ public interface TransactionService {
             String sortBy,
             String sortDirection);
 
-//    List<Transaction> getAllTransactions();
+
+
 
     List<Transaction> getAllTransactions(User authenticatedUser, int id);
 
@@ -28,7 +31,6 @@ public interface TransactionService {
     List<Transaction> getTransactionsByType(TransactionType type);
 
     List<Transaction> getTransactionsByDateRange(LocalDateTime startDate, LocalDateTime endDate);
-
 
 
     List<Transaction> getTransactionsBySender(User authenticatedUser, User sender);
@@ -46,8 +48,5 @@ public interface TransactionService {
     List<Transaction> getTransactionsPageForCurrentUser(User currentUser, int offset, int pageSize);
 
     void deleteTransaction(Long id);
-
-
-
 
 }
