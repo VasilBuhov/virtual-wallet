@@ -7,6 +7,8 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 public interface InvitationService {
+    boolean checkByEmail(String email);
+
     Invitation getByEmail(String email);
 
     void create(Invitation invitation);

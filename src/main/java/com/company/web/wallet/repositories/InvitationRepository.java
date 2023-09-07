@@ -8,5 +8,7 @@ public interface InvitationRepository {
 
     Invitation getByEmail(String email);
 
+    boolean checkByEmail(String email);
+
     int getInvitationsCount(User user);
 }

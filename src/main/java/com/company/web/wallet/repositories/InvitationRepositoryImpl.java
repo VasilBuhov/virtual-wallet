@@ -40,6 +40,15 @@ public class InvitationRepositoryImpl implements InvitationRepository{
     }
 
     @Override
+    public boolean checkByEmail(String email) {
+        try (Session session = sessionFactory.openSession()){
+            Query<Invitation> query = session.createQuery("from Invitation where email = :email ", Invitation.class);
+            query.setParameter("email", email);
+            return !query.list().isEmpty();
+        }
+    }
+
+    @Override
     public int getInvitationsCount(User user) {
         try(Session session = sessionFactory.openSession()){
             Query<Invitation> query = session.createQuery("from Invitation where inviter.id = :inviterId", Invitation.class);
