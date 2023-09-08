@@ -94,7 +94,7 @@ public class AuthenticationController {
         try {
             authenticationHelper.verifyAuthentication(dto.getUsername(), dto.getPassword(), dto.getUserLevel());
             User user = userService.getByUsername(dto.getUsername());
-            if (user.getVerified() != 1) return "redirect:/user_unverified";
+            if (user.getVerified() != 1) return "user_unverified";
             if (user.getTFA()) {
                 userService.generateRandom2FA(user.getId());
                 userService.send2FAMail(user, Integer.parseInt(userService.get2FA(user.getId())));
