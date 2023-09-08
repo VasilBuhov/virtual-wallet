@@ -45,14 +45,16 @@
                                     <td class="image-section">
                                         <!-- Selfie Image -->
                                         <img th:if="${base64selfie != null}" th:src="|data:image/png;base64,${base64selfie}|"
-                                             alt="User profile picture" class="avatar-image" onclick="showImage(this);">
+                                             alt="User profile picture" class="avatar-image" onclick="toggleImageOverlay(this);">
+
                                         <img th:unless="${base64selfie != null}" th:src="@{/images/upload_question_mark.png}"
                                              alt="Default selfie picture" class="avatar-image">
                                     </td>
                                     <td class="image-section">
                                         <!-- ID Card Image -->
                                         <img th:if="${base64idCard != null}" th:src="|data:image/png;base64,${base64idCard}|"
-                                             alt="User profile picture" class="id-image" onclick="showImage(this);">
+                                             alt="User profile picture" class="avatar-image" onclick="toggleImageOverlay(this);">
+
                                         <img th:unless="${base64idCard != null}" th:src="@{/images/upload_question_mark.png}"
                                              alt="Default id picture" class="id-image">
                                     </td>
