@@ -9,7 +9,7 @@ public class TopUpHelper {
     public void tryTopUp() {
         RestTemplate restTemplate = new RestTemplate();
             restTemplate.exchange(
-                    "http://localhost:5000/api/cards",
+                    "http://wallet.badmin.org:5000/api/cards",
                     HttpMethod.POST,
                     null,
                     Void.class);
