@@ -31,7 +31,7 @@ public class SavingsWalletDtoIn {
         this.durationMonths = durationMonths;
     }
 
-    public int getFromWallet() {
+    public int getFromWalletNumber() {
         return fromWalletNumber;
     }
 

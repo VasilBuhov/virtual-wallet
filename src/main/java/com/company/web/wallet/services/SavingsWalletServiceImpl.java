@@ -80,8 +80,6 @@ public class SavingsWalletServiceImpl implements SavingsWalletService {
         double latestInterestRate = interestRateService.getLatestInterestRate();
         savingsWallet.setInterestRate(latestInterestRate);
         savingsWallet.setInterestReward(BigDecimal.valueOf(savingsWallet.getInterestRate() * savingsWallet.getDurationMonths()));
-        user.getSavingsWallets().add(savingsWallet);
-        userRepository.update(user);
         savingsWalletRepository.create(savingsWallet);
         return savingsWallet;
     }

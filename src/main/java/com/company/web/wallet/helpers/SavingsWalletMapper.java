@@ -20,7 +20,7 @@ public class SavingsWalletMapper {
     public SavingsWallet createSavingsWalletFromDto(SavingsWalletDtoIn savingsWalletDtoIn, User user) {
         SavingsWallet savingsWallet = new SavingsWallet();
         Wallet fromWallet = user.getWallets().stream()
-                .filter(wallet -> wallet.getNumberOfWallet() == savingsWalletDtoIn.getFromWallet())
+                .filter(wallet -> wallet.getNumberOfWallet() == savingsWalletDtoIn.getFromWalletNumber())
                 .findFirst()
                 .orElseThrow(EntityNotFoundException::new);
         savingsWallet.setFromWallet(fromWallet);

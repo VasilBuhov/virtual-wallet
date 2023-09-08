@@ -157,7 +157,7 @@ public class WalletMvcController {
         }
     }
     @GetMapping("/delete/{id}")
-    public String deleteCard(@PathVariable int id, Model model, HttpSession session) {
+    public String deleteWallet(@PathVariable int id, Model model, HttpSession session) {
         User user;
         try {
             user = authenticationHelper.tryGetUser(session);

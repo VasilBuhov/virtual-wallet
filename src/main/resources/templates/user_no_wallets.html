@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>The Wallet Project - Error 415</title>
@@ -36,9 +36,10 @@
                 <h3 th:text="#{user.wallets_list_empty}"/>
             </div>
         </div>
-        <div class="mt-5 text-center" style="justify-content: center">
-            <a class="btn btn-primary" href="#" th:href="@{/wallets/new}" th:method="post">Create New
-                Wallet</a>
+        <div class="row mt-4 justify-content-center">
+            <div class="col-md-6 text-center">
+                <a class="btn btn-primary" href="#" th:href="@{/wallets/new}" th:method="post">Create New Wallet</a>
+            </div>
         </div>
     </div>
 </div>
