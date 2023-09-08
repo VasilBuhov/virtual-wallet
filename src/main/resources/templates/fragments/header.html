@@ -58,6 +58,9 @@
                                                 <li th:if="${session.currentUserLevel == 1}">
                                                     <a th:href="@{/users/vpanel/0}" class="nav-link"
                                                        th:text="#{user.vpanel}"/></li>
+                                                <li th:if="${session.currentUserLevel == 1}">
+                                                    <a th:href="@{/interest/change}" class="nav-link"
+                                                       th:text="#{user.update_interest}"/></li>
                                             </ul>
                                         </li>
 
