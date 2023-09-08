@@ -102,7 +102,7 @@ h2 {
 
 .avatar-image,
 .id-image {
-    max-width: 150px; /* Adjust the image width as needed */
+    max-width: 500px; /* Adjust the image width as needed */
     height: auto;
     margin-bottom: 10px; /* Adjust the spacing between the image and checkbox */
 }
@@ -141,4 +141,26 @@ h2 {
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.image-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.image-overlay-visible {
+    display: flex; /* Show when the overlay is visible */
 }
