@@ -16,6 +16,22 @@
     <link rel="stylesheet" th:href="@{/fonts/flaticon/flaticon.css}"/>
     <link rel="stylesheet" th:href="@{/css/aos.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <!-- CSS styles for card containers and buttons -->
+    <style>
+        /*.card-container {*/
+        /*    padding: 15px; !* Add padding to create spacing between cards *!*/
+        /*    margin-bottom: 20px; !* Add margin to separate cards vertically *!*/
+        /*}*/
+
+        /*.card-container:not(:last-child) {*/
+        /*    border-bottom: 1px solid #ddd; !* Add a 1px solid border with a light gray color to separate wallets *!*/
+        /*}*/
+
+        .btn {
+            white-space: nowrap; /* Prevent button text from wrapping to the next line */
+        }
+    </style>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -28,16 +44,14 @@
 
 <div th:replace="fragments/header :: header"></div>
 
-<!--Insert code here-->
+<!-- Insert code here -->
 
-<div class="site-blocks-cover overlay" th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
+<div class="site-blocks-cover overlay"
+     th:style="'background-image: url(' + |@{/images/background.jpg}| + ');'"
      data-aos="fade" id="home-section">
-
-    <!--    Start inserting code here to keep background image-->
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10 mt-lg-5 text-center">
-                <!--    Start inserting code here to keep background image and centering -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -45,7 +59,8 @@
                                 <h4 class="card-title" style="color: white">YOUR WALLETS</h4>
                             </div>
                             <div class="card-body" style="justify-content: center">
-                                <div class="verify-content col-xxl-12" th:each="wallet: ${wallets}">
+                                <div class="verify-content col-xxl-12 card-container"
+                                     th:each="wallet, index: ${wallets}">
                                     <div class="d-flex align-items-center">
                                         <div class="primary-number">
                                             <h5 class="mb-0"
@@ -59,12 +74,12 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-4 mt-4">
-                                        <a class="btn btn-secondary"
+                                        <a class="btn btn-secondary btn-sm"
                                            th:href="@{/wallets/delete/{id}(id=${wallet.getId()})}">Delete</a>
-                                        <a class="btn btn-primary"
+                                        <a class="btn btn-primary btn-sm"
                                            th:href="@{/wallets/{id}/overdraft(id=${wallet.getId()})}">Change
                                             Overdraft</a>
-                                        <a class="btn btn-primary"
+                                        <a class="btn btn-primary btn-sm"
                                            th:href="@{/wallets/top-up/{id}(id=${wallet.id})}">Add money to this wallet</a>
                                     </div>
                                 </div>
@@ -77,15 +92,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>
 
-<!--End code insertion-->
-
+<!-- End of code insertion -->
 
 <div th:replace="fragments/footer :: footer"></div>
 
