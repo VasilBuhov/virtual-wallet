@@ -220,7 +220,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void checkModifyPermissionsForUpdating(User authenticatedUser) throws AuthorizationException {
         if (authenticatedUser.getUserLevel() != 1)
-        throw new AuthorizationException("Only admin can update a user.");
+            throw new AuthorizationException("Only admin can update a user.");
     }
 
     @Override
@@ -361,9 +361,9 @@ public class UserServiceImpl implements UserService {
         if (user == null || user.isEnabled()) {
             return false;
         } else {
-            user.setVerificationCode(null);
             user.setVerified(1);
-            System.out.println("Hit Service, verified value: "+user.getVerified());
+            user.setEnabled(true);
+            System.out.println("Hit Service, verified value: " + user.getVerified());
             userRepository.update(user);
             return true;
         }

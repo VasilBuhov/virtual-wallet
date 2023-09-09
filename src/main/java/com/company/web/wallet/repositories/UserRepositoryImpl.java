@@ -263,9 +263,11 @@ public class UserRepositoryImpl implements UserRepository {
         try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User where verificationCode = :verificationCode", User.class);
             query.setParameter("verificationCode", verificationCode);
-            List<User> result = query.list();
-            if (result.isEmpty()) throw new EntityNotFoundException("User", "verificationCode", verificationCode);
-            else return result.get(0);
+            User user = query.uniqueResult();
+            if (user == null) {
+                throw new EntityNotFoundException("User", "verificationCode", verificationCode);
+            }
+            return user;
         }
     }
 
