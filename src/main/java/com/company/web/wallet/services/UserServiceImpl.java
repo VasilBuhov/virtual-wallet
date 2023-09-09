@@ -363,6 +363,7 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setVerificationCode(null);
             user.setVerified(1);
+            System.out.println("Hit Service, verified value: "+user.getVerified());
             userRepository.update(user);
             return true;
         }

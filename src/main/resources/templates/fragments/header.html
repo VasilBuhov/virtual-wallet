@@ -110,10 +110,10 @@
                                         </li>
 
                                         <li th:if="${#httpServletRequest.requestURI == '/'}">
-                                            <a href="#faq-section" class="nav-link">Team</a>
+                                            <a href="#faq-section" class="nav-link">FAQ</a>
                                         </li>
                                         <li th:unless="${#httpServletRequest.requestURI == '/'}">
-                                            <a th:href="@{/faq}" class="nav-link">Team</a>
+                                            <a th:href="@{/faq}" class="nav-link">FAQ</a>
                                         </li>
 
                                         <!--                                        <li><a href="#gallery-section" class="nav-link">Gallery</a></li>-->
