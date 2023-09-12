@@ -4,6 +4,7 @@ package com.company.web.wallet.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -22,12 +23,16 @@ public class User {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Size(min = 3, message = "Username must be at least 3 characters long")
     @Column(name = "username")
     private String username;
 
+    @Email
     @Column(name = "email")
     private String email;
 
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     @Column(name = "password")
     private String password;
 
