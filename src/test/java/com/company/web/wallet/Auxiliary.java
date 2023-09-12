@@ -19,6 +19,7 @@ public class Auxiliary {
         mockUser.setEmail("test@mock.com");
         mockUser.setCreateDate(LocalDateTime.now());
         mockUser.setLastUpdateDate(LocalDateTime.now());
+        mockUser.setVerified(1);
         mockUser.setEnabled(true);
         mockUser.setUserLevel(0);
 

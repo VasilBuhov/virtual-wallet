@@ -1,6 +1,7 @@
 package com.company.web.wallet.services;
 
 import com.company.web.wallet.exceptions.AuthorizationException;
+import com.company.web.wallet.exceptions.EntityDuplicateException;
 import com.company.web.wallet.exceptions.EntityNotFoundException;
 import com.company.web.wallet.models.Card;
 import com.company.web.wallet.models.ContactForm;
@@ -53,18 +54,22 @@ public class UserServiceImpl implements UserService {
     public User getByPhone(String phone) {
         return userRepository.getByPhone(phone);
     }
+
     @Override
     public User getByIdUnverified(int id) {
         return userRepository.getByIdUnverified(id);
     }
+
     @Override
     public User getByUsernameUnverified(String username) {
         return userRepository.getByUsernameUnverified(username);
     }
+
     @Override
     public List<User> getAdmins() {
         return userRepository.getAdmins();
     }
+
     @Override
     public List<User> getBlocked() {
         return userRepository.getBlocked();
@@ -74,6 +79,7 @@ public class UserServiceImpl implements UserService {
     public Page<User> findByUsernameContaining(String username, Pageable pageable) {
         return userRepository.findByUsernameContaining(username, pageable);
     }
+
     @Override
     public Page<User> getAllUsersPage(Pageable pageable) {
         return userRepository.findAllUsers(pageable);
@@ -99,7 +105,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllDeletedUsers(pageable);
     }
 
-
     @Override
     public List<User> getAllContacts(int id) {
         return userRepository.getAllContacts(id);
@@ -107,15 +112,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
-//        User existingUserByEmail = userRepository.getByEmail(user.getEmail());
-//        if (existingUserByEmail != null) {
+//        if (userRepository.getByEmail(user.getEmail()) != null)
 //            throw new EntityDuplicateException("User", "email", user.getEmail());
-//        }
-//
-//        User existingUserByUsername = userRepository.getByUsername(user.getUsername());
-//        if (existingUserByUsername != null) {
-//            throw new EntityDuplicateException("User", "username", user.getUsername());
-//        }
+
+        if (userRepository.getByUsername(user.getUsername())!= null)
+            throw new EntityDuplicateException("User", "username", user.getUsername());
 
         if (user.getUsername() == null || user.getPassword() == null) {
             throw new NullPointerException("Username and password cannot be null.");
@@ -333,9 +334,9 @@ public class UserServiceImpl implements UserService {
         String senderName = "The Wallet App";
         String subject = "Login 2FA code";
         String content = "Dear [[FirstName]],<br>"
-                + "You`ve requested to recieve your password. As we do not store them in<br>"
+                + "You`ve requested to receive your password. As we do not store them in<br>"
                 + "hashes, we can provide it in plain text, which is super nice anti-security<br>"
-                + "feature. You will find your passrod below:"
+                + "feature. You will find your passcode below:"
                 + "<br><br><br> [[password]]";
 
         content = content.replace("[[password]]", targetUser.getPassword());

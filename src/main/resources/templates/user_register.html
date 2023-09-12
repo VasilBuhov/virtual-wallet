@@ -39,7 +39,6 @@
                     <br/>
                     <input type="text" th:field="*{username}" placeholder="Enter your username"
                            style="background-color: transparent; border: 1px dashed #555;">
-                    <!-- Display the validation errors for the username field -->
                     <div th:if="${#fields.hasErrors('username')}" class="alert alert-danger" role="alert">
                         <p th:errors="*{username}"></p>
                     </div>
@@ -67,7 +66,11 @@
                     <br/>
                     <input type="password" th:field="*{password}" placeholder="Enter your password" autocomplete="off"
                            style="background-color: transparent; border: 1px dashed #555;">
+                    <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" role="alert">
+                        <p th:errors="*{password}"></p>
+                    </div>
                     <br><br/>
+
 
                     <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
                         <p th:text="${errorMessage}"></p>
