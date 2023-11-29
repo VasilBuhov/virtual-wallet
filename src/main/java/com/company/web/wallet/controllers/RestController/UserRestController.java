@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
-
+    //test row for gitHub push for the firstTime
     private final UserService userService;
     private final UserMapper userMapper;
     private final AuthenticationHelper authenticationHelper;
